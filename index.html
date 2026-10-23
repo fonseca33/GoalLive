@@ -1,0 +1,1279 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080d18">
+<title>GoalLive — Resultados de Futebol</title>
+
+<style>
+:root {
+  --bg:#080d18;
+  --panel:#101827;
+  --panel2:#172235;
+  --border:#263449;
+  --text:#f1f5f9;
+  --muted:#91a0b7;
+  --green:#22c55e;
+  --red:#ef4444;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+}
+button,input { font:inherit; }
+button { cursor:pointer; }
+button:focus-visible,input:focus-visible {
+  outline:2px solid var(--green);
+  outline-offset:3px;
+}
+header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(8,13,24,.96);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+.header-inner,.container,.auth-wrap {
+  max-width:1400px;
+  margin:auto;
+}
+.header-inner {
+  padding:15px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:24px;
+}
+.brand span { color:var(--green); }
+.brand-icon {
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  background:var(--green);
+  color:#052e16;
+  display:grid;
+  place-items:center;
+  font-size:23px;
+}
+.header-actions {
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.live-label {
+  color:#f87171;
+  font-size:12px;
+  font-weight:800;
+}
+.btn,.filter,.calendar-controls button {
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:10px;
+  padding:10px 13px;
+}
+.btn:hover,.filter:hover,.calendar-controls button:hover {
+  border-color:var(--green);
+}
+.btn.primary,.btn.active {
+  background:var(--green);
+  color:#052e16;
+  border-color:var(--green);
+  font-weight:800;
+}
+.auth-wrap { padding:15px 22px 0; }
+#auth-area {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:17px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+#auth-area h2 {
+  width:100%;
+  margin:0 0 3px;
+  font-size:18px;
+}
+#auth-area input {
+  flex:1 1 190px;
+  min-width:0;
+  padding:12px;
+  background:#0c1422;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:9px;
+}
+#auth-area button {
+  padding:11px 14px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  background:var(--panel2);
+  color:var(--text);
+}
+#auth-area #signup-btn {
+  background:var(--green);
+  color:#052e16;
+  border-color:var(--green);
+  font-weight:800;
+}
+#auth-area button:disabled { opacity:.6; cursor:wait; }
+#auth-message {
+  width:100%;
+  margin:2px 0 0;
+  font-size:13px;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+.container { padding:25px 22px 50px; }
+.hero {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:20px;
+  margin-bottom:24px;
+}
+.eyebrow {
+  color:var(--green);
+  font-weight:800;
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:2px;
+}
+h1 {
+  margin:6px 0;
+  font-size:clamp(27px,4vw,39px);
+  letter-spacing:-1px;
+}
+.subtitle { color:var(--muted); font-size:13px; }
+.refresh-info {
+  color:var(--muted);
+  font-size:12px;
+  text-align:right;
+}
+.panel,.side-panel,.match-card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:15px;
+}
+.panel { padding:17px; margin-bottom:20px; }
+.section-heading,.matches-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
+}
+.section-heading h2,.matches-heading h2 {
+  margin:0;
+  font-size:18px;
+}
+.section-heading small { color:var(--muted); }
+.calendar-controls { display:flex; gap:7px; }
+.calendar-controls button {
+  min-width:36px;
+  min-height:35px;
+  padding:5px 10px;
+}
+.calendar {
+  display:grid;
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  gap:8px;
+}
+.day {
+  min-width:0;
+  min-height:84px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#0c1422;
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:7px 2px;
+}
+.day.selected {
+  border:2px solid var(--green);
+  background:#103322;
+}
+.day.today:not(.selected) { border-color:#527b60; }
+.day-name,.day-month { color:var(--muted); font-size:10px; }
+.day-number { font-size:22px; font-weight:850; }
+.today-tag { color:var(--green); font-size:9px; font-weight:800; }
+.toolbar { display:flex; gap:10px; margin-bottom:18px; }
+.search-wrap { flex:1; }
+.search-wrap input {
+  width:100%;
+  padding:13px;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:11px;
+}
+.filters {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:20px;
+}
+.filter {
+  border-radius:20px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+}
+.filter.active {
+  background:var(--green);
+  color:#052e16;
+  border-color:var(--green);
+}
+.content-grid {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 285px;
+  gap:20px;
+  align-items:start;
+}
+.count {
+  border-radius:20px;
+  padding:4px 9px;
+  background:var(--panel2);
+  color:var(--muted);
+  font-size:12px;
+}
+.league-label {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#c6d2e3;
+  font-size:13px;
+  font-weight:800;
+  margin:22px 0 10px;
+}
+.league-dot {
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+}
+.match-card { padding:13px 15px; margin-bottom:9px; }
+.match-top {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:12px;
+}
+.match-status { font-weight:800; }
+.match-status.live { color:#f87171; }
+.match-status.finished { color:#a3b1c5; }
+.match-status.scheduled { color:var(--green); }
+.match-main {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr);
+  gap:8px;
+  align-items:center;
+}
+.team {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  font-size:13px;
+  font-weight:750;
+}
+.team.away { justify-content:flex-end; text-align:right; }
+.team img {
+  width:27px;
+  height:27px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+.team-name { overflow-wrap:anywhere; }
+.score {
+  text-align:center;
+  font-weight:900;
+  font-size:21px;
+  white-space:nowrap;
+}
+.score.pending {
+  color:var(--muted);
+  font-size:12px;
+}
+.card-bottom {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-top:11px;
+  padding-top:10px;
+  border-top:1px solid #1d293a;
+}
+.card-bottom small { color:var(--muted); font-size:10px; }
+.card-bottom button {
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:4px;
+}
+.card-bottom button.fav { color:#fbbf24; }
+.sidebar { display:flex; flex-direction:column; gap:15px; }
+.side-panel { padding:16px; }
+.side-panel h3 { margin:0 0 14px; font-size:14px; }
+.stat-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:10px 0;
+  border-bottom:1px solid #202d40;
+  font-size:12px;
+}
+.stat-row:last-child { border-bottom:0; }
+.stat-row span { color:var(--muted); }
+.stat-row button { margin-left:auto; }
+.empty {
+  text-align:center;
+  padding:35px 18px;
+  background:var(--panel);
+  border:1px dashed var(--border);
+  border-radius:15px;
+}
+.empty h3 { margin:0 0 8px; }
+.empty p { color:var(--muted); font-size:13px; line-height:1.6; }
+.api-message {
+  display:none;
+  background:#291a18;
+  color:#fecaca;
+  border:1px solid #713b34;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:15px;
+  font-size:12px;
+  line-height:1.6;
+}
+.api-message.show { display:block; }
+.loading { padding:35px 15px; text-align:center; color:var(--muted); }
+.spinner {
+  width:26px;
+  height:26px;
+  border:3px solid var(--border);
+  border-top-color:var(--green);
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+  margin:0 auto 12px;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+footer {
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  padding:22px;
+  line-height:1.7;
+}
+@media(max-width:900px) {
+  .content-grid { grid-template-columns:1fr; }
+  .sidebar { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:600px) {
+  .header-inner { padding:12px; }
+  .header-actions { flex-wrap:wrap; justify-content:flex-end; }
+  .brand { font-size:20px; }
+  .brand-icon { width:35px; height:35px; }
+  .auth-wrap { padding:12px 12px 0; }
+  #auth-area button { flex:1 1 100%; }
+  .container { padding:19px 12px 35px; }
+  .hero { align-items:flex-start; }
+  .refresh-info { max-width:105px; font-size:10px; }
+  .panel { padding:12px; }
+  .calendar { gap:4px; }
+  .day { min-height:69px; }
+  .day-number { font-size:18px; }
+  .day-name,.day-month { font-size:9px; }
+  .toolbar { flex-wrap:wrap; }
+  .match-card { padding:11px 9px; }
+  .match-main { grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr); gap:3px; }
+  .team { gap:4px; font-size:11px; }
+  .team img { width:21px; height:21px; }
+  .score { font-size:17px; }
+  .sidebar { grid-template-columns:1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="auth-wrap">
+  <section id="auth-area">
+    <h2>⚽ Conta GoalLive</h2>
+
+    <input id="auth-email" type="email"
+      placeholder="O teu email" autocomplete="email">
+
+    <input id="auth-password" type="password"
+      placeholder="Palavra-passe (mínimo 6 caracteres)"
+      autocomplete="current-password">
+
+    <button id="signup-btn" type="button">Criar conta</button>
+    <button id="login-btn" type="button">Iniciar sessão</button>
+    <button id="logout-btn" type="button" hidden>Terminar sessão</button>
+
+    <p id="auth-message" role="status" aria-live="polite"></p>
+  </section>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">⚽</div>
+      Goal<span>Live</span>
+    </div>
+    <div class="header-actions">
+      <span class="live-label">● FUTEBOL</span>
+      <button class="btn" id="refreshBtn" type="button">↻ Atualizar</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">O teu futebol, em direto</div>
+      <h1>Resultados de futebol</h1>
+      <div class="subtitle">Jogos, resultados e calendário num só lugar.</div>
+    </div>
+    <div class="refresh-info">
+      <div>Atualização automática</div>
+      <strong id="lastUpdate">A iniciar...</strong>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading">
+      <div>
+        <h2>📅 Calendário</h2>
+        <small id="calendarRange">Próximos 10 dias</small>
+      </div>
+      <div class="calendar-controls">
+        <button type="button" id="prevWindow" aria-label="Dez dias anteriores">‹</button>
+        <button type="button" id="todayBtn">Hoje</button>
+        <button type="button" id="nextWindow" aria-label="Dez dias seguintes">›</button>
+      </div>
+    </div>
+    <div class="calendar" id="calendar"></div>
+  </section>
+
+  <div class="toolbar">
+    <label class="search-wrap">
+      <input id="searchInput" type="search"
+        placeholder="Pesquisar equipa ou competição..."
+        aria-label="Pesquisar jogos">
+    </label>
+    <button class="btn" id="favoritesBtn" type="button">☆ Favoritos</button>
+  </div>
+
+  <div class="filters" id="leagueFilters"></div>
+  <div class="api-message" id="apiMessage" role="status"></div>
+
+  <div class="content-grid">
+    <section>
+      <div class="matches-heading">
+        <h2 id="matchesTitle">Jogos</h2>
+        <span class="count" id="matchCount">0 jogos</span>
+      </div>
+      <div id="matches">
+        <div class="loading">
+          <div class="spinner"></div>A carregar jogos...
+        </div>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <section class="side-panel">
+        <h3>📊 Resumo do dia</h3>
+        <div class="stat-row"><span>Total de jogos</span><strong id="statTotal">—</strong></div>
+        <div class="stat-row"><span>Em direto</span><strong id="statLive">—</strong></div>
+        <div class="stat-row"><span>Terminados</span><strong id="statFinished">—</strong></div>
+        <div class="stat-row"><span>Por começar</span><strong id="statUpcoming">—</strong></div>
+      </section>
+
+      <section class="side-panel">
+        <h3>⭐ Equipas favoritas</h3>
+        <div id="favoriteTeams" class="subtitle">Ainda não tens favoritos.</div>
+        <p class="subtitle" style="font-size:11px;line-height:1.6">
+          Os favoritos de jogos sincronizam com a conta. As equipas favoritas continuam locais neste navegador.
+        </p>
+      </section>
+
+      <section class="side-panel">
+        <h3>ℹ️ Sobre os resultados</h3>
+        <div class="subtitle" style="font-size:12px;line-height:1.7">
+          Os resultados são pedidos à API pública da ESPN. A disponibilidade depende dos dados fornecidos pela fonte.
+        </div>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <strong>GoalLive</strong> · Resultados de futebol<br>
+  Dados de jogos fornecidos pela ESPN. Este projeto não é afiliado à ESPN.
+</footer>
+
+<!-- Biblioteca Supabase: tem de carregar antes do código principal -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
+<script>
+"use strict";
+
+/* CONFIGURAÇÃO SUPABASE */
+const SUPABASE_URL = "https://devulhgffsufreqtvjhd.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_hieGFZq0tHSb517V4mSCWA_WEF1EWvR";
+
+const supabaseClient =
+  window.supabase &&
+  typeof window.supabase.createClient === "function"
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+    : null;
+
+/* COMPETIÇÕES */
+const LEAGUES = [
+  { id:"uefa.champions", name:"Champions League", country:"Europa" },
+  { id:"eng.1", name:"Premier League", country:"Inglaterra" },
+  { id:"esp.1", name:"La Liga", country:"Espanha" },
+  { id:"ita.1", name:"Serie A", country:"Itália" },
+  { id:"ger.1", name:"Bundesliga", country:"Alemanha" },
+  { id:"fra.1", name:"Ligue 1", country:"França" },
+  { id:"por.1", name:"Primeira Liga", country:"Portugal" }
+];
+
+const API_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
+const DAY_COUNT = 10;
+const REFRESH_MS = 60000;
+
+const $ = id => document.getElementById(id);
+
+let currentUser = null;
+let selectedDate = startOfDay(new Date());
+let windowStart = new Date(selectedDate);
+let activeLeague = "all";
+let favoritesOnly = false;
+let allMatches = [];
+let requestNumber = 0;
+let lastSuccessfulFetch = null;
+let favoriteIds = loadStorage("goallive-favorite-matches", []);
+let favoriteTeams = loadStorage("goallive-favorite-teams", []);
+let authMessageTimer = null;
+
+function loadStorage(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return value ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveStorage(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.warn("Não foi possível guardar os dados:", error);
+  }
+}
+
+function startOfDay(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function addDays(date, amount) {
+  const result = new Date(date);
+  result.setDate(result.getDate() + amount);
+  return result;
+}
+
+function formatApiDate(date) {
+  return `${date.getFullYear()}${String(date.getMonth()+1).padStart(2,"0")}${String(date.getDate()).padStart(2,"0")}`;
+}
+
+function sameDay(a, b) {
+  return a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+}
+
+function formatDate(date, options = {}) {
+  return new Intl.DateTimeFormat("pt-PT", options).format(date);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  })[char]);
+}
+
+function normalize(value) {
+  return String(value ?? "").normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
+
+/* MENSAGENS DA CONTA */
+function showAuthMessage(message, isError = false) {
+  const element = $("auth-message");
+  if (!element) return;
+  element.textContent = message;
+  element.style.color = isError ? "#f87171" : "var(--muted)";
+}
+
+function updateAuthUI() {
+  const signedIn = Boolean(currentUser);
+
+  $("auth-email").hidden = signedIn;
+  $("auth-password").hidden = signedIn;
+  $("signup-btn").hidden = signedIn;
+  $("login-btn").hidden = signedIn;
+  $("logout-btn").hidden = !signedIn;
+
+  if (signedIn) {
+    $("auth-password").value = "";
+    $("auth-message").textContent =
+      "Sessão iniciada: " + (currentUser.email || "utilizador");
+    $("auth-message").style.color = "var(--green)";
+  } else {
+    $("auth-message").style.color = "var(--muted)";
+  }
+}
+
+/* REGISTO */
+async function signUpUser() {
+  if (!supabaseClient) {
+    showAuthMessage("A biblioteca Supabase não carregou. Atualiza a página e verifica a ligação à Internet.", true);
+    return;
+  }
+
+  const email = $("auth-email").value.trim();
+  const password = $("auth-password").value;
+
+  if (!email || !password) {
+    showAuthMessage("Preenche o email e a palavra-passe.", true);
+    return;
+  }
+
+  if (password.length < 6) {
+    showAuthMessage("A palavra-passe deve ter pelo menos 6 caracteres.", true);
+    return;
+  }
+
+  $("signup-btn").disabled = true;
+
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      showAuthMessage("Conta criada e sessão iniciada.");
+    } else {
+      showAuthMessage("Registo recebido. Verifica o teu email para confirmares a conta. Se não receberes a mensagem, verifica também a pasta de spam.");
+    }
+  } catch (error) {
+    showAuthMessage(error.message || "Não foi possível criar a conta.", true);
+  } finally {
+    $("signup-btn").disabled = false;
+  }
+}
+
+/* INICIAR SESSÃO */
+async function signInUser() {
+  if (!supabaseClient) {
+    showAuthMessage("A biblioteca Supabase não carregou. Atualiza a página e verifica a ligação à Internet.", true);
+    return;
+  }
+
+  const email = $("auth-email").value.trim();
+  const password = $("auth-password").value;
+
+  if (!email || !password) {
+    showAuthMessage("Preenche o email e a palavra-passe.", true);
+    return;
+  }
+
+  $("login-btn").disabled = true;
+
+  try {
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+    if (error) throw error;
+    showAuthMessage("Sessão iniciada com sucesso.");
+  } catch (error) {
+    showAuthMessage(error.message || "Não foi possível iniciar sessão.", true);
+  } finally {
+    $("login-btn").disabled = false;
+  }
+}
+
+/* TERMINAR SESSÃO */
+async function signOutUser() {
+  if (!supabaseClient) return;
+
+  $("logout-btn").disabled = true;
+  try {
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) throw error;
+    showAuthMessage("Sessão terminada.");
+  } catch (error) {
+    showAuthMessage(error.message || "Não foi possível terminar a sessão.", true);
+  } finally {
+    $("logout-btn").disabled = false;
+  }
+}
+
+/* FAVORITOS NA BASE DE DADOS */
+async function loadCloudFavorites() {
+  if (!supabaseClient || !currentUser) return;
+
+  const userId = currentUser.id;
+  const { data, error } = await supabaseClient
+    .from("favorite_matches")
+    .select("match_id")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error("Erro ao carregar favoritos:", error);
+    showAuthMessage("A sessão está iniciada, mas não foi possível carregar os favoritos. Confirma as políticas RLS da tabela favorite_matches.", true);
+    return;
+  }
+
+  // Não aplicar resultados se entretanto mudou a conta.
+  if (!currentUser || currentUser.id !== userId) return;
+
+  favoriteIds = [...new Set((data || []).map(row => String(row.match_id)))];
+  saveStorage("goallive-favorite-matches", favoriteIds);
+  renderMatches();
+  updateSummary();
+  renderFavoriteTeams();
+}
+
+async function initAuth() {
+  if (!supabaseClient) {
+    showAuthMessage("A biblioteca Supabase não carregou. As contas estão indisponíveis; os resultados podem continuar a funcionar.", true);
+    return;
+  }
+
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    showAuthMessage("Não foi possível verificar a sessão.", true);
+    console.error(error);
+    return;
+  }
+
+  currentUser = data.session?.user || null;
+  updateAuthUI();
+
+  if (currentUser) {
+    await loadCloudFavorites();
+  }
+
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    currentUser = session?.user || null;
+    updateAuthUI();
+
+    if (event === "SIGNED_IN") {
+      // Adiar operações de rede para fora do callback de autenticação.
+      setTimeout(() => loadCloudFavorites(), 0);
+    }
+
+    if (event === "SIGNED_OUT") {
+      favoriteIds = [];
+      saveStorage("goallive-favorite-matches", []);
+      renderMatches();
+      updateSummary();
+      renderFavoriteTeams();
+    }
+  });
+}
+
+/* DADOS DOS JOGOS */
+function getStatus(event) {
+  const type = event.status?.type || {};
+  const state = type.state || "";
+  const description = type.shortDetail || type.detail || type.description || "";
+
+  if (state === "in") return { kind:"live", label:description || "EM DIRETO" };
+  if (state === "post") return { kind:"finished", label:description || "Terminado" };
+  return { kind:"scheduled", label:description || "Por começar" };
+}
+
+function getTeams(event) {
+  const competitors = event.competitions?.[0]?.competitors || [];
+  const home = competitors.find(team => team.homeAway === "home") || competitors[0];
+  const away = competitors.find(team => team.homeAway === "away") || competitors[1];
+  return { home, away };
+}
+
+function getMatchId(event) {
+  return String(event.id);
+}
+
+function isFavorite(event) {
+  return favoriteIds.includes(getMatchId(event));
+}
+
+/* CALENDÁRIO */
+function renderCalendar() {
+  const calendar = $("calendar");
+  calendar.innerHTML = "";
+
+  for (let i = 0; i < DAY_COUNT; i++) {
+    const date = addDays(windowStart, i);
+    const isToday = sameDay(date, new Date());
+    const isSelected = sameDay(date, selectedDate);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "day" +
+      (isSelected ? " selected" : "") +
+      (isToday ? " today" : "");
+    button.setAttribute("aria-pressed", String(isSelected));
+
+    button.innerHTML = `
+      <span class="day-name">${escapeHtml(formatDate(date,{weekday:"short"}).replace(".",""))}</span>
+      <span class="day-number">${date.getDate()}</span>
+      <span class="day-month">${escapeHtml(formatDate(date,{month:"short"}).replace(".",""))}</span>
+      ${isToday ? '<span class="today-tag">HOJE</span>' : ""}
+    `;
+
+    button.addEventListener("click", () => selectDate(date));
+    calendar.appendChild(button);
+  }
+
+  const lastDay = addDays(windowStart, DAY_COUNT - 1);
+  $("calendarRange").textContent =
+    `${formatDate(windowStart,{day:"numeric",month:"short"})} – ` +
+    `${formatDate(lastDay,{day:"numeric",month:"short",year:"numeric"})}`;
+}
+
+function selectDate(date) {
+  selectedDate = startOfDay(date);
+  const end = addDays(windowStart, DAY_COUNT - 1);
+
+  if (selectedDate < windowStart || selectedDate > end) {
+    windowStart = new Date(selectedDate);
+  }
+
+  renderCalendar();
+  loadMatches();
+}
+
+function moveWindow(amount) {
+  windowStart = addDays(windowStart, amount * DAY_COUNT);
+  selectedDate = new Date(windowStart);
+  renderCalendar();
+  loadMatches();
+}
+
+/* FILTROS DE LIGAS */
+function renderLeagueFilters() {
+  const container = $("leagueFilters");
+  container.innerHTML = "";
+
+  const options = [
+    { id:"all", label:"Todas as ligas" },
+    ...LEAGUES.map(league => ({ id:league.id, label:league.name }))
+  ];
+
+  options.forEach(option => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "filter" + (activeLeague === option.id ? " active" : "");
+    button.textContent = option.label;
+    button.setAttribute("aria-pressed", String(activeLeague === option.id));
+
+    button.addEventListener("click", () => {
+      activeLeague = option.id;
+      renderLeagueFilters();
+      renderMatches();
+      updateSummary();
+    });
+
+    container.appendChild(button);
+  });
+}
+
+/* API DE RESULTADOS */
+async function fetchLeague(league, date, signal) {
+  const url = `${API_BASE}${encodeURIComponent(league.id)}/scoreboard?dates=${encodeURIComponent(date)}`;
+  const response = await fetch(url, { signal, cache:"no-store" });
+
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+  const data = await response.json();
+
+  return (data.events || []).map(event => ({
+    ...event,
+    _leagueId:league.id,
+    _leagueName:league.name,
+    _country:league.country
+  }));
+}
+
+async function loadMatches() {
+  const thisRequest = ++requestNumber;
+  const dateString = formatApiDate(selectedDate);
+
+  $("matches").innerHTML = `
+    <div class="loading"><div class="spinner"></div>
+    A carregar os jogos de ${escapeHtml(formatDate(selectedDate,{day:"numeric",month:"long"}))}...</div>
+  `;
+  $("apiMessage").classList.remove("show");
+  $("apiMessage").textContent = "";
+
+  const controller = new AbortController();
+
+  const results = await Promise.allSettled(
+    LEAGUES.map(league => fetchLeague(league, dateString, controller.signal))
+  );
+
+  if (thisRequest !== requestNumber) return;
+
+  const matches = [];
+  const errors = [];
+
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") matches.push(...result.value);
+    else errors.push(LEAGUES[index].name);
+  });
+
+  allMatches = matches;
+  lastSuccessfulFetch = new Date();
+
+  $("lastUpdate").textContent = formatDate(lastSuccessfulFetch, {
+    hour:"2-digit", minute:"2-digit", second:"2-digit"
+  });
+
+  if (errors.length === LEAGUES.length) {
+    showApiMessage("Não foi possível obter dados de nenhuma liga. Verifica a ligação à Internet ou tenta novamente mais tarde.");
+  } else if (errors.length > 0) {
+    showApiMessage("Algumas ligas não responderam: " + errors.join(", ") + ". Os restantes resultados continuam disponíveis.");
+  }
+
+  renderMatches();
+  updateSummary();
+  renderFavoriteTeams();
+}
+
+function showApiMessage(message) {
+  $("apiMessage").textContent = message;
+  $("apiMessage").classList.add("show");
+}
+
+function filteredMatches() {
+  const query = normalize($("searchInput").value);
+
+  return allMatches.filter(event => {
+    if (activeLeague !== "all" && event._leagueId !== activeLeague) return false;
+    if (favoritesOnly && !isFavorite(event)) return false;
+
+    const { home, away } = getTeams(event);
+    const searchable = normalize([
+      event.name, event._leagueName, event._country,
+      home?.team?.displayName, home?.team?.name,
+      away?.team?.displayName, away?.team?.name
+    ].join(" "));
+
+    return !query || searchable.includes(query);
+  });
+}
+
+/* DESENHAR JOGOS */
+function renderMatches() {
+  const container = $("matches");
+  const matches = filteredMatches();
+
+  $("matchesTitle").textContent = sameDay(selectedDate, new Date())
+    ? "Jogos de hoje"
+    : formatDate(selectedDate, { day:"numeric", month:"long" });
+
+  $("matchCount").textContent = `${matches.length} ${matches.length === 1 ? "jogo" : "jogos"}`;
+
+  if (!matches.length) {
+    const searching = Boolean($("searchInput").value.trim());
+    const message = searching
+      ? "Experimenta outro nome de equipa ou competição."
+      : favoritesOnly
+        ? "Ainda não tens jogos favoritos nesta data. Marca a estrela de um jogo para o guardar."
+        : "A fonte de dados não devolveu jogos para esta data. Experimenta outro dia.";
+
+    container.innerHTML = `
+      <div class="empty">
+        <h3>${searching ? "Nenhum resultado encontrado" : "Sem jogos para mostrar"}</h3>
+        <p>${escapeHtml(message)}</p>
+        <button class="btn" type="button" id="emptyRefresh">↻ Tentar novamente</button>
+      </div>
+    `;
+
+    $("emptyRefresh").addEventListener("click", loadMatches);
+    updateSummary();
+    return;
+  }
+
+  const rank = { live:0, scheduled:1, finished:2 };
+  matches.sort((a,b) => {
+    const difference = rank[getStatus(a).kind] - rank[getStatus(b).kind];
+    return difference || new Date(a.date || 0) - new Date(b.date || 0);
+  });
+
+  const groups = new Map();
+
+  matches.forEach(event => {
+    if (!groups.has(event._leagueId)) {
+      groups.set(event._leagueId, { name:event._leagueName, events:[] });
+    }
+    groups.get(event._leagueId).events.push(event);
+  });
+
+  container.innerHTML = "";
+
+  groups.forEach(group => {
+    const section = document.createElement("section");
+    const label = document.createElement("div");
+    label.className = "league-label";
+    label.innerHTML = `
+      <span class="league-dot"></span>
+      <span>${escapeHtml(group.name)}</span>
+      <span class="count">${group.events.length}</span>
+    `;
+    section.appendChild(label);
+
+    group.events.forEach(event => section.appendChild(createMatchCard(event)));
+    container.appendChild(section);
+  });
+
+  updateSummary();
+}
+
+function createMatchCard(event) {
+  const { home, away } = getTeams(event);
+  const status = getStatus(event);
+  const homeName = home?.team?.displayName || home?.team?.name || "Equipa da casa";
+  const awayName = away?.team?.displayName || away?.team?.name || "Equipa visitante";
+  const homeScore = home?.score;
+  const awayScore = away?.score;
+  const hasScore = homeScore != null && awayScore != null;
+  const favorite = isFavorite(event);
+  const kickoff = event.date ? new Date(event.date) : null;
+  const time = kickoff && !Number.isNaN(kickoff.getTime())
+    ? formatDate(kickoff,{hour:"2-digit",minute:"2-digit"})
+    : "Hora indisponível";
+
+  const card = document.createElement("article");
+  card.className = "match-card";
+
+  const homeLogo = home?.team?.logo || "";
+  const awayLogo = away?.team?.logo || "";
+
+  card.innerHTML = `
+    <div class="match-top">
+      <span>${escapeHtml(event._country || "")}</span>
+      <span class="match-status ${status.kind}">${status.kind === "live" ? "● " : ""}${escapeHtml(status.label)}</span>
+    </div>
+    <div class="match-main">
+      <div class="team">
+        ${homeLogo ? `<img src="${escapeHtml(homeLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+        <span class="team-name">${escapeHtml(homeName)}</span>
+      </div>
+      <div class="score ${hasScore ? "" : "pending"}">
+        ${hasScore ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}` : escapeHtml(time)}
+      </div>
+      <div class="team away">
+        <span class="team-name">${escapeHtml(awayName)}</span>
+        ${awayLogo ? `<img src="${escapeHtml(awayLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+      </div>
+    </div>
+    <div class="card-bottom">
+      <small>${escapeHtml(event.name || event._leagueName)}</small>
+      <button type="button" class="${favorite ? "fav" : ""}"
+        aria-label="${favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}">
+        ${favorite ? "★ Guardado" : "☆ Favorito"}
+      </button>
+    </div>
+  `;
+
+  card.querySelector(".card-bottom button").addEventListener("click", () => toggleFavorite(event));
+  return card;
+}
+
+/* ADICIONAR OU REMOVER FAVORITO */
+async function toggleFavorite(event) {
+  const id = getMatchId(event);
+  const wasFavorite = favoriteIds.includes(id);
+
+  if (currentUser && supabaseClient) {
+    showAuthMessage("A guardar favorito...");
+
+    let result;
+
+    if (wasFavorite) {
+      result = await supabaseClient
+        .from("favorite_matches")
+        .delete()
+        .eq("user_id", currentUser.id)
+        .eq("match_id", id);
+    } else {
+      result = await supabaseClient
+        .from("favorite_matches")
+        .insert({ user_id:currentUser.id, match_id:id });
+    }
+
+    if (result.error) {
+      console.error("Erro ao guardar favorito:", result.error);
+      showAuthMessage("Não foi possível guardar o favorito no Supabase. Confirma as políticas RLS e a tabela.", true);
+      return;
+    }
+  } else if (!currentUser && !wasFavorite) {
+    showAuthMessage("Este favorito fica neste navegador. Inicia sessão para o sincronizares entre dispositivos.");
+  }
+
+  if (wasFavorite) {
+    favoriteIds = favoriteIds.filter(item => item !== id);
+  } else {
+    favoriteIds.push(id);
+  }
+
+  saveStorage("goallive-favorite-matches", favoriteIds);
+  renderMatches();
+  updateSummary();
+  renderFavoriteTeams();
+}
+
+/* ESTATÍSTICAS */
+function updateSummary() {
+  const matches = filteredMatches();
+  $("statTotal").textContent = matches.length;
+  $("statLive").textContent = matches.filter(event => getStatus(event).kind === "live").length;
+  $("statFinished").textContent = matches.filter(event => getStatus(event).kind === "finished").length;
+  $("statUpcoming").textContent = matches.filter(event => getStatus(event).kind === "scheduled").length;
+}
+
+/* EQUIPAS FAVORITAS LOCAIS */
+function renderFavoriteTeams() {
+  const container = $("favoriteTeams");
+  const teams = new Set(favoriteTeams);
+
+  allMatches.forEach(event => {
+    if (!isFavorite(event)) return;
+    const { home, away } = getTeams(event);
+    if (home?.team?.displayName) teams.add(home.team.displayName);
+    if (away?.team?.displayName) teams.add(away.team.displayName);
+  });
+
+  if (!teams.size) {
+    container.textContent = "Ainda não tens favoritos.";
+    return;
+  }
+
+  container.innerHTML = "";
+
+  [...teams].forEach(name => {
+    const row = document.createElement("div");
+    row.className = "stat-row";
+
+    const label = document.createElement("span");
+    label.textContent = "⭐ " + name;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "btn";
+    button.style.padding = "4px 8px";
+    button.textContent = "×";
+    button.setAttribute("aria-label", "Remover " + name + " dos favoritos");
+
+    button.addEventListener("click", () => {
+      favoriteTeams = favoriteTeams.filter(team => team !== name);
+      saveStorage("goallive-favorite-teams", favoriteTeams);
+      renderFavoriteTeams();
+    });
+
+    row.append(label, button);
+    container.appendChild(row);
+  });
+}
+
+/* BOTÕES E ARRANQUE */
+function resetToToday() {
+  selectedDate = startOfDay(new Date());
+  windowStart = new Date(selectedDate);
+  renderCalendar();
+  loadMatches();
+}
+
+$("prevWindow").addEventListener("click", () => moveWindow(-1));
+$("nextWindow").addEventListener("click", () => moveWindow(1));
+$("todayBtn").addEventListener("click", resetToToday);
+$("refreshBtn").addEventListener("click", loadMatches);
+
+$("searchInput").addEventListener("input", () => {
+  renderMatches();
+  updateSummary();
+});
+
+$("favoritesBtn").addEventListener("click", () => {
+  favoritesOnly = !favoritesOnly;
+  $("favoritesBtn").classList.toggle("active", favoritesOnly);
+  $("favoritesBtn").textContent = favoritesOnly ? "★ Só favoritos" : "☆ Favoritos";
+  renderMatches();
+  updateSummary();
+});
+
+$("signup-btn").addEventListener("click", signUpUser);
+$("login-btn").addEventListener("click", signInUser);
+$("logout-btn").addEventListener("click", signOutUser);
+
+renderCalendar();
+renderLeagueFilters();
+renderFavoriteTeams();
+loadMatches();
+initAuth();
+
+setInterval(loadMatches, REFRESH_MS);
+
+setInterval(() => {
+  const now = startOfDay(new Date());
+  const previousDay = addDays(now, -1);
+
+  if (sameDay(windowStart, previousDay) && sameDay(selectedDate, windowStart)) {
+    windowStart = new Date(now);
+    selectedDate = new Date(now);
+    renderCalendar();
+    loadMatches();
+  } else {
+    renderCalendar();
+  }
+}, 30000);
+</script>
+</body>
+</html>
