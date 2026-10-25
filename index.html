@@ -458,7 +458,7 @@ footer {
     <h2>⚽ Conta GoalLive</h2>
 
     <input id="auth-email" type="email"
-      placeholder="O teu endereço de e-mail" autocomplete="email">
+      placeholder="O teu endereço de correio eletrónico" autocomplete="email">
 
     <input id="auth-password" type="password"
       placeholder="Palavra-passe (mínimo de 6 caracteres)"
@@ -613,7 +613,7 @@ const supabaseClient =
 
 /* COMPETIÇÕES */
 const LEAGUES = [
-  { id:"uefa.champions", name:"Champions League", country:"Europa" },
+  { id:"uefa.champions", name:"Liga dos Campeões", country:"Europa" },
   { id:"eng.1", name:"Premier League", country:"Inglaterra" },
   { id:"esp.1", name:"La Liga", country:"Espanha" },
   { id:"ita.1", name:"Serie A", country:"Itália" },
@@ -693,6 +693,30 @@ function normalize(value) {
 }
 
 /* MENSAGENS DA CONTA */
+function traduzirErro(message) {
+  const original = String(message || "").trim();
+  const chave = normalize(original);
+  if (!chave) return "Ocorreu um erro inesperado. Tenta novamente.";
+  const regras = [
+    [/email rate limit exceeded|rate limit.*email/, "Foram enviados demasiados pedidos de email. Aguarda um pouco antes de tentares novamente."],
+    [/invalid login credentials|invalid email or password/, "O endereço de email ou a palavra-passe estão incorretos."],
+    [/email not confirmed/, "Ainda não confirmaste o endereço de email. Consulta a tua caixa de entrada."],
+    [/user already registered|already registered/, "Já existe uma conta com este endereço de email."],
+    [/password should be at least|password.*6 characters|weak password/, "A palavra-passe é demasiado fraca. Usa pelo menos 6 caracteres."],
+    [/invalid email/, "O endereço de email não é válido."],
+    [/network request failed|failed to fetch|load failed/, "Não foi possível ligar ao serviço. Verifica a ligação à Internet e tenta novamente."],
+    [/too many requests|rate limit exceeded/, "Foram feitas demasiadas tentativas. Aguarda um pouco e tenta novamente."],
+    [/database error saving new user/, "Não foi possível criar a conta neste momento. Tenta novamente mais tarde."],
+    [/row-level security|row level security|violates row-level security/, "Não foi possível aceder aos favoritos. É necessário verificar as permissões da base de dados."]
+  ];
+  for (const [padrao, traducao] of regras) if (padrao.test(chave)) return traducao;
+  // Se o serviço devolver uma mensagem inglesa desconhecida, não a mostramos diretamente.
+  if (/^[a-z0-9 ,.'":;_()-]+$/i.test(original) && /[a-z]/i.test(original)) {
+    return "Ocorreu um erro ao comunicar com o serviço. Tenta novamente mais tarde.";
+  }
+  return original;
+}
+
 function showAuthMessage(message, isError = false) {
   const element = $("auth-message");
   if (!element) return;
@@ -730,7 +754,7 @@ async function signUpUser() {
   const password = $("auth-password").value;
 
   if (!email || !password) {
-    showAuthMessage("Preenche o email e a palavra-passe.", true);
+    showAuthMessage("Preenche o endereço de correio eletrónico e a palavra-passe.", true);
     return;
   }
 
@@ -752,10 +776,10 @@ async function signUpUser() {
     if (data.session) {
       showAuthMessage("Conta criada e sessão iniciada.");
     } else {
-      showAuthMessage("Registo recebido. Verifica o teu email para confirmares a conta. Se não receberes a mensagem, verifica também a pasta de spam.");
+      showAuthMessage("Registo recebido. Verifica o teu correio eletrónico para confirmares a conta. Se não receberes a mensagem, verifica também a pasta de spam.");
     }
   } catch (error) {
-    showAuthMessage(error.message || "Não foi possível criar a conta.", true);
+    showAuthMessage(traduzirErro(error.message) || "Não foi possível criar a conta.", true);
   } finally {
     $("signup-btn").disabled = false;
   }
@@ -772,7 +796,7 @@ async function signInUser() {
   const password = $("auth-password").value;
 
   if (!email || !password) {
-    showAuthMessage("Preenche o email e a palavra-passe.", true);
+    showAuthMessage("Preenche o endereço de correio eletrónico e a palavra-passe.", true);
     return;
   }
 
@@ -786,7 +810,7 @@ async function signInUser() {
     if (error) throw error;
     showAuthMessage("Sessão iniciada com sucesso.");
   } catch (error) {
-    showAuthMessage(error.message || "Não foi possível iniciar sessão.", true);
+    showAuthMessage(traduzirErro(error.message) || "Não foi possível iniciar sessão.", true);
   } finally {
     $("login-btn").disabled = false;
   }
@@ -802,7 +826,7 @@ async function signOutUser() {
     if (error) throw error;
     showAuthMessage("Sessão terminada.");
   } catch (error) {
-    showAuthMessage(error.message || "Não foi possível terminar a sessão.", true);
+    showAuthMessage(traduzirErro(error.message) || "Não foi possível terminar a sessão.", true);
   } finally {
     $("logout-btn").disabled = false;
   }
@@ -875,14 +899,54 @@ async function initAuth() {
 }
 
 /* DADOS DOS JOGOS */
+function traduzirEstadoJogo(texto, estado) {
+  const original = String(texto || "").trim();
+  const chave = normalize(original).replace(/[.:]/g, "");
+  const traducoes = {
+    "in progress":"Em direto",
+    "live":"Em direto",
+    "half time":"Intervalo",
+    "halftime":"Intervalo",
+    "1st half":"1.ª parte",
+    "2nd half":"2.ª parte",
+    "first half":"1.ª parte",
+    "second half":"2.ª parte",
+    "extra time":"Prolongamento",
+    "full time":"Terminado",
+    "fulltime":"Terminado",
+    "after extra time":"Terminado após prolongamento",
+    "after penalties":"Terminado após grandes penalidades",
+    "penalties":"Grandes penalidades",
+    "postponed":"Adiado",
+    "delayed":"Atrasado",
+    "cancelled":"Cancelado",
+    "canceled":"Cancelado",
+    "suspended":"Interrompido",
+    "abandoned":"Abandonado",
+    "scheduled":"Por começar",
+    "not started":"Por começar",
+    "final":"Terminado",
+    "final/ot":"Terminado após prolongamento",
+    "ft":"Terminado",
+    "ht":"Intervalo",
+    "live":"Em direto"
+  };
+  if (traducoes[chave]) return traducoes[chave];
+  // Evita mostrar etiquetas técnicas da API em inglês.
+  if (estado === "in") return "Em direto";
+  if (estado === "post") return "Terminado";
+  return original && !/^[A-Z0-9'’:+ -]+$/.test(original) ? original : (original ? (estado === "pre" ? "Por começar" : original) : "");
+}
+
 function getStatus(event) {
   const type = event.status?.type || {};
   const state = type.state || "";
   const description = type.shortDetail || type.detail || type.description || "";
+  const translated = traduzirEstadoJogo(description, state);
 
-  if (state === "in") return { kind:"live", label:description || "EM DIRETO" };
-  if (state === "post") return { kind:"finished", label:description || "Terminado" };
-  return { kind:"scheduled", label:description || "Por começar" };
+  if (state === "in") return { kind:"live", label:translated || "Em direto" };
+  if (state === "post") return { kind:"finished", label:translated || "Terminado" };
+  return { kind:"scheduled", label:translated || "Por começar" };
 }
 
 function getTeams(event) {
@@ -959,7 +1023,7 @@ function renderLeagueFilters() {
   container.innerHTML = "";
 
   const options = [
-    { id:"all", label:"Todas as ligas" },
+    { id:"all", label:"Todas as competições" },
     ...LEAGUES.map(league => ({ id:league.id, label:league.name }))
   ];
 
@@ -1282,14 +1346,105 @@ function venueFromEvent(event, summary) {
 
 function renderPlayers(players, teamName) {
   if (!players.length) return `<div class="detail-player-team"><h4>${escapeHtml(teamName)}</h4><p class="detail-muted">A ESPN não disponibilizou a lista de jogadores neste jogo.</p></div>`;
-  return `<div class="detail-player-team"><h4>${escapeHtml(teamName)}</h4><ul class="detail-player-list">${players.map(player => `<li>${player.jersey ? `<strong>${escapeHtml(player.jersey)}</strong> · ` : ""}${escapeHtml(player.name)}${player.position ? ` <span class="detail-muted">— ${escapeHtml(player.position)}</span>` : ""}</li>`).join("")}</ul></div>`;
+  return `<div class="detail-player-team"><h4>${escapeHtml(teamName)}</h4><ul class="detail-player-list">${players.map(player => `<li>${player.jersey ? `<strong>${escapeHtml(player.jersey)}</strong> · ` : ""}${escapeHtml(player.name)}${player.position ? ` <span class="detail-muted">— ${escapeHtml(traduzirPosicao(player.position))}</span>` : ""}</li>`).join("")}</ul></div>`;
+}
+
+function traduzirEstatistica(nome) {
+  // A ESPN envia muitas etiquetas em camelCase, por exemplo "foulsCommitted".
+  // Convertemos também esses nomes técnicos para etiquetas legíveis em português.
+  const original = String(nome || "").trim();
+  const chave = normalize(original)
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const compacta = chave.replace(/\s+/g, "");
+  const traducoes = {
+    "possession": "Posse de bola",
+    "possessionpct": "Posse de bola",
+    "shots": "Remates",
+    "totalshots": "Remates totais",
+    "totalshots": "Remates totais",
+    "shotson target": "Remates à baliza",
+    "shotsontarget": "Remates à baliza",
+    "shotsongoal": "Remates à baliza",
+    "shotpct": "Precisão de remate",
+    "shotaccuracy": "Precisão de remate",
+    "shotsofftarget": "Remates ao lado",
+    "blockedshots": "Remates bloqueados",
+    "corners": "Cantos",
+    "woncorners": "Cantos ganhos",
+    "cornerkicks": "Pontapés de canto",
+    "fouls": "Faltas",
+    "foulscommitted": "Faltas cometidas",
+    "yellowcards": "Cartões amarelos",
+    "redcards": "Cartões vermelhos",
+    "offsides": "Foras de jogo",
+    "offside": "Foras de jogo",
+    "saves": "Defesas",
+    "goalkeepersaves": "Defesas do guarda-redes",
+    "totalpasses": "Passes totais",
+    "accuratepasses": "Passes certos",
+    "passpct": "Precisão de passe",
+    "passaccuracy": "Precisão de passe",
+    "crosses": "Cruzamentos",
+    "totalcrosses": "Cruzamentos totais",
+    "accuratecrosses": "Cruzamentos certos",
+    "crosspct": "Precisão de cruzamento",
+    "tackles": "Desarmes",
+    "totaltackles": "Desarmes totais",
+    "effectivetackles": "Desarmes eficazes",
+    "tacklepct": "Percentagem de desarmes eficazes",
+    "interceptions": "Interceções",
+    "clearances": "Alívios",
+    "totalclearance": "Alívios totais",
+    "totalclearances": "Alívios totais",
+    "effectiveclearance": "Alívios eficazes",
+    "penaltykickgoals": "Grandes penalidades convertidas",
+    "penaltykickshots": "Remates de grande penalidade",
+    "penalties": "Grandes penalidades",
+    "goals": "Golos",
+    "assists": "Assistências",
+    "yellowcard": "Cartão amarelo",
+    "redcard": "Cartão vermelho",
+    "timeplayed": "Minutos jogados",
+    "minutesplayed": "Minutos jogados",
+    "expectedgoals": "Golos esperados (xG)",
+    "xg": "Golos esperados (xG)",
+    "totallongballs": "Passes longos",
+    "accuratelongballs": "Passes longos certos",
+    "longballpct": "Precisão dos passes longos"
+  };
+  return traducoes[compacta] || traducoes[chave] || original;
+}
+
+function traduzirPosicao(posicao) {
+  const chave = normalize(posicao);
+  const traducoes = {
+    "goalkeeper":"Guarda-redes",
+    "keeper":"Guarda-redes",
+    "defender":"Defesa",
+    "centre-back":"Defesa-central",
+    "center-back":"Defesa-central",
+    "left-back":"Lateral esquerdo",
+    "right-back":"Lateral direito",
+    "midfielder":"Médio",
+    "defensive midfielder":"Médio defensivo",
+    "attacking midfielder":"Médio ofensivo",
+    "forward":"Avançado",
+    "striker":"Ponta de lança",
+    "winger":"Extremo",
+    "substitute":"Suplente"
+  };
+  return traducoes[chave] || posicao;
 }
 
 function renderStatsTable(stats, homeName, awayName) {
   if (!stats.home.length && !stats.away.length) return `<p class="detail-muted">Não há estatísticas de equipa disponíveis para este encontro.</p>`;
-  const names = [...new Set([...stats.home, ...stats.away].map(s => s.name))];
+  const nomesOriginais = [...new Set([...stats.home, ...stats.away].map(s => s.name))];
+  const nomesTraduzidos = nomesOriginais.map(nome => ({original:nome, traduzido:traduzirEstatistica(nome)}));
   const findValue = (list, name) => list.find(s => s.name === name)?.value || "—";
-  return `<table class="detail-table"><thead><tr><th>${escapeHtml(homeName)}</th><th>Estatística</th><th>${escapeHtml(awayName)}</th></tr></thead><tbody>${names.map(name => `<tr><td>${escapeHtml(findValue(stats.home,name))}</td><td>${escapeHtml(name)}</td><td>${escapeHtml(findValue(stats.away,name))}</td></tr>`).join("")}</tbody></table>`;
+  return `<table class="detail-table"><thead><tr><th>${escapeHtml(homeName)}</th><th>Estatística</th><th>${escapeHtml(awayName)}</th></tr></thead><tbody>${nomesTraduzidos.map(item => `<tr><td>${escapeHtml(findValue(stats.home,item.original))}</td><td>${escapeHtml(item.traduzido)}</td><td>${escapeHtml(findValue(stats.away,item.original))}</td></tr>`).join("")}</tbody></table>`;
 }
 
 async function openMatchDetails(event) {
