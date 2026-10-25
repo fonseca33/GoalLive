@@ -8,6 +8,10 @@
 <title>GoalLive — Resultados de futebol</title>
 
 <style>
+/* =========================================================
+   1. CORES E CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
 :root {
   --bg:#080d18;
   --panel:#101827;
@@ -18,19 +22,29 @@
   --green:#22c55e;
   --red:#ef4444;
 }
+
 * { box-sizing:border-box; }
+
 body {
   margin:0;
   background:var(--bg);
   color:var(--text);
   font-family:Inter,system-ui,-apple-system,sans-serif;
 }
+
 button,input { font:inherit; }
 button { cursor:pointer; }
-button:focus-visible,input:focus-visible {
+
+button:focus-visible,
+input:focus-visible {
   outline:2px solid var(--green);
   outline-offset:3px;
 }
+
+/* =========================================================
+   2. CABEÇALHO E IDENTIDADE VISUAL
+   ========================================================= */
+
 header {
   position:sticky;
   top:0;
@@ -39,10 +53,14 @@ header {
   border-bottom:1px solid var(--border);
   backdrop-filter:blur(12px);
 }
-.header-inner,.container,.auth-wrap {
+
+.header-inner,
+.container,
+.auth-wrap {
   max-width:1400px;
   margin:auto;
 }
+
 .header-inner {
   padding:15px 22px;
   display:flex;
@@ -50,6 +68,7 @@ header {
   align-items:center;
   gap:15px;
 }
+
 .brand {
   display:flex;
   align-items:center;
@@ -57,7 +76,9 @@ header {
   font-weight:900;
   font-size:24px;
 }
+
 .brand span { color:var(--green); }
+
 .brand-icon {
   width:40px;
   height:40px;
@@ -68,33 +89,50 @@ header {
   place-items:center;
   font-size:23px;
 }
+
 .header-actions {
   display:flex;
   gap:8px;
   align-items:center;
 }
+
 .live-label {
   color:#f87171;
   font-size:12px;
   font-weight:800;
 }
-.btn,.filter,.calendar-controls button {
+
+/* Botões reutilizados pela aplicação. */
+.btn,
+.filter,
+.calendar-controls button {
   border:1px solid var(--border);
   background:var(--panel2);
   color:var(--text);
   border-radius:10px;
   padding:10px 13px;
 }
-.btn:hover,.filter:hover,.calendar-controls button:hover {
+
+.btn:hover,
+.filter:hover,
+.calendar-controls button:hover {
   border-color:var(--green);
 }
-.btn.primary,.btn.active {
+
+.btn.primary,
+.btn.active {
   background:var(--green);
   color:#052e16;
   border-color:var(--green);
   font-weight:800;
 }
+
+/* =========================================================
+   3. REGISTO, AUTENTICAÇÃO E CONTA
+   ========================================================= */
+
 .auth-wrap { padding:15px 22px 0; }
+
 #auth-area {
   background:var(--panel);
   border:1px solid var(--border);
@@ -105,11 +143,13 @@ header {
   gap:10px;
   align-items:center;
 }
+
 #auth-area h2 {
   width:100%;
   margin:0 0 3px;
   font-size:18px;
 }
+
 #auth-area input {
   flex:1 1 190px;
   min-width:0;
@@ -119,6 +159,7 @@ header {
   border:1px solid var(--border);
   border-radius:9px;
 }
+
 #auth-area button {
   padding:11px 14px;
   border:1px solid var(--border);
@@ -126,13 +167,19 @@ header {
   background:var(--panel2);
   color:var(--text);
 }
+
 #auth-area #signup-btn {
   background:var(--green);
   color:#052e16;
   border-color:var(--green);
   font-weight:800;
 }
-#auth-area button:disabled { opacity:.6; cursor:wait; }
+
+#auth-area button:disabled {
+  opacity:.6;
+  cursor:wait;
+}
+
 #auth-message {
   width:100%;
   margin:2px 0 0;
@@ -140,7 +187,13 @@ header {
   color:var(--muted);
   overflow-wrap:anywhere;
 }
+
+/* =========================================================
+   4. CONTEÚDO PRINCIPAL E TÍTULOS
+   ========================================================= */
+
 .container { padding:25px 22px 50px; }
+
 .hero {
   display:flex;
   justify-content:space-between;
@@ -148,6 +201,7 @@ header {
   gap:20px;
   margin-bottom:24px;
 }
+
 .eyebrow {
   color:var(--green);
   font-weight:800;
@@ -155,46 +209,75 @@ header {
   font-size:11px;
   letter-spacing:2px;
 }
+
 h1 {
   margin:6px 0;
   font-size:clamp(27px,4vw,39px);
   letter-spacing:-1px;
 }
-.subtitle { color:var(--muted); font-size:13px; }
+
+.subtitle {
+  color:var(--muted);
+  font-size:13px;
+}
+
 .refresh-info {
   color:var(--muted);
   font-size:12px;
   text-align:right;
 }
-.panel,.side-panel,.match-card {
+
+/* =========================================================
+   5. PAINÉIS E CALENDÁRIO
+   ========================================================= */
+
+.panel,
+.side-panel,
+.match-card {
   background:var(--panel);
   border:1px solid var(--border);
   border-radius:15px;
 }
-.panel { padding:17px; margin-bottom:20px; }
-.section-heading,.matches-heading {
+
+.panel {
+  padding:17px;
+  margin-bottom:20px;
+}
+
+.section-heading,
+.matches-heading {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
   margin-bottom:15px;
 }
-.section-heading h2,.matches-heading h2 {
+
+.section-heading h2,
+.matches-heading h2 {
   margin:0;
   font-size:18px;
 }
+
 .section-heading small { color:var(--muted); }
-.calendar-controls { display:flex; gap:7px; }
+
+.calendar-controls {
+  display:flex;
+  gap:7px;
+}
+
 .calendar-controls button {
   min-width:36px;
   min-height:35px;
   padding:5px 10px;
 }
+
 .calendar {
   display:grid;
   grid-template-columns:repeat(10,minmax(0,1fr));
   gap:8px;
 }
+
 .day {
   min-width:0;
   min-height:84px;
@@ -209,16 +292,43 @@ h1 {
   gap:5px;
   padding:7px 2px;
 }
+
 .day.selected {
   border:2px solid var(--green);
   background:#103322;
 }
+
 .day.today:not(.selected) { border-color:#527b60; }
-.day-name,.day-month { color:var(--muted); font-size:10px; }
-.day-number { font-size:22px; font-weight:850; }
-.today-tag { color:var(--green); font-size:9px; font-weight:800; }
-.toolbar { display:flex; gap:10px; margin-bottom:18px; }
+
+.day-name,
+.day-month {
+  color:var(--muted);
+  font-size:10px;
+}
+
+.day-number {
+  font-size:22px;
+  font-weight:850;
+}
+
+.today-tag {
+  color:var(--green);
+  font-size:9px;
+  font-weight:800;
+}
+
+/* =========================================================
+   6. PESQUISA E FILTROS DE COMPETIÇÕES
+   ========================================================= */
+
+.toolbar {
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
+
 .search-wrap { flex:1; }
+
 .search-wrap input {
   width:100%;
   padding:13px;
@@ -227,29 +337,38 @@ h1 {
   border:1px solid var(--border);
   border-radius:11px;
 }
+
 .filters {
   display:flex;
   flex-wrap:wrap;
   gap:8px;
   margin-bottom:20px;
 }
+
 .filter {
   border-radius:20px;
   color:var(--muted);
   font-size:12px;
   font-weight:700;
 }
+
 .filter.active {
   background:var(--green);
   color:#052e16;
   border-color:var(--green);
 }
+
+/* =========================================================
+   7. LISTA DE JOGOS E CARTÕES
+   ========================================================= */
+
 .content-grid {
   display:grid;
   grid-template-columns:minmax(0,1fr) 285px;
   gap:20px;
   align-items:start;
 }
+
 .count {
   border-radius:20px;
   padding:4px 9px;
@@ -257,6 +376,16 @@ h1 {
   color:var(--muted);
   font-size:12px;
 }
+
+/* Cabeçalho de cada liga, incluindo o novo botão de classificação. */
+.league-heading-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin:22px 0 10px;
+}
+
 .league-label {
   display:flex;
   align-items:center;
@@ -264,15 +393,45 @@ h1 {
   color:#c6d2e3;
   font-size:13px;
   font-weight:800;
-  margin:22px 0 10px;
+  margin:0;
+  min-width:0;
 }
+
 .league-dot {
   width:8px;
   height:8px;
   border-radius:50%;
   background:var(--green);
+  flex-shrink:0;
 }
-.match-card { padding:13px 15px; margin-bottom:9px; }
+
+/* Botão para abrir a classificação da respetiva competição. */
+.standings-btn {
+  flex-shrink:0;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:8px;
+  padding:7px 10px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.standings-btn:hover {
+  border-color:var(--green);
+  color:var(--green);
+}
+
+.match-card {
+  padding:13px 15px;
+  margin-bottom:9px;
+  cursor:pointer;
+  transition:border-color .15s,transform .15s;
+}
+
+.match-card:hover { border-color:#527b60; }
+
 .match-top {
   display:flex;
   justify-content:space-between;
@@ -281,16 +440,19 @@ h1 {
   font-size:11px;
   margin-bottom:12px;
 }
+
 .match-status { font-weight:800; }
 .match-status.live { color:#f87171; }
 .match-status.finished { color:#a3b1c5; }
 .match-status.scheduled { color:var(--green); }
+
 .match-main {
   display:grid;
   grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr);
   gap:8px;
   align-items:center;
 }
+
 .team {
   display:flex;
   align-items:center;
@@ -299,24 +461,33 @@ h1 {
   font-size:13px;
   font-weight:750;
 }
-.team.away { justify-content:flex-end; text-align:right; }
+
+.team.away {
+  justify-content:flex-end;
+  text-align:right;
+}
+
 .team img {
   width:27px;
   height:27px;
   object-fit:contain;
   flex-shrink:0;
 }
+
 .team-name { overflow-wrap:anywhere; }
+
 .score {
   text-align:center;
   font-weight:900;
   font-size:21px;
   white-space:nowrap;
 }
+
 .score.pending {
   color:var(--muted);
   font-size:12px;
 }
+
 .card-bottom {
   display:flex;
   justify-content:space-between;
@@ -326,17 +497,40 @@ h1 {
   padding-top:10px;
   border-top:1px solid #1d293a;
 }
-.card-bottom small { color:var(--muted); font-size:10px; }
+
+.card-bottom small {
+  color:var(--muted);
+  font-size:10px;
+}
+
 .card-bottom button {
   border:0;
   background:transparent;
   color:var(--muted);
   padding:4px;
+  position:relative;
+  z-index:1;
 }
+
 .card-bottom button.fav { color:#fbbf24; }
-.sidebar { display:flex; flex-direction:column; gap:15px; }
+
+/* =========================================================
+   8. PAINEL LATERAL E ESTATÍSTICAS
+   ========================================================= */
+
+.sidebar {
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
 .side-panel { padding:16px; }
-.side-panel h3 { margin:0 0 14px; font-size:14px; }
+
+.side-panel h3 {
+  margin:0 0 14px;
+  font-size:14px;
+}
+
 .stat-row {
   display:flex;
   justify-content:space-between;
@@ -346,9 +540,15 @@ h1 {
   border-bottom:1px solid #202d40;
   font-size:12px;
 }
+
 .stat-row:last-child { border-bottom:0; }
 .stat-row span { color:var(--muted); }
 .stat-row button { margin-left:auto; }
+
+/* =========================================================
+   9. MENSAGENS, CARREGAMENTO E RODAPÉ
+   ========================================================= */
+
 .empty {
   text-align:center;
   padding:35px 18px;
@@ -356,8 +556,15 @@ h1 {
   border:1px dashed var(--border);
   border-radius:15px;
 }
+
 .empty h3 { margin:0 0 8px; }
-.empty p { color:var(--muted); font-size:13px; line-height:1.6; }
+
+.empty p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
 .api-message {
   display:none;
   background:#291a18;
@@ -369,8 +576,15 @@ h1 {
   font-size:12px;
   line-height:1.6;
 }
+
 .api-message.show { display:block; }
-.loading { padding:35px 15px; text-align:center; color:var(--muted); }
+
+.loading {
+  padding:35px 15px;
+  text-align:center;
+  color:var(--muted);
+}
+
 .spinner {
   width:26px;
   height:26px;
@@ -380,7 +594,11 @@ h1 {
   animation:spin .7s linear infinite;
   margin:0 auto 12px;
 }
-@keyframes spin { to { transform:rotate(360deg); } }
+
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}
+
 footer {
   border-top:1px solid var(--border);
   text-align:center;
@@ -390,75 +608,369 @@ footer {
   line-height:1.7;
 }
 
-/* JANELA DE DETALHES DO JOGO */
-.match-card { cursor:pointer; transition:border-color .15s,transform .15s; }
-.match-card:hover { border-color:#527b60; }
-.match-card .card-bottom button { position:relative; z-index:1; }
-.match-modal-backdrop { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.76); display:none; align-items:center; justify-content:center; padding:16px; }
+/* =========================================================
+   10. JANELA DE DETALHES DO JOGO
+   ========================================================= */
+
+.match-modal-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(0,0,0,.76);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+
 .match-modal-backdrop.open { display:flex; }
-.match-modal { width:min(760px,100%); max-height:90vh; overflow:auto; background:var(--panel); border:1px solid var(--border); border-radius:16px; box-shadow:0 25px 80px rgba(0,0,0,.5); }
-.match-modal-header { position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:15px 18px; background:var(--panel); border-bottom:1px solid var(--border); }
-.match-modal-header h2 { margin:0; font-size:17px; }
-.match-modal-close { border:1px solid var(--border); background:var(--panel2); color:var(--text); border-radius:9px; padding:7px 11px; }
+
+.match-modal {
+  width:min(760px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 25px 80px rgba(0,0,0,.5);
+}
+
+.match-modal-header {
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:15px 18px;
+  background:var(--panel);
+  border-bottom:1px solid var(--border);
+}
+
+.match-modal-header h2 {
+  margin:0;
+  font-size:17px;
+}
+
+.match-modal-close {
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:9px;
+  padding:7px 11px;
+}
+
 .match-modal-body { padding:18px; }
-.detail-scoreline { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:12px; text-align:center; margin-bottom:18px; }
-.detail-team { font-weight:800; overflow-wrap:anywhere; }
-.detail-score { font-size:28px; font-weight:900; white-space:nowrap; }
-.detail-meta { color:var(--muted); font-size:13px; line-height:1.8; margin-bottom:18px; }
+
+.detail-scoreline {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:12px;
+  text-align:center;
+  margin-bottom:18px;
+}
+
+.detail-team {
+  font-weight:800;
+  overflow-wrap:anywhere;
+}
+
+.detail-score {
+  font-size:28px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.detail-meta {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+  margin-bottom:18px;
+}
+
 .detail-section { margin-top:20px; }
-.detail-section h3 { font-size:15px; margin:0 0 10px; }
-.detail-table { width:100%; border-collapse:collapse; font-size:12px; }
-.detail-table th,.detail-table td { padding:9px 7px; border-bottom:1px solid var(--border); text-align:left; }
-.detail-table th { color:var(--muted); font-weight:700; }
-.detail-table td:last-child,.detail-table th:last-child { text-align:right; }
-.detail-player-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.detail-player-team { border:1px solid var(--border); border-radius:11px; padding:12px; min-width:0; }
-.detail-player-team h4 { margin:0 0 8px; font-size:13px; }
-.detail-player-list { list-style:none; padding:0; margin:0; }
-.detail-player-list li { padding:7px 0; border-bottom:1px solid #202d40; font-size:12px; overflow-wrap:anywhere; }
+
+.detail-section h3 {
+  font-size:15px;
+  margin:0 0 10px;
+}
+
+.detail-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+.detail-table th,
+.detail-table td {
+  padding:9px 7px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+}
+
+.detail-table th {
+  color:var(--muted);
+  font-weight:700;
+}
+
+.detail-table td:last-child,
+.detail-table th:last-child {
+  text-align:right;
+}
+
+.detail-player-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.detail-player-team {
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:12px;
+  min-width:0;
+}
+
+.detail-player-team h4 {
+  margin:0 0 8px;
+  font-size:13px;
+}
+
+.detail-player-list {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.detail-player-list li {
+  padding:7px 0;
+  border-bottom:1px solid #202d40;
+  font-size:12px;
+  overflow-wrap:anywhere;
+}
+
 .detail-player-list li:last-child { border-bottom:0; }
-.detail-muted { color:var(--muted); font-size:12px; line-height:1.6; }
-.detail-loading { padding:18px 0; color:var(--muted); text-align:center; }
-@media(max-width:600px) { .match-modal-body { padding:13px; } .detail-player-grid { grid-template-columns:1fr; } .detail-score { font-size:22px; } .detail-scoreline { gap:6px; } }
+
+.detail-muted {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+.detail-loading {
+  padding:18px 0;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* =========================================================
+   11. NOVA JANELA DE CLASSIFICAÇÃO
+   ========================================================= */
+
+.standings-modal {
+  width:min(1050px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 25px 80px rgba(0,0,0,.5);
+}
+
+.standings-content {
+  padding:18px;
+  overflow:auto;
+}
+
+.standings-content h3 {
+  font-size:14px;
+  margin:18px 0 10px;
+}
+
+.standings-content h3:first-child { margin-top:0; }
+
+.standings-table-wrap {
+  width:100%;
+  overflow-x:auto;
+  margin-bottom:18px;
+}
+
+.standings-table {
+  width:100%;
+  min-width:660px;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+.standings-table th,
+.standings-table td {
+  padding:10px 8px;
+  border-bottom:1px solid var(--border);
+  text-align:center;
+  white-space:nowrap;
+}
+
+.standings-table th {
+  color:var(--muted);
+  font-weight:800;
+  background:#0c1422;
+}
+
+.standings-table tbody tr:hover { background:var(--panel2); }
+
+.standings-table td:nth-child(2),
+.standings-table th:nth-child(2) {
+  text-align:left;
+}
+
+.standings-team {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:140px;
+  font-weight:700;
+}
+
+.standings-team img {
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+.standings-position { color:var(--muted); }
+
+.standings-points {
+  color:var(--green);
+  font-weight:900;
+}
+
+.standings-note {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.standings-loading {
+  text-align:center;
+  padding:28px 12px;
+  color:var(--muted);
+}
+
+/* =========================================================
+   12. ADAPTAÇÃO A TABLETS E TELEMÓVEIS
+   ========================================================= */
 
 @media(max-width:900px) {
   .content-grid { grid-template-columns:1fr; }
-  .sidebar { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+
+  .sidebar {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
 }
+
 @media(max-width:600px) {
   .header-inner { padding:12px; }
-  .header-actions { flex-wrap:wrap; justify-content:flex-end; }
+
+  .header-actions {
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
   .brand { font-size:20px; }
-  .brand-icon { width:35px; height:35px; }
+
+  .brand-icon {
+    width:35px;
+    height:35px;
+  }
+
   .auth-wrap { padding:12px 12px 0; }
+
   #auth-area button { flex:1 1 100%; }
+
   .container { padding:19px 12px 35px; }
+
   .hero { align-items:flex-start; }
-  .refresh-info { max-width:105px; font-size:10px; }
+
+  .refresh-info {
+    max-width:105px;
+    font-size:10px;
+  }
+
   .panel { padding:12px; }
+
   .calendar { gap:4px; }
+
   .day { min-height:69px; }
+
   .day-number { font-size:18px; }
-  .day-name,.day-month { font-size:9px; }
+
+  .day-name,
+  .day-month { font-size:9px; }
+
   .toolbar { flex-wrap:wrap; }
+
   .match-card { padding:11px 9px; }
-  .match-main { grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr); gap:3px; }
-  .team { gap:4px; font-size:11px; }
-  .team img { width:21px; height:21px; }
+
+  .match-main {
+    grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);
+    gap:3px;
+  }
+
+  .team {
+    gap:4px;
+    font-size:11px;
+  }
+
+  .team img {
+    width:21px;
+    height:21px;
+  }
+
   .score { font-size:17px; }
+
   .sidebar { grid-template-columns:1fr; }
+
+  .match-modal-body { padding:13px; }
+
+  .detail-player-grid { grid-template-columns:1fr; }
+
+  .detail-score { font-size:22px; }
+
+  .detail-scoreline { gap:6px; }
+
+  .standings-modal { max-height:94vh; }
+
+  .standings-content { padding:10px; }
+
+  .standings-btn {
+    font-size:10px;
+    padding:7px 8px;
+  }
+
+  .league-label { font-size:12px; }
 }
 </style>
 </head>
 
 <body>
 
+<!-- =======================================================
+     CONTA GOALLIVE
+     Permite criar uma conta, iniciar sessão e sincronizar
+     os jogos favoritos através do Supabase.
+     ======================================================= -->
+
 <div class="auth-wrap">
   <section id="auth-area">
     <h2>⚽ Conta GoalLive</h2>
 
     <input id="auth-email" type="email"
-      placeholder="O teu endereço de correio eletrónico" autocomplete="email">
+      placeholder="O teu endereço de correio eletrónico"
+      autocomplete="email">
 
     <input id="auth-password" type="password"
       placeholder="Palavra-passe (mínimo de 6 caracteres)"
@@ -472,12 +984,15 @@ footer {
   </section>
 </div>
 
+<!-- Cabeçalho principal da aplicação. -->
+
 <header>
   <div class="header-inner">
     <div class="brand">
       <div class="brand-icon">⚽</div>
       Goal<span>Live</span>
     </div>
+
     <div class="header-actions">
       <span class="live-label">● FUTEBOL</span>
       <button class="btn" id="refreshBtn" type="button">↻ Atualizar</button>
@@ -485,18 +1000,28 @@ footer {
   </div>
 </header>
 
+<!-- =======================================================
+     CONTEÚDO PRINCIPAL
+     ======================================================= -->
+
 <main class="container">
+
+  <!-- Título, descrição e hora da última atualização. -->
+
   <section class="hero">
     <div>
       <div class="eyebrow">O teu futebol, em direto</div>
       <h1>Resultados de futebol</h1>
       <div class="subtitle">Jogos, resultados e calendário, tudo num só lugar.</div>
     </div>
+
     <div class="refresh-info">
       <div>Atualização automática</div>
       <strong id="lastUpdate">A iniciar…</strong>
     </div>
   </section>
+
+  <!-- Calendário com dez dias e controlos de navegação. -->
 
   <section class="panel">
     <div class="section-heading">
@@ -504,14 +1029,18 @@ footer {
         <h2>📅 Calendário</h2>
         <small id="calendarRange">Próximos 10 dias</small>
       </div>
+
       <div class="calendar-controls">
         <button type="button" id="prevWindow" aria-label="Dez dias anteriores">‹</button>
         <button type="button" id="todayBtn">Hoje</button>
         <button type="button" id="nextWindow" aria-label="Dez dias seguintes">›</button>
       </div>
     </div>
+
     <div class="calendar" id="calendar"></div>
   </section>
+
+  <!-- Pesquisa de equipas, competições e acesso aos favoritos. -->
 
   <div class="toolbar">
     <label class="search-wrap">
@@ -519,11 +1048,19 @@ footer {
         placeholder="Pesquisar equipa ou competição…"
         aria-label="Pesquisar jogos">
     </label>
+
     <button class="btn" id="favoritesBtn" type="button">☆ Favoritos</button>
   </div>
 
+  <!-- Os filtros das ligas são criados pelo JavaScript. -->
+
   <div class="filters" id="leagueFilters"></div>
+
+  <!-- Mensagens de erro da API, quando existirem. -->
+
   <div class="api-message" id="apiMessage" role="status"></div>
+
+  <!-- Lista dos jogos e painel lateral. -->
 
   <div class="content-grid">
     <section>
@@ -531,87 +1068,173 @@ footer {
         <h2 id="matchesTitle">Jogos</h2>
         <span class="count" id="matchCount">0 jogos</span>
       </div>
+
       <div id="matches">
         <div class="loading">
-          <div class="spinner"></div>A carregar jogos…
+          <div class="spinner"></div>
+          A carregar jogos…
         </div>
       </div>
     </section>
 
     <aside class="sidebar">
+
+      <!-- Estatísticas dos jogos da seleção atual. -->
+
       <section class="side-panel">
         <h3>📊 Resumo do dia</h3>
+
         <div class="stat-row">
           <span>Total de jogos</span>
           <strong id="statTotal">—</strong>
         </div>
+
         <div class="stat-row">
           <span>Em direto</span>
           <strong id="statLive">—</strong>
         </div>
+
         <div class="stat-row">
           <span>Terminados</span>
           <strong id="statFinished">—</strong>
         </div>
+
         <div class="stat-row">
           <span>Por começar</span>
           <strong id="statUpcoming">—</strong>
         </div>
       </section>
 
+      <!-- Equipas favoritas guardadas no navegador. -->
+
       <section class="side-panel">
         <h3>⭐ Equipas favoritas</h3>
-        <div id="favoriteTeams" class="subtitle">Ainda não tens favoritos.</div>
+
+        <div id="favoriteTeams" class="subtitle">
+          Ainda não tens favoritos.
+        </div>
+
         <p class="subtitle" style="font-size:11px;line-height:1.6">
-          Os jogos favoritos são sincronizados com a tua conta. As equipas favoritas ficam guardadas apenas neste navegador.
+          Os jogos favoritos são sincronizados com a tua conta.
+          As equipas favoritas ficam guardadas apenas neste navegador.
         </p>
       </section>
 
+      <!-- Informação sobre a origem dos resultados. -->
+
       <section class="side-panel">
         <h3>ℹ️ Sobre os resultados</h3>
+
         <div class="subtitle" style="font-size:12px;line-height:1.7">
-          Os resultados são obtidos através da API pública da ESPN. A informação disponível depende dos dados fornecidos pela ESPN.
+          Os resultados são obtidos através da API pública da ESPN.
+          A informação disponível depende dos dados fornecidos pela ESPN.
         </div>
       </section>
     </aside>
   </div>
 </main>
 
+<!-- =======================================================
+     JANELA DE DETALHES DO JOGO
+     Mostra o resultado, as estatísticas e os jogadores
+     quando a ESPN disponibiliza essa informação.
+     ======================================================= -->
 
-<div id="matchModalBackdrop" class="match-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="matchModalTitle">
+<div id="matchModalBackdrop"
+  class="match-modal-backdrop"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="matchModalTitle">
+
   <section class="match-modal">
     <div class="match-modal-header">
       <h2 id="matchModalTitle">Detalhes do jogo</h2>
-      <button type="button" id="matchModalClose" class="match-modal-close" aria-label="Fechar detalhes">✕ Fechar</button>
+
+      <button type="button"
+        id="matchModalClose"
+        class="match-modal-close"
+        aria-label="Fechar detalhes">
+        ✕ Fechar
+      </button>
     </div>
+
     <div class="match-modal-body" id="matchModalBody">
       <div class="detail-loading">A carregar detalhes…</div>
     </div>
   </section>
 </div>
 
+<!-- =======================================================
+     NOVA JANELA DE CLASSIFICAÇÃO
+     O JavaScript preenche esta janela com a tabela da liga
+     selecionada, usando o serviço de classificações da ESPN.
+     ======================================================= -->
+
+<div id="standingsBackdrop"
+  class="match-modal-backdrop"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="standingsModalTitle">
+
+  <section class="standings-modal">
+    <div class="match-modal-header">
+      <h2 id="standingsModalTitle">Classificação</h2>
+
+      <button type="button"
+        id="standingsModalClose"
+        class="match-modal-close"
+        aria-label="Fechar classificação">
+        ✕ Fechar
+      </button>
+    </div>
+
+    <div id="standingsBody" class="standings-content">
+      <div class="standings-loading">A carregar classificação…</div>
+    </div>
+  </section>
+</div>
+
+<!-- Rodapé da aplicação. -->
+
 <footer>
   <strong>GoalLive</strong> · Resultados de futebol<br>
   Dados de jogos fornecidos pela ESPN. Este projeto não é afiliado à ESPN.
 </footer>
 
-<!-- Biblioteca Supabase: tem de carregar antes do código principal -->
+<!-- A biblioteca do Supabase tem de carregar antes do código principal. -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
 <script>
 "use strict";
 
-/* CONFIGURAÇÃO SUPABASE */
+/* =========================================================
+   1. CONFIGURAÇÃO DO SUPABASE
+   ========================================================= */
+
+// O Supabase é utilizado para a autenticação e sincronização
+// dos jogos favoritos. A chave publicada é destinada ao cliente;
+// as permissões devem ser controladas pelas políticas RLS.
+
 const SUPABASE_URL = "https://devulhgffsufreqtvjhd.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_hieGFZq0tHSb517V4mSCWA_WEF1EWvR";
 
 const supabaseClient =
   window.supabase &&
   typeof window.supabase.createClient === "function"
-    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+    ? window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      )
     : null;
 
-/* COMPETIÇÕES */
+
+/* =========================================================
+   2. COMPETIÇÕES E CONSTANTES
+   ========================================================= */
+
+// Os identificadores são os usados nos endereços da API ESPN.
+
 const LEAGUES = [
   { id:"uefa.champions", name:"Liga dos Campeões", country:"Europa" },
   { id:"eng.1", name:"Premier League", country:"Inglaterra" },
@@ -622,9 +1245,19 @@ const LEAGUES = [
   { id:"por.1", name:"Primeira Liga", country:"Portugal" }
 ];
 
-const API_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
+const API_BASE =
+  "https://site.api.espn.com/apis/site/v2/sports/soccer/";
+
 const DAY_COUNT = 10;
 const REFRESH_MS = 60000;
+
+
+/* =========================================================
+   3. ESTADO DA APLICAÇÃO
+   ========================================================= */
+
+// Estes valores controlam a data, os filtros, os jogos
+// carregados e a informação da conta atual.
 
 const $ = id => document.getElementById(id);
 
@@ -636,9 +1269,20 @@ let favoritesOnly = false;
 let allMatches = [];
 let requestNumber = 0;
 let lastSuccessfulFetch = null;
+
 let favoriteIds = loadStorage("goallive-favorite-matches", []);
 let favoriteTeams = loadStorage("goallive-favorite-teams", []);
-let authMessageTimer = null;
+
+// Cache temporária para evitar pedidos repetidos da classificação.
+const standingsCache = new Map();
+
+
+/* =========================================================
+   4. FUNÇÕES GERAIS E ARMAZENAMENTO LOCAL
+   ========================================================= */
+
+// Lê informação do localStorage sem interromper a aplicação
+// se o navegador bloquear o armazenamento ou houver JSON inválido.
 
 function loadStorage(key, fallback) {
   try {
@@ -649,6 +1293,8 @@ function loadStorage(key, fallback) {
   }
 }
 
+// Guarda informação local de forma segura.
+
 function saveStorage(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
@@ -657,9 +1303,17 @@ function saveStorage(key, value) {
   }
 }
 
+// Devolve uma data à meia-noite local.
+
 function startOfDay(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  return new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  );
 }
+
+// Adiciona dias sem alterar a data original.
 
 function addDays(date, amount) {
   const result = new Date(date);
@@ -667,9 +1321,13 @@ function addDays(date, amount) {
   return result;
 }
 
+// Converte uma data para o formato AAAAMMDD exigido pela ESPN.
+
 function formatApiDate(date) {
   return `${date.getFullYear()}${String(date.getMonth()+1).padStart(2,"0")}${String(date.getDate()).padStart(2,"0")}`;
 }
+
+// Verifica se duas datas correspondem ao mesmo dia.
 
 function sameDay(a, b) {
   return a.getFullYear() === b.getFullYear() &&
@@ -677,52 +1335,95 @@ function sameDay(a, b) {
     a.getDate() === b.getDate();
 }
 
+// Formata datas para português de Portugal.
+
 function formatDate(date, options = {}) {
   return new Intl.DateTimeFormat("pt-PT", options).format(date);
 }
 
+// Protege texto recebido da API antes de o inserir em HTML.
+
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
   })[char]);
 }
 
+// Normaliza texto para facilitar pesquisas e comparações.
+
 function normalize(value) {
-  return String(value ?? "").normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  return String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
 }
 
-/* MENSAGENS DA CONTA */
+
+/* =========================================================
+   5. TRADUÇÃO DE ERROS DA CONTA
+   ========================================================= */
+
+// Converte erros técnicos frequentes do Supabase em mensagens
+// mais fáceis de compreender.
+
 function traduzirErro(message) {
   const original = String(message || "").trim();
   const chave = normalize(original);
-  if (!chave) return "Ocorreu um erro inesperado. Tenta novamente.";
+
+  if (!chave) {
+    return "Ocorreu um erro inesperado. Tenta novamente.";
+  }
+
   const regras = [
-    [/email rate limit exceeded|rate limit.*email/, "Foram enviados demasiados pedidos de email. Aguarda um pouco antes de tentares novamente."],
-    [/invalid login credentials|invalid email or password/, "O endereço de email ou a palavra-passe estão incorretos."],
-    [/email not confirmed/, "Ainda não confirmaste o endereço de email. Consulta a tua caixa de entrada."],
-    [/user already registered|already registered/, "Já existe uma conta com este endereço de email."],
-    [/password should be at least|password.*6 characters|weak password/, "A palavra-passe é demasiado fraca. Usa pelo menos 6 caracteres."],
-    [/invalid email/, "O endereço de email não é válido."],
-    [/network request failed|failed to fetch|load failed/, "Não foi possível ligar ao serviço. Verifica a ligação à Internet e tenta novamente."],
-    [/too many requests|rate limit exceeded/, "Foram feitas demasiadas tentativas. Aguarda um pouco e tenta novamente."],
-    [/database error saving new user/, "Não foi possível criar a conta neste momento. Tenta novamente mais tarde."],
-    [/row-level security|row level security|violates row-level security/, "Não foi possível aceder aos favoritos. É necessário verificar as permissões da base de dados."]
+    [/email rate limit exceeded|rate limit.*email/,
+      "Foram enviados demasiados pedidos de email. Aguarda um pouco antes de tentares novamente."],
+    [/invalid login credentials|invalid email or password/,
+      "O endereço de email ou a palavra-passe estão incorretos."],
+    [/email not confirmed/,
+      "Ainda não confirmaste o endereço de email. Consulta a tua caixa de entrada."],
+    [/user already registered|already registered/,
+      "Já existe uma conta com este endereço de email."],
+    [/password should be at least|password.*6 characters|weak password/,
+      "A palavra-passe é demasiado fraca. Usa pelo menos 6 caracteres."],
+    [/invalid email/,
+      "O endereço de email não é válido."],
+    [/network request failed|failed to fetch|load failed/,
+      "Não foi possível ligar ao serviço. Verifica a ligação à Internet e tenta novamente."],
+    [/too many requests|rate limit exceeded/,
+      "Foram feitas demasiadas tentativas. Aguarda um pouco e tenta novamente."],
+    [/database error saving new user/,
+      "Não foi possível criar a conta neste momento. Tenta novamente mais tarde."],
+    [/row-level security|row level security|violates row-level security/,
+      "Não foi possível aceder aos favoritos. É necessário verificar as permissões da base de dados."]
   ];
-  for (const [padrao, traducao] of regras) if (padrao.test(chave)) return traducao;
-  // Se o serviço devolver uma mensagem inglesa desconhecida, não a mostramos diretamente.
+
+  for (const [padrao, traducao] of regras) {
+    if (padrao.test(chave)) return traducao;
+  }
+
   if (/^[a-z0-9 ,.'":;_()-]+$/i.test(original) && /[a-z]/i.test(original)) {
     return "Ocorreu um erro ao comunicar com o serviço. Tenta novamente mais tarde.";
   }
+
   return original;
 }
+
+// Apresenta uma mensagem na área da conta.
 
 function showAuthMessage(message, isError = false) {
   const element = $("auth-message");
   if (!element) return;
+
   element.textContent = message;
   element.style.color = isError ? "#f87171" : "var(--muted)";
 }
+
+// Atualiza os campos e botões consoante o estado da sessão.
 
 function updateAuthUI() {
   const signedIn = Boolean(currentUser);
@@ -737,16 +1438,26 @@ function updateAuthUI() {
     $("auth-password").value = "";
     $("auth-message").textContent =
       "Sessão iniciada: " + (currentUser.email || "utilizador");
+
     $("auth-message").style.color = "var(--green)";
   } else {
     $("auth-message").style.color = "var(--muted)";
   }
 }
 
-/* REGISTO */
+
+/* =========================================================
+   6. REGISTO, LOGIN E LOGOUT
+   ========================================================= */
+
+// Cria uma nova conta através do Supabase Auth.
+
 async function signUpUser() {
   if (!supabaseClient) {
-    showAuthMessage("A biblioteca Supabase não carregou. Atualiza a página e verifica a ligação à Internet.", true);
+    showAuthMessage(
+      "A biblioteca Supabase não carregou. Atualiza a página e verifica a ligação à Internet.",
+      true
+    );
     return;
   }
 
@@ -754,12 +1465,18 @@ async function signUpUser() {
   const password = $("auth-password").value;
 
   if (!email || !password) {
-    showAuthMessage("Preenche o endereço de correio eletrónico e a palavra-passe.", true);
+    showAuthMessage(
+      "Preenche o endereço de correio eletrónico e a palavra-passe.",
+      true
+    );
     return;
   }
 
   if (password.length < 6) {
-    showAuthMessage("A palavra-passe deve ter pelo menos 6 caracteres.", true);
+    showAuthMessage(
+      "A palavra-passe deve ter pelo menos 6 caracteres.",
+      true
+    );
     return;
   }
 
@@ -776,19 +1493,28 @@ async function signUpUser() {
     if (data.session) {
       showAuthMessage("Conta criada e sessão iniciada.");
     } else {
-      showAuthMessage("Registo recebido. Verifica o teu correio eletrónico para confirmares a conta. Se não receberes a mensagem, verifica também a pasta de spam.");
+      showAuthMessage(
+        "Registo recebido. Verifica o teu correio eletrónico para confirmares a conta. Se não receberes a mensagem, verifica também a pasta de spam."
+      );
     }
   } catch (error) {
-    showAuthMessage(traduzirErro(error.message) || "Não foi possível criar a conta.", true);
+    showAuthMessage(
+      traduzirErro(error.message) || "Não foi possível criar a conta.",
+      true
+    );
   } finally {
     $("signup-btn").disabled = false;
   }
 }
 
-/* INICIAR SESSÃO */
+// Inicia sessão numa conta existente.
+
 async function signInUser() {
   if (!supabaseClient) {
-    showAuthMessage("A biblioteca Supabase não carregou. Atualiza a página e verifica a ligação à Internet.", true);
+    showAuthMessage(
+      "A biblioteca Supabase não carregou. Atualiza a página e verifica a ligação à Internet.",
+      true
+    );
     return;
   }
 
@@ -796,7 +1522,10 @@ async function signInUser() {
   const password = $("auth-password").value;
 
   if (!email || !password) {
-    showAuthMessage("Preenche o endereço de correio eletrónico e a palavra-passe.", true);
+    showAuthMessage(
+      "Preenche o endereço de correio eletrónico e a palavra-passe.",
+      true
+    );
     return;
   }
 
@@ -807,36 +1536,56 @@ async function signInUser() {
       email,
       password
     });
+
     if (error) throw error;
+
     showAuthMessage("Sessão iniciada com sucesso.");
   } catch (error) {
-    showAuthMessage(traduzirErro(error.message) || "Não foi possível iniciar sessão.", true);
+    showAuthMessage(
+      traduzirErro(error.message) || "Não foi possível iniciar sessão.",
+      true
+    );
   } finally {
     $("login-btn").disabled = false;
   }
 }
 
-/* TERMINAR SESSÃO */
+// Termina a sessão atual.
+
 async function signOutUser() {
   if (!supabaseClient) return;
 
   $("logout-btn").disabled = true;
+
   try {
     const { error } = await supabaseClient.auth.signOut();
+
     if (error) throw error;
+
     showAuthMessage("Sessão terminada.");
   } catch (error) {
-    showAuthMessage(traduzirErro(error.message) || "Não foi possível terminar a sessão.", true);
+    showAuthMessage(
+      traduzirErro(error.message) || "Não foi possível terminar a sessão.",
+      true
+    );
   } finally {
     $("logout-btn").disabled = false;
   }
 }
 
-/* FAVORITOS NA BASE DE DADOS */
+
+/* =========================================================
+   7. FAVORITOS SINCRONIZADOS COM O SUPABASE
+   ========================================================= */
+
+// Carrega os jogos favoritos guardados na base de dados.
+// A tabela favorite_matches deve ter as colunas user_id e match_id.
+
 async function loadCloudFavorites() {
   if (!supabaseClient || !currentUser) return;
 
   const userId = currentUser.id;
+
   const { data, error } = await supabaseClient
     .from("favorite_matches")
     .select("match_id")
@@ -844,23 +1593,37 @@ async function loadCloudFavorites() {
 
   if (error) {
     console.error("Erro ao carregar favoritos:", error);
-    showAuthMessage("A sessão está iniciada, mas não foi possível carregar os favoritos. Confirma as políticas RLS da tabela favorite_matches.", true);
+
+    showAuthMessage(
+      "A sessão está iniciada, mas não foi possível carregar os favoritos. Confirma as políticas RLS da tabela favorite_matches.",
+      true
+    );
+
     return;
   }
 
-  // Não aplicar resultados se entretanto mudou a conta.
+  // Evita aplicar dados pertencentes a uma conta anterior.
   if (!currentUser || currentUser.id !== userId) return;
 
-  favoriteIds = [...new Set((data || []).map(row => String(row.match_id)))];
+  favoriteIds = [
+    ...new Set((data || []).map(row => String(row.match_id)))
+  ];
+
   saveStorage("goallive-favorite-matches", favoriteIds);
+
   renderMatches();
   updateSummary();
   renderFavoriteTeams();
 }
 
+// Recupera a sessão existente e ouve futuras alterações de autenticação.
+
 async function initAuth() {
   if (!supabaseClient) {
-    showAuthMessage("A biblioteca Supabase não carregou. As contas estão indisponíveis; os resultados podem continuar a funcionar.", true);
+    showAuthMessage(
+      "A biblioteca Supabase não carregou. As contas estão indisponíveis; os resultados podem continuar a funcionar.",
+      true
+    );
     return;
   }
 
@@ -884,13 +1647,14 @@ async function initAuth() {
     updateAuthUI();
 
     if (event === "SIGNED_IN") {
-      // Adiar operações de rede para fora do callback de autenticação.
+      // Evita executar pedidos de rede diretamente neste callback.
       setTimeout(() => loadCloudFavorites(), 0);
     }
 
     if (event === "SIGNED_OUT") {
       favoriteIds = [];
       saveStorage("goallive-favorite-matches", []);
+
       renderMatches();
       updateSummary();
       renderFavoriteTeams();
@@ -898,10 +1662,19 @@ async function initAuth() {
   });
 }
 
-/* DADOS DOS JOGOS */
+
+/* =========================================================
+   8. ESTADOS DOS JOGOS E EQUIPAS
+   ========================================================= */
+
+// Traduz estados comuns da API ESPN para português.
+
 function traduzirEstadoJogo(texto, estado) {
   const original = String(texto || "").trim();
-  const chave = normalize(original).replace(/[.:]/g, "");
+
+  const chave = normalize(original)
+    .replace(/[.:]/g, "");
+
   const traducoes = {
     "in progress":"Em direto",
     "live":"Em direto",
@@ -928,57 +1701,99 @@ function traduzirEstadoJogo(texto, estado) {
     "final":"Terminado",
     "final/ot":"Terminado após prolongamento",
     "ft":"Terminado",
-    "ht":"Intervalo",
-    "live":"Em direto"
+    "ht":"Intervalo"
   };
+
   if (traducoes[chave]) return traducoes[chave];
-  // Evita mostrar etiquetas técnicas da API em inglês.
+
   if (estado === "in") return "Em direto";
   if (estado === "post") return "Terminado";
-  return original && !/^[A-Z0-9'’:+ -]+$/.test(original) ? original : (original ? (estado === "pre" ? "Por começar" : original) : "");
+
+  return original &&
+    !/^[A-Z0-9'’:+ -]+$/.test(original)
+      ? original
+      : (original ? (estado === "pre" ? "Por começar" : original) : "");
 }
+
+// Devolve o estado e a classe CSS a usar no cartão.
 
 function getStatus(event) {
   const type = event.status?.type || {};
   const state = type.state || "";
-  const description = type.shortDetail || type.detail || type.description || "";
+
+  const description =
+    type.shortDetail ||
+    type.detail ||
+    type.description ||
+    "";
+
   const translated = traduzirEstadoJogo(description, state);
 
-  if (state === "in") return { kind:"live", label:translated || "Em direto" };
-  if (state === "post") return { kind:"finished", label:translated || "Terminado" };
+  if (state === "in") {
+    return { kind:"live", label:translated || "Em direto" };
+  }
+
+  if (state === "post") {
+    return { kind:"finished", label:translated || "Terminado" };
+  }
+
   return { kind:"scheduled", label:translated || "Por começar" };
 }
 
+// Identifica a equipa da casa e a equipa visitante.
+
 function getTeams(event) {
   const competitors = event.competitions?.[0]?.competitors || [];
-  const home = competitors.find(team => team.homeAway === "home") || competitors[0];
-  const away = competitors.find(team => team.homeAway === "away") || competitors[1];
+
+  const home =
+    competitors.find(team => team.homeAway === "home") ||
+    competitors[0];
+
+  const away =
+    competitors.find(team => team.homeAway === "away") ||
+    competitors[1];
+
   return { home, away };
 }
+
+// O identificador ESPN é usado para distinguir cada jogo.
 
 function getMatchId(event) {
   return String(event.id);
 }
 
+// Verifica se um jogo já está nos favoritos.
+
 function isFavorite(event) {
   return favoriteIds.includes(getMatchId(event));
 }
 
-/* CALENDÁRIO */
+
+/* =========================================================
+   9. CALENDÁRIO E NAVEGAÇÃO ENTRE DATAS
+   ========================================================= */
+
+// Desenha os dez dias visíveis no calendário.
+
 function renderCalendar() {
   const calendar = $("calendar");
   calendar.innerHTML = "";
 
   for (let i = 0; i < DAY_COUNT; i++) {
     const date = addDays(windowStart, i);
+
     const isToday = sameDay(date, new Date());
     const isSelected = sameDay(date, selectedDate);
 
     const button = document.createElement("button");
+
     button.type = "button";
-    button.className = "day" +
+
+    button.className =
+      "day" +
       (isSelected ? " selected" : "") +
       (isToday ? " today" : "");
+
     button.setAttribute("aria-pressed", String(isSelected));
 
     button.innerHTML = `
@@ -989,17 +1804,22 @@ function renderCalendar() {
     `;
 
     button.addEventListener("click", () => selectDate(date));
+
     calendar.appendChild(button);
   }
 
   const lastDay = addDays(windowStart, DAY_COUNT - 1);
+
   $("calendarRange").textContent =
     `${formatDate(windowStart,{day:"numeric",month:"short"})} – ` +
     `${formatDate(lastDay,{day:"numeric",month:"short",year:"numeric"})}`;
 }
 
+// Seleciona um dia e carrega os jogos correspondentes.
+
 function selectDate(date) {
   selectedDate = startOfDay(date);
+
   const end = addDays(windowStart, DAY_COUNT - 1);
 
   if (selectedDate < windowStart || selectedDate > end) {
@@ -1010,32 +1830,54 @@ function selectDate(date) {
   loadMatches();
 }
 
+// Avança ou recua dez dias.
+
 function moveWindow(amount) {
   windowStart = addDays(windowStart, amount * DAY_COUNT);
   selectedDate = new Date(windowStart);
+
   renderCalendar();
   loadMatches();
 }
 
-/* FILTROS DE LIGAS */
+
+/* =========================================================
+   10. FILTROS DAS LIGAS
+   ========================================================= */
+
+// Cria os botões para filtrar todas as competições ou uma liga.
+
 function renderLeagueFilters() {
   const container = $("leagueFilters");
   container.innerHTML = "";
 
   const options = [
     { id:"all", label:"Todas as competições" },
-    ...LEAGUES.map(league => ({ id:league.id, label:league.name }))
+    ...LEAGUES.map(league => ({
+      id:league.id,
+      label:league.name
+    }))
   ];
 
   options.forEach(option => {
     const button = document.createElement("button");
+
     button.type = "button";
-    button.className = "filter" + (activeLeague === option.id ? " active" : "");
+
+    button.className =
+      "filter" +
+      (activeLeague === option.id ? " active" : "");
+
     button.textContent = option.label;
-    button.setAttribute("aria-pressed", String(activeLeague === option.id));
+
+    button.setAttribute(
+      "aria-pressed",
+      String(activeLeague === option.id)
+    );
 
     button.addEventListener("click", () => {
       activeLeague = option.id;
+
       renderLeagueFilters();
       renderMatches();
       updateSummary();
@@ -1045,12 +1887,26 @@ function renderLeagueFilters() {
   });
 }
 
-/* API DE RESULTADOS */
-async function fetchLeague(league, date, signal) {
-  const url = `${API_BASE}${encodeURIComponent(league.id)}/scoreboard?dates=${encodeURIComponent(date)}`;
-  const response = await fetch(url, { signal, cache:"no-store" });
 
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+/* =========================================================
+   11. PEDIDOS À API ESPN
+   ========================================================= */
+
+// Obtém os jogos de uma liga numa data específica.
+
+async function fetchLeague(league, date, signal) {
+  const url =
+    `${API_BASE}${encodeURIComponent(league.id)}` +
+    `/scoreboard?dates=${encodeURIComponent(date)}`;
+
+  const response = await fetch(url, {
+    signal,
+    cache:"no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
 
   const data = await response.json();
 
@@ -1062,44 +1918,63 @@ async function fetchLeague(league, date, signal) {
   }));
 }
 
+// Carrega os jogos das ligas configuradas e apresenta eventuais erros.
+
 async function loadMatches() {
   const thisRequest = ++requestNumber;
   const dateString = formatApiDate(selectedDate);
 
   $("matches").innerHTML = `
-    <div class="loading"><div class="spinner"></div>
-    A carregar os jogos de ${escapeHtml(formatDate(selectedDate,{day:"numeric",month:"long"}))}...</div>
+    <div class="loading">
+      <div class="spinner"></div>
+      A carregar os jogos de ${escapeHtml(formatDate(selectedDate,{day:"numeric",month:"long"}))}...
+    </div>
   `;
+
   $("apiMessage").classList.remove("show");
   $("apiMessage").textContent = "";
 
   const controller = new AbortController();
 
   const results = await Promise.allSettled(
-    LEAGUES.map(league => fetchLeague(league, dateString, controller.signal))
+    LEAGUES.map(league =>
+      fetchLeague(league, dateString, controller.signal)
+    )
   );
 
+  // Ignora resultados antigos se o utilizador mudou de data.
   if (thisRequest !== requestNumber) return;
 
   const matches = [];
   const errors = [];
 
   results.forEach((result, index) => {
-    if (result.status === "fulfilled") matches.push(...result.value);
-    else errors.push(LEAGUES[index].name);
+    if (result.status === "fulfilled") {
+      matches.push(...result.value);
+    } else {
+      errors.push(LEAGUES[index].name);
+    }
   });
 
   allMatches = matches;
   lastSuccessfulFetch = new Date();
 
   $("lastUpdate").textContent = formatDate(lastSuccessfulFetch, {
-    hour:"2-digit", minute:"2-digit", second:"2-digit"
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit"
   });
 
   if (errors.length === LEAGUES.length) {
-    showApiMessage("Não foi possível obter dados de nenhuma liga. Verifica a ligação à Internet ou tenta novamente mais tarde.");
+    showApiMessage(
+      "Não foi possível obter dados de nenhuma liga. Verifica a ligação à Internet ou tenta novamente mais tarde."
+    );
   } else if (errors.length > 0) {
-    showApiMessage("Algumas ligas não responderam: " + errors.join(", ") + ". Os restantes resultados continuam disponíveis.");
+    showApiMessage(
+      "Algumas ligas não responderam: " +
+      errors.join(", ") +
+      ". Os restantes resultados continuam disponíveis."
+    );
   }
 
   renderMatches();
@@ -1107,42 +1982,77 @@ async function loadMatches() {
   renderFavoriteTeams();
 }
 
+// Mostra uma mensagem de erro relacionada com a API.
+
 function showApiMessage(message) {
   $("apiMessage").textContent = message;
   $("apiMessage").classList.add("show");
 }
 
+
+/* =========================================================
+   12. PESQUISA E FILTRAGEM DOS JOGOS
+   ========================================================= */
+
+// Aplica o filtro da liga, o filtro de favoritos e a pesquisa.
+
 function filteredMatches() {
   const query = normalize($("searchInput").value);
 
   return allMatches.filter(event => {
-    if (activeLeague !== "all" && event._leagueId !== activeLeague) return false;
-    if (favoritesOnly && !isFavorite(event)) return false;
+    if (
+      activeLeague !== "all" &&
+      event._leagueId !== activeLeague
+    ) {
+      return false;
+    }
+
+    if (favoritesOnly && !isFavorite(event)) {
+      return false;
+    }
 
     const { home, away } = getTeams(event);
+
     const searchable = normalize([
-      event.name, event._leagueName, event._country,
-      home?.team?.displayName, home?.team?.name,
-      away?.team?.displayName, away?.team?.name
+      event.name,
+      event._leagueName,
+      event._country,
+      home?.team?.displayName,
+      home?.team?.name,
+      away?.team?.displayName,
+      away?.team?.name
     ].join(" "));
 
     return !query || searchable.includes(query);
   });
 }
 
-/* DESENHAR JOGOS */
+
+/* =========================================================
+   13. DESENHAR E ORDENAR A LISTA DE JOGOS
+   ========================================================= */
+
+// Agrupa os jogos por competição e adiciona o botão Classificação
+// ao cabeçalho de cada liga que tenha jogos visíveis.
+
 function renderMatches() {
   const container = $("matches");
   const matches = filteredMatches();
 
   $("matchesTitle").textContent = sameDay(selectedDate, new Date())
     ? "Jogos de hoje"
-    : formatDate(selectedDate, { day:"numeric", month:"long" });
+    : formatDate(selectedDate, {
+        day:"numeric",
+        month:"long"
+      });
 
-  $("matchCount").textContent = `${matches.length} ${matches.length === 1 ? "jogo" : "jogos"}`;
+  $("matchCount").textContent =
+    `${matches.length} ${matches.length === 1 ? "jogo" : "jogos"}`;
 
+  // Estado vazio: explica por que razão não há cartões.
   if (!matches.length) {
     const searching = Boolean($("searchInput").value.trim());
+
     const message = searching
       ? "Experimenta pesquisar outra equipa ou competição."
       : favoritesOnly
@@ -1158,57 +2068,127 @@ function renderMatches() {
     `;
 
     $("emptyRefresh").addEventListener("click", loadMatches);
+
     updateSummary();
     return;
   }
 
-  const rank = { live:0, scheduled:1, finished:2 };
+  // Ordenação: jogos em direto, jogos por começar e terminados.
+  const rank = {
+    live:0,
+    scheduled:1,
+    finished:2
+  };
+
   matches.sort((a,b) => {
-    const difference = rank[getStatus(a).kind] - rank[getStatus(b).kind];
-    return difference || new Date(a.date || 0) - new Date(b.date || 0);
+    const difference =
+      rank[getStatus(a).kind] - rank[getStatus(b).kind];
+
+    return difference ||
+      new Date(a.date || 0) - new Date(b.date || 0);
   });
 
+  // Agrupa os jogos pela identificação da liga.
   const groups = new Map();
 
   matches.forEach(event => {
     if (!groups.has(event._leagueId)) {
-      groups.set(event._leagueId, { name:event._leagueName, events:[] });
+      groups.set(event._leagueId, {
+        name:event._leagueName,
+        events:[]
+      });
     }
+
     groups.get(event._leagueId).events.push(event);
   });
 
   container.innerHTML = "";
 
-  groups.forEach(group => {
+  groups.forEach((group, leagueId) => {
     const section = document.createElement("section");
+
+    // Cabeçalho com nome, quantidade de jogos e botão da classificação.
+    const heading = document.createElement("div");
+    heading.className = "league-heading-row";
+
     const label = document.createElement("div");
     label.className = "league-label";
+
     label.innerHTML = `
       <span class="league-dot"></span>
       <span>${escapeHtml(group.name)}</span>
       <span class="count">${group.events.length}</span>
     `;
-    section.appendChild(label);
 
-    group.events.forEach(event => section.appendChild(createMatchCard(event)));
+    const standingsButton = document.createElement("button");
+    standingsButton.type = "button";
+    standingsButton.className = "standings-btn";
+    standingsButton.textContent = "☷ Classificação";
+    standingsButton.setAttribute(
+      "aria-label",
+      `Ver classificação de ${group.name}`
+    );
+
+    // Procura a configuração da competição para pedir a classificação.
+    const league = LEAGUES.find(item => item.id === leagueId);
+
+    standingsButton.addEventListener("click", () => {
+      if (league) openStandings(league);
+    });
+
+    heading.append(label, standingsButton);
+    section.appendChild(heading);
+
+    // Adiciona os cartões dos jogos desta competição.
+    group.events.forEach(event => {
+      section.appendChild(createMatchCard(event));
+    });
+
     container.appendChild(section);
   });
 
   updateSummary();
 }
 
+
+/* =========================================================
+   14. CRIAÇÃO DOS CARTÕES DE JOGO
+   ========================================================= */
+
+// Cada cartão apresenta equipas, resultado, estado e favorito.
+
 function createMatchCard(event) {
   const { home, away } = getTeams(event);
   const status = getStatus(event);
-  const homeName = home?.team?.displayName || home?.team?.name || "Equipa da casa";
-  const awayName = away?.team?.displayName || away?.team?.name || "Equipa visitante";
+
+  const homeName =
+    home?.team?.displayName ||
+    home?.team?.name ||
+    "Equipa da casa";
+
+  const awayName =
+    away?.team?.displayName ||
+    away?.team?.name ||
+    "Equipa visitante";
+
   const homeScore = home?.score;
   const awayScore = away?.score;
-  const hasScore = homeScore != null && awayScore != null;
+
+  const hasScore =
+    homeScore != null &&
+    awayScore != null;
+
   const favorite = isFavorite(event);
-  const kickoff = event.date ? new Date(event.date) : null;
+
+  const kickoff = event.date
+    ? new Date(event.date)
+    : null;
+
   const time = kickoff && !Number.isNaN(kickoff.getTime())
-    ? formatDate(kickoff,{hour:"2-digit",minute:"2-digit"})
+    ? formatDate(kickoff, {
+        hour:"2-digit",
+        minute:"2-digit"
+      })
     : "Hora não disponível";
 
   const card = document.createElement("article");
@@ -1222,204 +2202,404 @@ function createMatchCard(event) {
       <span>${escapeHtml(event._country || "")}</span>
       <span class="match-status ${status.kind}">${status.kind === "live" ? "● " : ""}${escapeHtml(status.label)}</span>
     </div>
+
     <div class="match-main">
       <div class="team">
         ${homeLogo ? `<img src="${escapeHtml(homeLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
         <span class="team-name">${escapeHtml(homeName)}</span>
       </div>
+
       <div class="score ${hasScore ? "" : "pending"}">
-        ${hasScore ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}` : escapeHtml(time)}
+        ${hasScore
+          ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}`
+          : escapeHtml(time)}
       </div>
+
       <div class="team away">
         <span class="team-name">${escapeHtml(awayName)}</span>
         ${awayLogo ? `<img src="${escapeHtml(awayLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
       </div>
     </div>
+
     <div class="card-bottom">
       <small>${escapeHtml(event.name || event._leagueName)}</small>
-      <button type="button" class="${favorite ? "fav" : ""}"
+
+      <button type="button"
+        class="${favorite ? "fav" : ""}"
         aria-label="${favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}">
         ${favorite ? "★ Guardado" : "☆ Favorito"}
       </button>
     </div>
   `;
 
-  card.querySelector(".card-bottom button").addEventListener("click", clickEvent => {
-    clickEvent.stopPropagation();
-    toggleFavorite(event);
-  });
+  // O clique na estrela não deve abrir os detalhes do jogo.
+  card.querySelector(".card-bottom button").addEventListener(
+    "click",
+    clickEvent => {
+      clickEvent.stopPropagation();
+      toggleFavorite(event);
+    }
+  );
+
+  // Abrir os detalhes ao selecionar o cartão.
   card.addEventListener("click", () => openMatchDetails(event));
+
   card.addEventListener("keydown", clickEvent => {
-    if (clickEvent.key === "Enter") openMatchDetails(event);
+    if (clickEvent.key === "Enter") {
+      openMatchDetails(event);
+    }
   });
+
   card.tabIndex = 0;
-  card.setAttribute("aria-label", `Ver detalhes de ${homeName} contra ${awayName}`);
+  card.setAttribute(
+    "aria-label",
+    `Ver detalhes de ${homeName} contra ${awayName}`
+  );
+
   return card;
 }
 
-/* DETALHES DO JOGO E DADOS DE JOGADORES */
+
+/* =========================================================
+   15. FUNÇÕES AUXILIARES DOS DETALHES
+   ========================================================= */
+
+// Extrai texto de diferentes formatos que a API pode devolver.
+
 function detailText(value) {
   if (value == null || value === "") return "";
-  if (typeof value === "string" || typeof value === "number") return String(value);
-  return String(value.displayName || value.fullName || value.name || value.shortName || "");
+
+  if (typeof value === "string" || typeof value === "number") {
+    return String(value);
+  }
+
+  return String(
+    value.displayName ||
+    value.fullName ||
+    value.name ||
+    value.shortName ||
+    ""
+  );
 }
+
+// Procura jogadores em estruturas de dados que podem estar aninhadas.
 
 function collectPlayerCandidates(root) {
   const found = [];
   const seen = new Set();
   const stack = [root];
+
   while (stack.length) {
     const node = stack.pop();
-    if (!node || typeof node !== "object" || seen.has(node)) continue;
-    seen.add(node);
-    if (Array.isArray(node)) { for (const item of node) stack.push(item); continue; }
-    const athlete = node.athlete || node.player || node;
-    const name = detailText(athlete.displayName || athlete.fullName || athlete.name || node.displayName || node.fullName || node.name);
-    const jersey = athlete.jersey ?? athlete.jerseyNumber ?? node.jersey ?? node.jerseyNumber ?? node.uniformNumber;
-    const position = detailText(athlete.position || node.position);
-    const hasPlayerShape = name && (jersey != null || position || node.statistics || node.stats || node.starter != null || node.active != null || node.athlete || node.player);
-    if (hasPlayerShape && name.length < 100 && !/^(players|athletes|statistics|team|home|away)$/i.test(name)) {
-      const key = normalize(name) + "|" + String(jersey ?? "");
-      if (!found.some(p => p.key === key)) found.push({key,name,jersey:jersey == null ? "" : String(jersey),position});
+
+    if (!node || typeof node !== "object" || seen.has(node)) {
+      continue;
     }
-    for (const [key, value] of Object.entries(node)) {
-      if (value && typeof value === "object") stack.push(value);
+
+    seen.add(node);
+
+    if (Array.isArray(node)) {
+      for (const item of node) stack.push(item);
+      continue;
+    }
+
+    const athlete = node.athlete || node.player || node;
+
+    const name = detailText(
+      athlete.displayName ||
+      athlete.fullName ||
+      athlete.name ||
+      node.displayName ||
+      node.fullName ||
+      node.name
+    );
+
+    const jersey =
+      athlete.jersey ??
+      athlete.jerseyNumber ??
+      node.jersey ??
+      node.jerseyNumber ??
+      node.uniformNumber;
+
+    const position = detailText(
+      athlete.position || node.position
+    );
+
+    const hasPlayerShape = name && (
+      jersey != null ||
+      position ||
+      node.statistics ||
+      node.stats ||
+      node.starter != null ||
+      node.active != null ||
+      node.athlete ||
+      node.player
+    );
+
+    if (
+      hasPlayerShape &&
+      name.length < 100 &&
+      !/^(players|athletes|statistics|team|home|away)$/i.test(name)
+    ) {
+      const key = normalize(name) + "|" + String(jersey ?? "");
+
+      if (!found.some(player => player.key === key)) {
+        found.push({
+          key,
+          name,
+          jersey:jersey == null ? "" : String(jersey),
+          position
+        });
+      }
+    }
+
+    for (const value of Object.values(node)) {
+      if (value && typeof value === "object") {
+        stack.push(value);
+      }
     }
   }
+
   return found;
 }
 
+// Obtém o nome de uma equipa.
+
 function getTeamLabel(team) {
-  return detailText(team?.team?.displayName || team?.team?.name || team?.displayName || team?.name || team?.team?.shortDisplayName);
+  return detailText(
+    team?.team?.displayName ||
+    team?.team?.name ||
+    team?.displayName ||
+    team?.name ||
+    team?.team?.shortDisplayName
+  );
 }
+
+// Procura os jogadores associados a uma equipa.
 
 function extractPlayerList(summary, teamName, teamId) {
   const players = [];
-  const groups = summary?.boxscore?.players || summary?.rosters || summary?.roster || [];
+
+  const groups =
+    summary?.boxscore?.players ||
+    summary?.rosters ||
+    summary?.roster ||
+    [];
+
   const groupList = Array.isArray(groups) ? groups : [groups];
+
   for (const group of groupList) {
     const groupTeam = group?.team || group?.teamInfo || {};
     const groupName = getTeamLabel({team:groupTeam});
     const groupId = String(groupTeam.id ?? group.teamId ?? "");
-    const matchesTeam = (teamId && groupId && String(teamId) === groupId) ||
-      (teamName && groupName && (normalize(groupName).includes(normalize(teamName)) || normalize(teamName).includes(normalize(groupName))));
+
+    const matchesTeam =
+      (teamId && groupId && String(teamId) === groupId) ||
+      (
+        teamName &&
+        groupName &&
+        (
+          normalize(groupName).includes(normalize(teamName)) ||
+          normalize(teamName).includes(normalize(groupName))
+        )
+      );
+
     if (!matchesTeam) continue;
+
     players.push(...collectPlayerCandidates(group));
   }
-  // Fallback: some ESPN summaries put player entries in other nested fields.
+
+  // Alguns resumos colocam os jogadores noutras secções.
   if (!players.length) {
     const candidates = collectPlayerCandidates(summary);
-    for (const player of candidates) players.push(player);
+
+    for (const player of candidates) {
+      players.push(player);
+    }
   }
+
   const unique = new Map();
+
   players.forEach(player => unique.set(player.key, player));
+
   return [...unique.values()].sort((a,b) => {
-    const an = Number(a.jersey), bn = Number(b.jersey);
+    const an = Number(a.jersey);
+    const bn = Number(b.jersey);
+
     if (a.jersey && b.jersey && an !== bn) return an - bn;
     if (a.jersey && !b.jersey) return -1;
     if (!a.jersey && b.jersey) return 1;
+
     return a.name.localeCompare(b.name, "pt");
   });
 }
 
+// Extrai estatísticas das duas equipas.
+
 function extractTeamStats(summary, homeId, awayId) {
   const teams = summary?.boxscore?.teams || [];
+
   const normalized = teams.map(entry => ({
     entry,
     id:String(entry?.team?.id ?? entry?.teamId ?? ""),
     name:getTeamLabel({team:entry?.team || entry})
   }));
-  const home = normalized.find(x => homeId && x.id === String(homeId)) || normalized[0];
-  const away = normalized.find(x => awayId && x.id === String(awayId)) || normalized.find(x => x !== home) || normalized[1];
-  const statsFor = item => (item?.entry?.statistics || item?.entry?.stats || []).map(stat => ({
-    name:detailText(stat.name || stat.label || stat.abbreviation),
-    value:detailText(stat.displayValue ?? stat.value ?? stat.summary)
-  })).filter(stat => stat.name && stat.value);
-  return {home:statsFor(home), away:statsFor(away)};
+
+  const home =
+    normalized.find(item => homeId && item.id === String(homeId)) ||
+    normalized[0];
+
+  const away =
+    normalized.find(item => awayId && item.id === String(awayId)) ||
+    normalized.find(item => item !== home) ||
+    normalized[1];
+
+  const statsFor = item =>
+    (item?.entry?.statistics || item?.entry?.stats || [])
+      .map(stat => ({
+        name:detailText(
+          stat.name || stat.label || stat.abbreviation
+        ),
+        value:detailText(
+          stat.displayValue ?? stat.value ?? stat.summary
+        )
+      }))
+      .filter(stat => stat.name && stat.value);
+
+  return {
+    home:statsFor(home),
+    away:statsFor(away)
+  };
 }
+
+// Procura o estádio e a localização do encontro.
 
 function venueFromEvent(event, summary) {
-  return detailText(event?.competitions?.[0]?.venue?.fullName || event?.competitions?.[0]?.venue?.address?.city ||
-    summary?.gameInfo?.venue?.fullName || summary?.header?.competitions?.[0]?.venue?.fullName ||
-    summary?.venue?.fullName || summary?.gameInfo?.venue?.name);
+  return detailText(
+    event?.competitions?.[0]?.venue?.fullName ||
+    event?.competitions?.[0]?.venue?.address?.city ||
+    summary?.gameInfo?.venue?.fullName ||
+    summary?.header?.competitions?.[0]?.venue?.fullName ||
+    summary?.venue?.fullName ||
+    summary?.gameInfo?.venue?.name
+  );
 }
+
+// Apresenta a lista de jogadores de uma equipa.
 
 function renderPlayers(players, teamName) {
-  if (!players.length) return `<div class="detail-player-team"><h4>${escapeHtml(teamName)}</h4><p class="detail-muted">A ESPN não disponibilizou a lista de jogadores neste jogo.</p></div>`;
-  return `<div class="detail-player-team"><h4>${escapeHtml(teamName)}</h4><ul class="detail-player-list">${players.map(player => `<li>${player.jersey ? `<strong>${escapeHtml(player.jersey)}</strong> · ` : ""}${escapeHtml(player.name)}${player.position ? ` <span class="detail-muted">— ${escapeHtml(traduzirPosicao(player.position))}</span>` : ""}</li>`).join("")}</ul></div>`;
+  if (!players.length) {
+    return `
+      <div class="detail-player-team">
+        <h4>${escapeHtml(teamName)}</h4>
+        <p class="detail-muted">
+          A ESPN não disponibilizou a lista de jogadores neste jogo.
+        </p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="detail-player-team">
+      <h4>${escapeHtml(teamName)}</h4>
+
+      <ul class="detail-player-list">
+        ${players.map(player => `
+          <li>
+            ${player.jersey ? `<strong>${escapeHtml(player.jersey)}</strong> · ` : ""}
+            ${escapeHtml(player.name)}
+            ${player.position
+              ? ` <span class="detail-muted">— ${escapeHtml(traduzirPosicao(player.position))}</span>`
+              : ""}
+          </li>
+        `).join("")}
+      </ul>
+    </div>
+  `;
 }
 
+
+/* =========================================================
+   16. TRADUÇÃO DAS ESTATÍSTICAS E POSIÇÕES
+   ========================================================= */
+
+// Converte nomes técnicos da ESPN para português.
+
 function traduzirEstatistica(nome) {
-  // A ESPN envia muitas etiquetas em camelCase, por exemplo "foulsCommitted".
-  // Convertemos também esses nomes técnicos para etiquetas legíveis em português.
   const original = String(nome || "").trim();
+
   const chave = normalize(original)
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/[_-]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+
   const compacta = chave.replace(/\s+/g, "");
+
   const traducoes = {
-    "possession": "Posse de bola",
-    "possessionpct": "Posse de bola",
-    "shots": "Remates",
-    "totalshots": "Remates totais",
-    "totalshots": "Remates totais",
-    "shotson target": "Remates à baliza",
-    "shotsontarget": "Remates à baliza",
-    "shotsongoal": "Remates à baliza",
-    "shotpct": "Precisão de remate",
-    "shotaccuracy": "Precisão de remate",
-    "shotsofftarget": "Remates ao lado",
-    "blockedshots": "Remates bloqueados",
-    "corners": "Cantos",
-    "woncorners": "Cantos ganhos",
-    "cornerkicks": "Pontapés de canto",
-    "fouls": "Faltas",
-    "foulscommitted": "Faltas cometidas",
-    "yellowcards": "Cartões amarelos",
-    "redcards": "Cartões vermelhos",
-    "offsides": "Foras de jogo",
-    "offside": "Foras de jogo",
-    "saves": "Defesas",
-    "goalkeepersaves": "Defesas do guarda-redes",
-    "totalpasses": "Passes totais",
-    "accuratepasses": "Passes certos",
-    "passpct": "Precisão de passe",
-    "passaccuracy": "Precisão de passe",
-    "crosses": "Cruzamentos",
-    "totalcrosses": "Cruzamentos totais",
-    "accuratecrosses": "Cruzamentos certos",
-    "crosspct": "Precisão de cruzamento",
-    "tackles": "Desarmes",
-    "totaltackles": "Desarmes totais",
-    "effectivetackles": "Desarmes eficazes",
-    "tacklepct": "Percentagem de desarmes eficazes",
-    "interceptions": "Interceções",
-    "clearances": "Alívios",
-    "totalclearance": "Alívios totais",
-    "totalclearances": "Alívios totais",
-    "effectiveclearance": "Alívios eficazes",
-    "penaltykickgoals": "Grandes penalidades convertidas",
-    "penaltykickshots": "Remates de grande penalidade",
-    "penalties": "Grandes penalidades",
-    "goals": "Golos",
-    "assists": "Assistências",
-    "yellowcard": "Cartão amarelo",
-    "redcard": "Cartão vermelho",
-    "timeplayed": "Minutos jogados",
-    "minutesplayed": "Minutos jogados",
-    "expectedgoals": "Golos esperados (xG)",
-    "xg": "Golos esperados (xG)",
-    "totallongballs": "Passes longos",
-    "accuratelongballs": "Passes longos certos",
-    "longballpct": "Precisão dos passes longos"
+    "possession":"Posse de bola",
+    "possessionpct":"Posse de bola",
+    "shots":"Remates",
+    "totalshots":"Remates totais",
+    "shotson target":"Remates à baliza",
+    "shotsontarget":"Remates à baliza",
+    "shotsongoal":"Remates à baliza",
+    "shotpct":"Precisão de remate",
+    "shotaccuracy":"Precisão de remate",
+    "shotsofftarget":"Remates ao lado",
+    "blockedshots":"Remates bloqueados",
+    "corners":"Cantos",
+    "woncorners":"Cantos ganhos",
+    "cornerkicks":"Pontapés de canto",
+    "fouls":"Faltas",
+    "foulscommitted":"Faltas cometidas",
+    "yellowcards":"Cartões amarelos",
+    "redcards":"Cartões vermelhos",
+    "offsides":"Foras de jogo",
+    "offside":"Foras de jogo",
+    "saves":"Defesas",
+    "goalkeepersaves":"Defesas do guarda-redes",
+    "totalpasses":"Passes totais",
+    "accuratepasses":"Passes certos",
+    "passpct":"Precisão de passe",
+    "passaccuracy":"Precisão de passe",
+    "crosses":"Cruzamentos",
+    "totalcrosses":"Cruzamentos totais",
+    "accuratecrosses":"Cruzamentos certos",
+    "crosspct":"Precisão de cruzamento",
+    "tackles":"Desarmes",
+    "totaltackles":"Desarmes totais",
+    "effectivetackles":"Desarmes eficazes",
+    "tacklepct":"Percentagem de desarmes eficazes",
+    "interceptions":"Interceções",
+    "clearances":"Alívios",
+    "totalclearance":"Alívios totais",
+    "totalclearances":"Alívios totais",
+    "effectiveclearance":"Alívios eficazes",
+    "penaltykickgoals":"Grandes penalidades convertidas",
+    "penaltykickshots":"Remates de grande penalidade",
+    "penalties":"Grandes penalidades",
+    "goals":"Golos",
+    "assists":"Assistências",
+    "yellowcard":"Cartão amarelo",
+    "redcard":"Cartão vermelho",
+    "timeplayed":"Minutos jogados",
+    "minutesplayed":"Minutos jogados",
+    "expectedgoals":"Golos esperados (xG)",
+    "xg":"Golos esperados (xG)",
+    "totallongballs":"Passes longos",
+    "accuratelongballs":"Passes longos certos",
+    "longballpct":"Precisão dos passes longos"
   };
+
   return traducoes[compacta] || traducoes[chave] || original;
 }
 
+// Traduz posições dos jogadores.
+
 function traduzirPosicao(posicao) {
   const chave = normalize(posicao);
+
   const traducoes = {
     "goalkeeper":"Guarda-redes",
     "keeper":"Guarda-redes",
@@ -1436,68 +2616,654 @@ function traduzirPosicao(posicao) {
     "winger":"Extremo",
     "substitute":"Suplente"
   };
+
   return traducoes[chave] || posicao;
 }
 
+// Cria uma tabela comparativa de estatísticas.
+
 function renderStatsTable(stats, homeName, awayName) {
-  if (!stats.home.length && !stats.away.length) return `<p class="detail-muted">Não há estatísticas de equipa disponíveis para este encontro.</p>`;
-  const nomesOriginais = [...new Set([...stats.home, ...stats.away].map(s => s.name))];
-  const nomesTraduzidos = nomesOriginais.map(nome => ({original:nome, traduzido:traduzirEstatistica(nome)}));
-  const findValue = (list, name) => list.find(s => s.name === name)?.value || "—";
-  return `<table class="detail-table"><thead><tr><th>${escapeHtml(homeName)}</th><th>Estatística</th><th>${escapeHtml(awayName)}</th></tr></thead><tbody>${nomesTraduzidos.map(item => `<tr><td>${escapeHtml(findValue(stats.home,item.original))}</td><td>${escapeHtml(item.traduzido)}</td><td>${escapeHtml(findValue(stats.away,item.original))}</td></tr>`).join("")}</tbody></table>`;
+  if (!stats.home.length && !stats.away.length) {
+    return `
+      <p class="detail-muted">
+        Não há estatísticas de equipa disponíveis para este encontro.
+      </p>
+    `;
+  }
+
+  const nomesOriginais = [
+    ...new Set([
+      ...stats.home,
+      ...stats.away
+    ].map(stat => stat.name))
+  ];
+
+  const nomesTraduzidos = nomesOriginais.map(nome => ({
+    original:nome,
+    traduzido:traduzirEstatistica(nome)
+  }));
+
+  const findValue = (list, name) =>
+    list.find(stat => stat.name === name)?.value || "—";
+
+  return `
+    <table class="detail-table">
+      <thead>
+        <tr>
+          <th>${escapeHtml(homeName)}</th>
+          <th>Estatística</th>
+          <th>${escapeHtml(awayName)}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        ${nomesTraduzidos.map(item => `
+          <tr>
+            <td>${escapeHtml(findValue(stats.home,item.original))}</td>
+            <td>${escapeHtml(item.traduzido)}</td>
+            <td>${escapeHtml(findValue(stats.away,item.original))}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
 }
+
+
+/* =========================================================
+   17. ABRIR OS DETALHES DE UM JOGO
+   ========================================================= */
+
+// Apresenta primeiro os dados conhecidos e depois pede à ESPN
+// estatísticas e jogadores, quando estão disponíveis.
 
 async function openMatchDetails(event) {
   const backdrop = $("matchModalBackdrop");
   const body = $("matchModalBody");
+
   const {home, away} = getTeams(event);
-  const homeName = home?.team?.displayName || home?.team?.name || "Equipa da casa";
-  const awayName = away?.team?.displayName || away?.team?.name || "Equipa visitante";
+
+  const homeName =
+    home?.team?.displayName ||
+    home?.team?.name ||
+    "Equipa da casa";
+
+  const awayName =
+    away?.team?.displayName ||
+    away?.team?.name ||
+    "Equipa visitante";
+
   const status = getStatus(event);
   const homeScore = home?.score;
   const awayScore = away?.score;
+
   const kickoff = event.date ? new Date(event.date) : null;
-  const dateLabel = kickoff && !Number.isNaN(kickoff.getTime()) ? formatDate(kickoff,{weekday:"long",day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"}) : "Data e hora não disponíveis";
-  $("matchModalTitle").textContent = `${homeName} vs. ${awayName}`;
+
+  const dateLabel =
+    kickoff && !Number.isNaN(kickoff.getTime())
+      ? formatDate(kickoff, {
+          weekday:"long",
+          day:"numeric",
+          month:"long",
+          year:"numeric",
+          hour:"2-digit",
+          minute:"2-digit"
+        })
+      : "Data e hora não disponíveis";
+
+  $("matchModalTitle").textContent =
+    `${homeName} vs. ${awayName}`;
+
   backdrop.classList.add("open");
   document.body.style.overflow = "hidden";
-  body.innerHTML = `<div class="detail-scoreline"><div class="detail-team">${escapeHtml(homeName)}</div><div class="detail-score">${homeScore != null && awayScore != null ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}` : "VS"}</div><div class="detail-team">${escapeHtml(awayName)}</div></div><div class="detail-meta">📅 ${escapeHtml(dateLabel)}<br>🏆 ${escapeHtml(event._leagueName || "Competição")}${event.competitions?.[0]?.venue?.fullName ? `<br>🏟️ ${escapeHtml(event.competitions[0].venue.fullName)}` : ""}<br>Estado: ${escapeHtml(status.label)}</div><div class="detail-loading">A procurar estatísticas e jogadores na ESPN…</div>`;
+
+  body.innerHTML = `
+    <div class="detail-scoreline">
+      <div class="detail-team">${escapeHtml(homeName)}</div>
+
+      <div class="detail-score">
+        ${homeScore != null && awayScore != null
+          ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}`
+          : "VS"}
+      </div>
+
+      <div class="detail-team">${escapeHtml(awayName)}</div>
+    </div>
+
+    <div class="detail-meta">
+      📅 ${escapeHtml(dateLabel)}<br>
+      🏆 ${escapeHtml(event._leagueName || "Competição")}
+      ${event.competitions?.[0]?.venue?.fullName
+        ? `<br>🏟️ ${escapeHtml(event.competitions[0].venue.fullName)}`
+        : ""}
+      <br>Estado: ${escapeHtml(status.label)}
+    </div>
+
+    <div class="detail-loading">
+      A procurar estatísticas e jogadores na ESPN…
+    </div>
+  `;
+
+  // Para jogos futuros, não é necessário pedir o resumo estatístico.
   if (status.kind === "scheduled") {
-    body.innerHTML = `<div class="detail-scoreline"><div class="detail-team">${escapeHtml(homeName)}</div><div class="detail-score">VS</div><div class="detail-team">${escapeHtml(awayName)}</div></div><div class="detail-meta">📅 ${escapeHtml(dateLabel)}<br>🏆 ${escapeHtml(event._leagueName || "Competição")}<br>🏟️ ${escapeHtml(venueFromEvent(event, null) || "Estádio não indicado pela ESPN")}</div><p class="detail-muted">Este jogo ainda não começou. As estatísticas e os jogadores poderão só estar disponíveis durante ou após o encontro.</p>`;
+    body.innerHTML = `
+      <div class="detail-scoreline">
+        <div class="detail-team">${escapeHtml(homeName)}</div>
+        <div class="detail-score">VS</div>
+        <div class="detail-team">${escapeHtml(awayName)}</div>
+      </div>
+
+      <div class="detail-meta">
+        📅 ${escapeHtml(dateLabel)}<br>
+        🏆 ${escapeHtml(event._leagueName || "Competição")}<br>
+        🏟️ ${escapeHtml(venueFromEvent(event, null) || "Estádio não indicado pela ESPN")}
+      </div>
+
+      <p class="detail-muted">
+        Este jogo ainda não começou. As estatísticas e os jogadores
+        poderão só estar disponíveis durante ou após o encontro.
+      </p>
+    `;
+
     return;
   }
+
   try {
-    const url = `${API_BASE}${encodeURIComponent(event._leagueId)}/summary?event=${encodeURIComponent(event.id)}`;
+    const url =
+      `${API_BASE}${encodeURIComponent(event._leagueId)}` +
+      `/summary?event=${encodeURIComponent(event.id)}`;
+
     const response = await fetch(url, {cache:"no-store"});
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
     const summary = await response.json();
+
     const homeId = home?.team?.id;
     const awayId = away?.team?.id;
-    const homePlayers = extractPlayerList(summary, homeName, homeId);
-    const awayPlayers = extractPlayerList(summary, awayName, awayId);
-    const stats = extractTeamStats(summary, homeId, awayId);
+
+    const homePlayers =
+      extractPlayerList(summary, homeName, homeId);
+
+    const awayPlayers =
+      extractPlayerList(summary, awayName, awayId);
+
+    const stats =
+      extractTeamStats(summary, homeId, awayId);
+
     const venue = venueFromEvent(event, summary);
-    body.innerHTML = `<div class="detail-scoreline"><div class="detail-team">${escapeHtml(homeName)}</div><div class="detail-score">${homeScore != null && awayScore != null ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}` : "—"}</div><div class="detail-team">${escapeHtml(awayName)}</div></div><div class="detail-meta">📅 ${escapeHtml(dateLabel)}<br>🏆 ${escapeHtml(event._leagueName || "Competição")}${venue ? `<br>🏟️ ${escapeHtml(venue)}` : ""}<br>Estado: ${escapeHtml(status.label)}</div><section class="detail-section"><h3>📊 Estatísticas</h3>${renderStatsTable(stats,homeName,awayName)}</section><section class="detail-section"><h3>👥 Jogadores</h3><div class="detail-player-grid">${renderPlayers(homePlayers,homeName)}${renderPlayers(awayPlayers,awayName)}</div><p class="detail-muted">Os nomes e números só aparecem quando a ESPN os inclui nos dados deste encontro. A lista pode não corresponder a todos os jogadores do plantel.</p></section>`;
+
+    body.innerHTML = `
+      <div class="detail-scoreline">
+        <div class="detail-team">${escapeHtml(homeName)}</div>
+
+        <div class="detail-score">
+          ${homeScore != null && awayScore != null
+            ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}`
+            : "—"}
+        </div>
+
+        <div class="detail-team">${escapeHtml(awayName)}</div>
+      </div>
+
+      <div class="detail-meta">
+        📅 ${escapeHtml(dateLabel)}<br>
+        🏆 ${escapeHtml(event._leagueName || "Competição")}
+        ${venue ? `<br>🏟️ ${escapeHtml(venue)}` : ""}
+        <br>Estado: ${escapeHtml(status.label)}
+      </div>
+
+      <section class="detail-section">
+        <h3>📊 Estatísticas</h3>
+        ${renderStatsTable(stats,homeName,awayName)}
+      </section>
+
+      <section class="detail-section">
+        <h3>👥 Jogadores</h3>
+
+        <div class="detail-player-grid">
+          ${renderPlayers(homePlayers,homeName)}
+          ${renderPlayers(awayPlayers,awayName)}
+        </div>
+
+        <p class="detail-muted">
+          Os nomes e números só aparecem quando a ESPN os inclui
+          nos dados deste encontro. A lista pode não corresponder
+          a todos os jogadores do plantel.
+        </p>
+      </section>
+    `;
   } catch (error) {
-    console.warn("Não foi possível carregar detalhes da ESPN:", error);
-    body.innerHTML = `<div class="detail-scoreline"><div class="detail-team">${escapeHtml(homeName)}</div><div class="detail-score">${homeScore != null && awayScore != null ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}` : "—"}</div><div class="detail-team">${escapeHtml(awayName)}</div></div><div class="detail-meta">📅 ${escapeHtml(dateLabel)}<br>🏆 ${escapeHtml(event._leagueName || "Competição")}</div><p class="detail-muted">Não foi possível carregar os detalhes da ESPN neste momento. Tenta novamente mais tarde.</p>`;
+    console.warn(
+      "Não foi possível carregar detalhes da ESPN:",
+      error
+    );
+
+    body.innerHTML = `
+      <div class="detail-scoreline">
+        <div class="detail-team">${escapeHtml(homeName)}</div>
+
+        <div class="detail-score">
+          ${homeScore != null && awayScore != null
+            ? `${escapeHtml(homeScore)} - ${escapeHtml(awayScore)}`
+            : "—"}
+        </div>
+
+        <div class="detail-team">${escapeHtml(awayName)}</div>
+      </div>
+
+      <div class="detail-meta">
+        📅 ${escapeHtml(dateLabel)}<br>
+        🏆 ${escapeHtml(event._leagueName || "Competição")}
+      </div>
+
+      <p class="detail-muted">
+        Não foi possível carregar os detalhes da ESPN neste momento.
+        Tenta novamente mais tarde.
+      </p>
+    `;
   }
 }
+
+
+/* =========================================================
+   18. CLASSIFICAÇÕES DAS LIGAS — NOVA FUNCIONALIDADE
+   ========================================================= */
+
+// A API de classificações usa o identificador da competição.
+// O resultado é guardado em cache para evitar pedidos repetidos.
+
+// Procura os grupos de classificação na resposta da ESPN.
+// Algumas competições podem ter vários grupos ou fases.
+
+function getStandingGroups(node, groups = [], visited = new Set()) {
+  if (!node || typeof node !== "object" || visited.has(node)) {
+    return groups;
+  }
+
+  visited.add(node);
+
+  if (Array.isArray(node)) {
+    node.forEach(item => getStandingGroups(item, groups, visited));
+    return groups;
+  }
+
+  if (Array.isArray(node.entries) && node.entries.length) {
+    groups.push({
+      name:node.name || node.displayName || node.abbreviation || "",
+      entries:node.entries
+    });
+  }
+
+  for (const [key, value] of Object.entries(node)) {
+    if (key !== "entries" && value && typeof value === "object") {
+      getStandingGroups(value, groups, visited);
+    }
+  }
+
+  return groups;
+}
+
+// Obtém as classificações de uma competição e guarda o pedido em cache.
+
+async function fetchStandings(league) {
+  if (standingsCache.has(league.id)) {
+    return standingsCache.get(league.id);
+  }
+
+  const promise = fetch(
+    `https://site.api.espn.com/apis/v2/sports/soccer/${encodeURIComponent(league.id)}/standings`,
+    {cache:"no-store"}
+  )
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then(data => {
+      const groups = getStandingGroups(data);
+
+      return {data, groups};
+    });
+
+  standingsCache.set(league.id, promise);
+
+  try {
+    return await promise;
+  } catch (error) {
+    // Se falhar, permite tentar novamente na próxima abertura.
+    standingsCache.delete(league.id);
+    throw error;
+  }
+}
+
+// Procura um valor estatístico na entrada de uma equipa.
+// Os nomes podem variar consoante a resposta da ESPN.
+
+function getStandingStat(entry, keys) {
+  const stats = entry?.stats || entry?.statistics || [];
+
+  for (const key of keys) {
+    const wanted = normalize(key).replace(/[\s_-]/g, "");
+
+    const found = stats.find(stat => {
+      const statName = normalize(
+        stat.name ||
+        stat.abbreviation ||
+        stat.type ||
+        stat.displayName ||
+        ""
+      ).replace(/[\s_-]/g, "");
+
+      return statName === wanted;
+    });
+
+    if (found) {
+      return found.displayValue ??
+        found.value ??
+        found.summary ??
+        "—";
+    }
+
+    if (entry?.[key] != null) {
+      return entry[key];
+    }
+  }
+
+  return "—";
+}
+
+// Procura a posição de uma equipa na tabela.
+
+function getStandingPosition(entry, index) {
+  const stats = entry?.stats || entry?.statistics || [];
+
+  const positionStat = stats.find(stat => {
+    const name = normalize(
+      stat.name ||
+      stat.abbreviation ||
+      stat.type ||
+      ""
+    );
+
+    return name === "rank" ||
+      name === "position" ||
+      name === "playoffseed";
+  });
+
+  return entry.position ??
+    entry.rank ??
+    positionStat?.displayValue ??
+    (index + 1);
+}
+
+// Cria a tabela de classificação para cada grupo devolvido pela ESPN.
+
+function renderStandingsTable(groups) {
+  if (!groups.length) {
+    return `
+      <p class="standings-note">
+        A ESPN não disponibilizou uma classificação para esta competição.
+        Experimenta novamente mais tarde.
+      </p>
+    `;
+  }
+
+  return groups.map(group => {
+    const rows = group.entries.map((entry, index) => {
+      const team = entry.team || entry;
+
+      const name =
+        team.displayName ||
+        team.name ||
+        team.shortDisplayName ||
+        "Equipa";
+
+      const logo =
+        team.logos?.[0]?.href ||
+        team.logo ||
+        "";
+
+      const position = getStandingPosition(entry, index);
+
+      const played = getStandingStat(entry, [
+        "gamesPlayed",
+        "played",
+        "gp",
+        "games"
+      ]);
+
+      const wins = getStandingStat(entry, [
+        "wins",
+        "won",
+        "w"
+      ]);
+
+      const draws = getStandingStat(entry, [
+        "ties",
+        "draws",
+        "drawn",
+        "d"
+      ]);
+
+      const losses = getStandingStat(entry, [
+        "losses",
+        "lost",
+        "l"
+      ]);
+
+      const goalsFor = getStandingStat(entry, [
+        "pointsFor",
+        "goalsFor",
+        "gf",
+        "goals_scored"
+      ]);
+
+      const goalsAgainst = getStandingStat(entry, [
+        "pointsAgainst",
+        "goalsAgainst",
+        "ga",
+        "goals_conceded"
+      ]);
+
+      const goalDifference = getStandingStat(entry, [
+        "pointDifferential",
+        "goalDifference",
+        "gd",
+        "differential"
+      ]);
+
+      const points = getStandingStat(entry, [
+        "points",
+        "pts"
+      ]);
+
+      return `
+        <tr>
+          <td class="standings-position">${escapeHtml(position)}</td>
+
+          <td>
+            <div class="standings-team">
+              ${logo
+                ? `<img src="${escapeHtml(logo)}" alt="" loading="lazy" onerror="this.style.display='none'">`
+                : ""}
+              <span>${escapeHtml(name)}</span>
+            </div>
+          </td>
+
+          <td>${escapeHtml(played)}</td>
+          <td>${escapeHtml(wins)}</td>
+          <td>${escapeHtml(draws)}</td>
+          <td>${escapeHtml(losses)}</td>
+          <td>${escapeHtml(goalsFor)}</td>
+          <td>${escapeHtml(goalsAgainst)}</td>
+          <td>${escapeHtml(goalDifference)}</td>
+          <td class="standings-points">${escapeHtml(points)}</td>
+        </tr>
+      `;
+    }).join("");
+
+    return `
+      ${group.name
+        ? `<h3>${escapeHtml(group.name)}</h3>`
+        : ""}
+
+      <div class="standings-table-wrap">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Equipa</th>
+              <th>J</th>
+              <th>V</th>
+              <th>E</th>
+              <th>D</th>
+              <th>GM</th>
+              <th>GS</th>
+              <th>DG</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }).join("");
+}
+
+// Abre a janela, mostra o estado de carregamento e pede os dados.
+
+async function openStandings(league) {
+  const backdrop = $("standingsBackdrop");
+  const body = $("standingsBody");
+
+  $("standingsModalTitle").textContent =
+    `Classificação — ${league.name}`;
+
+  backdrop.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  body.innerHTML = `
+    <div class="standings-loading">
+      <div class="spinner"></div>
+      A carregar a classificação de ${escapeHtml(league.name)}…
+    </div>
+  `;
+
+  try {
+    const result = await fetchStandings(league);
+
+    // Se o utilizador já fechou a janela, não é necessário
+    // alterar o conteúdo que deixou de estar visível.
+    if (!backdrop.classList.contains("open")) return;
+
+    body.innerHTML = renderStandingsTable(result.groups);
+  } catch (error) {
+    console.warn(
+      "Erro ao carregar classificação:",
+      error
+    );
+
+    if (!backdrop.classList.contains("open")) return;
+
+    body.innerHTML = `
+      <p class="standings-note">
+        Não foi possível carregar a classificação desta competição.
+        A ESPN pode não disponibilizar esta tabela ou o serviço
+        pode estar temporariamente indisponível.
+      </p>
+
+      <button type="button" class="btn" id="retryStandings">
+        ↻ Tentar novamente
+      </button>
+    `;
+
+    $("retryStandings").addEventListener("click", () => {
+      standingsCache.delete(league.id);
+      openStandings(league);
+    });
+  }
+}
+
+
+/* =========================================================
+   19. FECHAR AS JANELAS MODAIS
+   ========================================================= */
+
+// Fecha os detalhes de um jogo.
 
 function closeMatchDetails() {
   $("matchModalBackdrop").classList.remove("open");
-  document.body.style.overflow = "";
+
+  // Só repõe o scroll se a classificação também estiver fechada.
+  if (!$("standingsBackdrop").classList.contains("open")) {
+    document.body.style.overflow = "";
+  }
 }
 
-$("matchModalClose").addEventListener("click", closeMatchDetails);
+// Fecha a classificação e preserva o scroll se os detalhes
+// de um jogo continuarem abertos.
+
+function closeStandings() {
+  $("standingsBackdrop").classList.remove("open");
+
+  if (!$("matchModalBackdrop").classList.contains("open")) {
+    document.body.style.overflow = "";
+  }
+}
+
+// Botão para fechar os detalhes.
+
+$("matchModalClose").addEventListener(
+  "click",
+  closeMatchDetails
+);
+
+// Fechar os detalhes ao clicar no fundo escuro.
+
 $("matchModalBackdrop").addEventListener("click", event => {
-  if (event.target === $("matchModalBackdrop")) closeMatchDetails();
-});
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeMatchDetails();
+  if (event.target === $("matchModalBackdrop")) {
+    closeMatchDetails();
+  }
 });
 
-/* ADICIONAR OU REMOVER FAVORITO */
+// Botão para fechar a classificação.
+
+$("standingsModalClose").addEventListener(
+  "click",
+  closeStandings
+);
+
+// Fechar a classificação ao clicar fora da tabela.
+
+$("standingsBackdrop").addEventListener("click", event => {
+  if (event.target === $("standingsBackdrop")) {
+    closeStandings();
+  }
+});
+
+// A tecla Escape fecha as janelas abertas.
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeMatchDetails();
+    closeStandings();
+  }
+});
+
+
+/* =========================================================
+   20. ADICIONAR E REMOVER JOGOS FAVORITOS
+   ========================================================= */
+
+// Se existir uma sessão, atualiza a base de dados.
+// Sem sessão, o favorito é guardado localmente.
+
 async function toggleFavorite(event) {
   const id = getMatchId(event);
   const wasFavorite = favoriteIds.includes(id);
@@ -1516,16 +3282,29 @@ async function toggleFavorite(event) {
     } else {
       result = await supabaseClient
         .from("favorite_matches")
-        .insert({ user_id:currentUser.id, match_id:id });
+        .insert({
+          user_id:currentUser.id,
+          match_id:id
+        });
     }
 
     if (result.error) {
-      console.error("Erro ao guardar favorito:", result.error);
-      showAuthMessage("Não foi possível guardar o favorito no Supabase. Confirma as políticas RLS e a tabela.", true);
+      console.error(
+        "Erro ao guardar favorito:",
+        result.error
+      );
+
+      showAuthMessage(
+        "Não foi possível guardar o favorito no Supabase. Confirma as políticas RLS e a tabela.",
+        true
+      );
+
       return;
     }
   } else if (!currentUser && !wasFavorite) {
-    showAuthMessage("Este favorito fica neste navegador. Inicia sessão para o sincronizares entre dispositivos.");
+    showAuthMessage(
+      "Este favorito fica neste navegador. Inicia sessão para o sincronizares entre dispositivos."
+    );
   }
 
   if (wasFavorite) {
@@ -1535,30 +3314,59 @@ async function toggleFavorite(event) {
   }
 
   saveStorage("goallive-favorite-matches", favoriteIds);
+
   renderMatches();
   updateSummary();
   renderFavoriteTeams();
 }
 
-/* ESTATÍSTICAS */
+
+/* =========================================================
+   21. RESUMO ESTATÍSTICO
+   ========================================================= */
+
+// Atualiza os números do painel lateral com base nos jogos
+// que correspondem aos filtros atuais.
+
 function updateSummary() {
   const matches = filteredMatches();
+
   $("statTotal").textContent = matches.length;
-  $("statLive").textContent = matches.filter(event => getStatus(event).kind === "live").length;
-  $("statFinished").textContent = matches.filter(event => getStatus(event).kind === "finished").length;
-  $("statUpcoming").textContent = matches.filter(event => getStatus(event).kind === "scheduled").length;
+
+  $("statLive").textContent =
+    matches.filter(event => getStatus(event).kind === "live").length;
+
+  $("statFinished").textContent =
+    matches.filter(event => getStatus(event).kind === "finished").length;
+
+  $("statUpcoming").textContent =
+    matches.filter(event => getStatus(event).kind === "scheduled").length;
 }
 
-/* EQUIPAS FAVORITAS LOCAIS */
+
+/* =========================================================
+   22. LISTA DE EQUIPAS FAVORITAS
+   ========================================================= */
+
+// Combina as equipas guardadas localmente com as equipas
+// presentes nos jogos marcados como favoritos.
+
 function renderFavoriteTeams() {
   const container = $("favoriteTeams");
   const teams = new Set(favoriteTeams);
 
   allMatches.forEach(event => {
     if (!isFavorite(event)) return;
+
     const { home, away } = getTeams(event);
-    if (home?.team?.displayName) teams.add(home.team.displayName);
-    if (away?.team?.displayName) teams.add(away.team.displayName);
+
+    if (home?.team?.displayName) {
+      teams.add(home.team.displayName);
+    }
+
+    if (away?.team?.displayName) {
+      teams.add(away.team.displayName);
+    }
   });
 
   if (!teams.size) {
@@ -1580,10 +3388,17 @@ function renderFavoriteTeams() {
     button.className = "btn";
     button.style.padding = "4px 8px";
     button.textContent = "×";
-    button.setAttribute("aria-label", "Remover " + name + " dos favoritos");
+
+    button.setAttribute(
+      "aria-label",
+      "Remover " + name + " dos favoritos"
+    );
 
     button.addEventListener("click", () => {
-      favoriteTeams = favoriteTeams.filter(team => team !== name);
+      favoriteTeams = favoriteTeams.filter(
+        team => team !== name
+      );
+
       saveStorage("goallive-favorite-teams", favoriteTeams);
       renderFavoriteTeams();
     });
@@ -1593,57 +3408,126 @@ function renderFavoriteTeams() {
   });
 }
 
-/* BOTÕES E ARRANQUE */
+
+/* =========================================================
+   23. BOTÕES PRINCIPAIS E PESQUISA
+   ========================================================= */
+
+// Regressa ao dia atual e atualiza o calendário.
+
 function resetToToday() {
   selectedDate = startOfDay(new Date());
   windowStart = new Date(selectedDate);
+
   renderCalendar();
   loadMatches();
 }
 
-$("prevWindow").addEventListener("click", () => moveWindow(-1));
-$("nextWindow").addEventListener("click", () => moveWindow(1));
-$("todayBtn").addEventListener("click", resetToToday);
-$("refreshBtn").addEventListener("click", loadMatches);
+// Navegação entre janelas de dez dias.
+
+$("prevWindow").addEventListener(
+  "click",
+  () => moveWindow(-1)
+);
+
+$("nextWindow").addEventListener(
+  "click",
+  () => moveWindow(1)
+);
+
+$("todayBtn").addEventListener(
+  "click",
+  resetToToday
+);
+
+// Atualização manual dos resultados.
+
+$("refreshBtn").addEventListener(
+  "click",
+  loadMatches
+);
+
+// Atualiza a lista sempre que a pesquisa muda.
 
 $("searchInput").addEventListener("input", () => {
   renderMatches();
   updateSummary();
 });
 
+// Liga ou desliga o filtro de favoritos.
+
 $("favoritesBtn").addEventListener("click", () => {
   favoritesOnly = !favoritesOnly;
-  $("favoritesBtn").classList.toggle("active", favoritesOnly);
-  $("favoritesBtn").textContent = favoritesOnly ? "★ Só favoritos" : "☆ Favoritos";
+
+  $("favoritesBtn").classList.toggle(
+    "active",
+    favoritesOnly
+  );
+
+  $("favoritesBtn").textContent =
+    favoritesOnly
+      ? "★ Só favoritos"
+      : "☆ Favoritos";
+
   renderMatches();
   updateSummary();
 });
 
-$("signup-btn").addEventListener("click", signUpUser);
-$("login-btn").addEventListener("click", signInUser);
-$("logout-btn").addEventListener("click", signOutUser);
+// Eventos dos botões da conta.
+
+$("signup-btn").addEventListener(
+  "click",
+  signUpUser
+);
+
+$("login-btn").addEventListener(
+  "click",
+  signInUser
+);
+
+$("logout-btn").addEventListener(
+  "click",
+  signOutUser
+);
+
+
+/* =========================================================
+   24. INICIALIZAÇÃO E ATUALIZAÇÃO AUTOMÁTICA
+   ========================================================= */
+
+// Desenha os elementos iniciais e começa a carregar os dados.
 
 renderCalendar();
 renderLeagueFilters();
 renderFavoriteTeams();
+
 loadMatches();
 initAuth();
 
+// Atualiza os resultados a cada minuto.
 setInterval(loadMatches, REFRESH_MS);
+
+// Mantém o calendário atualizado quando muda o dia.
+// Se o calendário estava no dia anterior, regressa ao dia atual.
 
 setInterval(() => {
   const now = startOfDay(new Date());
   const previousDay = addDays(now, -1);
 
-  if (sameDay(windowStart, previousDay) && sameDay(selectedDate, windowStart)) {
+  if (
+    sameDay(windowStart, previousDay) &&
+    sameDay(selectedDate, windowStart)
+  ) {
     windowStart = new Date(now);
     selectedDate = new Date(now);
+
     renderCalendar();
     loadMatches();
   } else {
     renderCalendar();
   }
 }, 30000);
+
 </script>
 </body>
 </html>
