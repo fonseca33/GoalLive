@@ -953,6 +953,208 @@ footer {
 
   .league-label { font-size:12px; }
 }
+
+/* =========================================================
+   13. AJUSTES DE ORGANIZAÇÃO E DIMENSÕES
+   ========================================================= */
+.header-inner,
+.container,
+.auth-wrap {
+  max-width: 1280px;
+}
+
+.header-inner { padding-top: 12px; padding-bottom: 12px; }
+.brand { font-size: 22px; }
+.brand-icon { width: 36px; height: 36px; border-radius: 11px; }
+
+.auth-wrap {
+  padding: 10px 22px 0;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.auth-wrap[hidden] { display: none !important; }
+#account-toggle {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border, rgba(255,255,255,.16));
+  border-radius: 8px;
+  background: var(--panel, #17212b);
+  color: var(--text, #fff);
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+}
+#account-toggle:hover { filter: brightness(1.15); }
+.header-actions { position: relative; }
+.account-status { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:750; white-space:nowrap; color:var(--muted,#a8b6c9); }
+.account-status:before { content:""; width:7px; height:7px; border-radius:50%; background:#94a3b8; flex:0 0 7px; }
+.account-status.is-signed-in { color:#86efac; }
+.account-status.is-signed-in:before { background:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.13); }
+@media(max-width:420px) { .account-status { font-size:10px; gap:4px; } .header-actions { gap:6px; } }
+#account-menu {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 155px;
+  padding: 6px;
+  border: 1px solid var(--border, rgba(255,255,255,.16));
+  border-radius: 10px;
+  background: var(--panel, #17212b);
+  box-shadow: 0 10px 28px rgba(0,0,0,.28);
+}
+#account-menu[hidden] { display: none !important; }
+#account-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 7px;
+  padding: 10px 12px;
+  background: transparent;
+  color: var(--text, #fff);
+  cursor: pointer;
+  font-size: 13px;
+}
+#account-menu button:hover { background: rgba(255,255,255,.08); }
+#account-menu button:focus-visible { outline: 2px solid var(--green, #22c55e); }
+#account-toggle:focus-visible { outline: 2px solid var(--green, #22c55e); outline-offset: 2px; }
+#auth-area {
+  padding: 12px 14px;
+  border-radius: 12px;
+  gap: 8px;
+}
+#auth-area h2 {
+  width: auto;
+  margin: 0 8px 0 0;
+  font-size: 15px;
+  white-space: nowrap;
+}
+#auth-area input {
+  flex: 1 1 180px;
+  padding: 9px 10px;
+  font-size: 13px;
+}
+#auth-area button {
+  padding: 9px 11px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+#auth-message { flex-basis: 100%; font-size: 12px; }
+
+.container { padding-top: 20px; }
+.hero { margin-bottom: 18px; }
+.panel { padding: 13px; margin-bottom: 16px; }
+.section-heading { margin-bottom: 10px; }
+.calendar { gap: 6px; }
+.day {
+  min-height: 64px;
+  gap: 3px;
+  padding: 5px 2px;
+  border-radius: 8px;
+}
+.day-number { font-size: 19px; }
+.day-name, .day-month { font-size: 9px; }
+.today-tag { font-size: 8px; }
+.content-grid { gap: 16px; grid-template-columns: minmax(0,1fr) 260px; }
+.side-panel { padding: 13px; }
+.match-card { padding: 11px 13px; }
+.league-heading-row { margin-top: 18px; }
+
+@media(max-width:900px) {
+  .content-grid { grid-template-columns: 1fr; }
+  .auth-wrap { max-width: 760px; }
+  #auth-area h2 { width: 100%; }
+}
+@media(max-width:600px) {
+  .auth-wrap { padding: 10px 12px 0; }
+  #auth-area { padding: 11px; gap: 7px; }
+  #auth-area h2 { width: 100%; }
+  #auth-area input { flex: 1 1 100%; }
+  #auth-area button { flex: 1 1 calc(50% - 7px); }
+  .calendar { grid-template-columns: repeat(5, minmax(0,1fr)); gap: 5px; }
+  .day { min-height: 57px; }
+  .day-number { font-size: 17px; }
+  .panel { padding: 10px; }
+}
+
+/* Botões compactos para os favoritos. */
+.compact-action { padding: 8px 11px; font-size: 12px; border-radius: 9px; white-space: nowrap; }
+.team-fav { border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 2px 4px; font-size: 17px; line-height: 1; flex: 0 0 auto; }
+.team-fav.is-fav { color: #f5c451; }
+.team-fav:hover { transform: scale(1.08); }
+.team { gap: 5px; }
+@media(max-width:600px) { .toolbar { flex-wrap: wrap; gap: 7px; } .search-wrap { flex: 1 1 100%; } .compact-action { padding: 7px 9px; font-size: 11px; } }
+
+
+/* Perfil de equipa moderno, com cartões e hierarquia visual clara. */
+.team-name { color:var(--text); background:transparent; border:0; padding:0; margin:0; min-width:0; font:inherit; font-weight:750; text-align:inherit; cursor:pointer; text-decoration: underline dotted transparent; text-underline-offset:3px; line-height:1.35; overflow-wrap:anywhere; }
+.team-name:hover { text-decoration-color: currentColor; color:#86efac; }
+.favorite-team-row { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:9px 0; border-bottom:1px solid var(--border, rgba(128,128,128,.18)); }
+.favorite-team-open { border:0; background:transparent; color:inherit; text-align:left; cursor:pointer; padding:4px 0; font-weight:650; }
+.favorite-team-open:hover { color:#86efac; }
+.team-profile-backdrop { position:fixed; inset:0; z-index:9999; background:rgba(2,6,15,.78); backdrop-filter:blur(9px); display:flex; align-items:center; justify-content:center; padding:18px; animation:teamFadeIn .18s ease-out; }
+@keyframes teamFadeIn { from {opacity:0} to {opacity:1} }
+.team-profile { width:min(900px,100%); max-height:88vh; overflow:auto; background:linear-gradient(145deg,#111c2d 0%,#0c1422 100%); color:var(--text, #f5f6f8); border:1px solid #30415a; border-radius:22px; padding:24px; box-shadow:0 30px 100px rgba(0,0,0,.55); }
+.team-profile-head { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:3px 0 19px; border-bottom:1px solid #263449; }
+.team-profile-head h2 { margin:0 0 6px; font-size:clamp(22px,3vw,30px); letter-spacing:-.6px; }
+.team-profile-head h2::before { content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--green); margin:0 10px 4px 0; box-shadow:0 0 16px rgba(34,197,94,.55); }
+.team-profile-close { border:1px solid #34445b; background:#19263a; color:#e5edf7; border-radius:11px; padding:9px 13px; cursor:pointer; white-space:nowrap; transition:background .15s,border-color .15s; }
+.team-profile-close:hover { background:#24364e; border-color:#5a718f; }
+.team-profile-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:16px; margin-top:18px; }
+.team-profile-section { min-width:0; border:1px solid #2a3a50; background:rgba(17,29,46,.78); border-radius:16px; padding:16px; }
+.team-profile-section h3 { display:flex; align-items:center; gap:8px; margin:0 0 13px; font-size:15px; letter-spacing:.1px; }
+.team-profile-section h3::before { content:""; width:4px; height:17px; border-radius:4px; background:var(--green); }
+.team-player-row,.team-game-row { padding:11px 10px; margin:0 0 7px; border:1px solid rgba(49,67,91,.72); border-radius:10px; background:rgba(9,17,30,.58); font-size:13px; line-height:1.5; }
+.team-player-row:last-child,.team-game-row:last-child { margin-bottom:0; }
+.team-player-row strong { display:block; font-size:13px; color:#f1f5f9; }
+.team-player-row .team-player-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:5px; }
+.team-player-row .team-player-meta span { display:inline-flex; align-items:center; border:1px solid #34465f; background:rgba(30,45,66,.75); border-radius:7px; padding:3px 7px; font-size:11px; color:#cbd5e1; }
+.team-player-row .team-muted { margin-top:2px; }
+.team-game-row { border-left:3px solid #34465f; }
+.team-game-row:first-child { border-left-color:var(--green); }
+.team-game-row > div { margin-top:4px; }
+.team-muted { color:var(--muted, #a0a6b3); font-size:12px; line-height:1.6; }
+@media(max-width:600px) { .team-profile-backdrop { padding:9px; } .team-profile { padding:16px; border-radius:17px; max-height:94vh; } .team-profile-grid { grid-template-columns:1fr; gap:11px; margin-top:13px; } .team-profile-section { padding:12px; } .team-profile-head h2 { font-size:21px; } .team-profile-close { padding:8px 10px; font-size:12px; } }
+
+
+/* Lista de jogadores organizada por posição */
+.team-roster-groups { display:flex; flex-direction:column; gap:14px; }
+.team-roster-section { padding:12px; border:1px solid rgba(49,67,91,.78); border-radius:13px; background:rgba(13,23,38,.62); }
+.team-roster-section h4 { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 9px; font-size:14px; color:var(--text,#f1f5f9); }
+.team-roster-count { display:inline-flex; align-items:center; justify-content:center; min-width:25px; height:25px; padding:0 7px; border-radius:8px; background:rgba(34,197,94,.14); color:#86efac; font-size:12px; }
+.team-roster-list { display:flex; flex-direction:column; gap:7px; }
+.team-roster-card { display:flex; align-items:center; gap:11px; margin:0; padding:10px; }
+.team-roster-number { display:flex; flex:0 0 38px; width:38px; height:38px; align-items:center; justify-content:center; border-radius:10px; background:linear-gradient(145deg,#e2e8f0,#cbd5e1); color:#172033; font-size:14px; font-weight:900; }
+.team-roster-info { flex:1; min-width:0; }
+.team-roster-info strong { overflow-wrap:anywhere; }
+@media(max-width:560px) { .team-roster-section { padding:10px; } .team-roster-card { padding:9px; } }
+
+/* Campo tático do perfil da equipa */
+.team-tactics-wrap { margin-top:8px; }
+.team-tactics-note { margin:0 0 12px; color:#a8b6c9; font-size:12px; line-height:1.5; }
+.team-tactics-pitch { position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-around; gap:18px; min-height:590px; padding:22px 12px; border:2px solid rgba(220,255,231,.78); border-radius:13px; background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0,rgba(255,255,255,.035) 48px,transparent 48px,transparent 96px),linear-gradient(90deg,#12643d,#177847 48%,#12643d); }
+.team-tactics-pitch:before { content:""; position:absolute; inset:50% 0 auto; border-top:2px solid rgba(235,255,240,.65); }
+.team-tactics-pitch:after { content:""; position:absolute; width:112px; height:112px; border:2px solid rgba(235,255,240,.65); border-radius:50%; top:calc(50% - 56px); left:calc(50% - 56px); pointer-events:none; }
+.team-tactics-box { position:absolute; left:25%; right:25%; height:42px; border:2px solid rgba(235,255,240,.65); pointer-events:none; }
+.team-tactics-box.top { top:0; border-top:0; }
+.team-tactics-box.bottom { bottom:0; border-bottom:0; }
+.team-tactics-row { position:relative; z-index:1; display:flex; align-items:flex-start; justify-content:space-evenly; gap:6px; width:100%; }
+.team-tactics-player { display:flex; flex:0 1 105px; min-width:0; flex-direction:column; align-items:center; text-align:center; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.75); }
+.team-tactics-shirt { display:flex; align-items:center; justify-content:center; width:38px; height:38px; margin-bottom:5px; border:2px solid rgba(255,255,255,.92); border-radius:12px 12px 9px 9px; background:linear-gradient(145deg,#f8fafc,#dbeafe); color:#142033; text-shadow:none; font-weight:900; font-size:13px; box-shadow:0 3px 9px rgba(0,0,0,.28); }
+.team-tactics-player-name { max-width:100%; font-size:11px; font-weight:750; line-height:1.25; overflow-wrap:anywhere; }
+.team-tactics-position { margin-top:3px; color:#dcfce7; font-size:10px; line-height:1.2; }
+.team-tactics-others { margin-top:14px; }
+.team-tactics-others h4 { margin:0 0 8px; font-size:13px; }
+.team-tactics-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; }
+.team-tactics-list .team-player-row { margin:0; }
+@media(max-width:560px) { .team-tactics-pitch { min-height:530px; padding:18px 5px; gap:18px; } .team-tactics-player { flex-basis:76px; } .team-tactics-shirt { width:32px; height:32px; border-radius:10px; font-size:11px; } .team-tactics-player-name { font-size:10px; } .team-tactics-position { font-size:9px; } .team-tactics-list { grid-template-columns:1fr; } }
+
 </style>
 </head>
 
@@ -964,7 +1166,7 @@ footer {
      os jogos favoritos através do Supabase.
      ======================================================= -->
 
-<div class="auth-wrap">
+<div class="auth-wrap" id="auth-wrap" hidden>
   <section id="auth-area">
     <h2>⚽ Conta GoalLive</h2>
 
@@ -995,7 +1197,11 @@ footer {
 
     <div class="header-actions">
       <span class="live-label">● FUTEBOL</span>
-      <button class="btn" id="refreshBtn" type="button">↻ Atualizar</button>
+      <span id="account-status" class="account-status" role="status" aria-live="polite">Sem sessão iniciada</span>
+      <button id="account-toggle" type="button" aria-label="Abrir conta" title="Conta" aria-haspopup="true" aria-expanded="false">👤</button>
+      <div id="account-menu" hidden>
+        <button id="account-logout-action" type="button">↪ Terminar sessão</button>
+      </div>
     </div>
   </div>
 </header>
@@ -1049,7 +1255,8 @@ footer {
         aria-label="Pesquisar jogos">
     </label>
 
-    <button class="btn" id="favoritesBtn" type="button">☆ Favoritos</button>
+    <button class="btn compact-action" id="favoritesBtn" type="button">☆ Jogos favoritos</button>
+    <button class="btn compact-action" id="favoriteTeamsBtn" type="button">☆ Equipas favoritas</button>
   </div>
 
   <!-- Os filtros das ligas são criados pelo JavaScript. -->
@@ -1115,8 +1322,8 @@ footer {
         </div>
 
         <p class="subtitle" style="font-size:11px;line-height:1.6">
-          Os jogos favoritos são sincronizados com a tua conta.
-          As equipas favoritas ficam guardadas apenas neste navegador.
+          Com sessão iniciada, os jogos e as equipas favoritas ficam associados à tua conta.
+          Sem sessão iniciada, os favoritos ficam guardados apenas neste navegador.
         </p>
       </section>
 
@@ -1266,12 +1473,64 @@ let selectedDate = startOfDay(new Date());
 let windowStart = new Date(selectedDate);
 let activeLeague = "all";
 let favoritesOnly = false;
+let favoriteTeamsOnly = false;
 let allMatches = [];
 let requestNumber = 0;
 let lastSuccessfulFetch = null;
 
-let favoriteIds = loadStorage("goallive-favorite-matches", []);
-let favoriteTeams = loadStorage("goallive-favorite-teams", []);
+// Os favoritos sem sessão iniciada ficam num espaço separado dos favoritos
+// associados à conta. Ao iniciar sessão, a lista da conta substitui a anónima.
+let favoriteIds = loadStorage("goallive-anon-favorite-matches", loadStorage("goallive-favorite-matches", []));
+let favoriteMatchData = loadStorage("goallive-anon-favorite-match-data", loadStorage("goallive-favorite-match-data", []));
+let favoriteTeams = loadStorage("goallive-anon-favorite-teams", loadStorage("goallive-favorite-teams", []));
+
+function userStorageKey(kind, userId = currentUser?.id) {
+  return userId ? `goallive-user-${userId}-${kind}` : "";
+}
+
+function saveFavoriteMatchCache() {
+  if (currentUser) {
+    saveStorage(userStorageKey("favorite-match-data"), favoriteMatchData);
+    saveStorage(userStorageKey("favorite-matches"), favoriteIds);
+  } else {
+    saveStorage("goallive-anon-favorite-matches", favoriteIds);
+    saveStorage("goallive-anon-favorite-match-data", favoriteMatchData);
+  }
+  // Mantém uma cópia de trabalho para a interface atual; não é a fonte
+  // de verdade da conta, que vem do Supabase.
+  saveStorage("goallive-favorite-matches", favoriteIds);
+  saveStorage("goallive-favorite-match-data", favoriteMatchData);
+}
+
+function saveFavoriteTeamsLocal() {
+  if (!currentUser) saveStorage("goallive-anon-favorite-teams", favoriteTeams);
+  saveStorage("goallive-favorite-teams", favoriteTeams);
+}
+
+async function persistFavoriteTeams() {
+  saveFavoriteTeamsLocal();
+  if (!currentUser || !supabaseClient) return true;
+  const userId = currentUser.id;
+  const { data, error } = await supabaseClient.auth.updateUser({
+    data: { favorite_teams: favoriteTeams }
+  });
+  if (error) {
+    console.error("Erro ao guardar equipas favoritas na conta:", error);
+    showAuthMessage("Não foi possível guardar as equipas favoritas na conta. Tenta novamente.", true);
+    return false;
+  }
+  if (currentUser?.id === userId && data?.user) currentUser = data.user;
+  return true;
+}
+
+function restoreAnonymousFavorites() {
+  favoriteIds = loadStorage("goallive-anon-favorite-matches", []);
+  favoriteMatchData = loadStorage("goallive-anon-favorite-match-data", []);
+  favoriteTeams = loadStorage("goallive-anon-favorite-teams", []);
+  saveStorage("goallive-favorite-matches", favoriteIds);
+  saveStorage("goallive-favorite-match-data", favoriteMatchData);
+  saveStorage("goallive-favorite-teams", favoriteTeams);
+}
 
 // Cache temporária para evitar pedidos repetidos da classificação.
 const standingsCache = new Map();
@@ -1427,6 +1686,12 @@ function showAuthMessage(message, isError = false) {
 
 function updateAuthUI() {
   const signedIn = Boolean(currentUser);
+  const statusLabel = $("account-status");
+  if (statusLabel) {
+    statusLabel.textContent = signedIn ? "Sessão iniciada" : "Sem sessão iniciada";
+    statusLabel.classList.toggle("is-signed-in", signedIn);
+    statusLabel.title = signedIn && currentUser.email ? "Sessão iniciada como " + currentUser.email : "Não tens sessão iniciada";
+  }
 
   $("auth-email").hidden = signedIn;
   $("auth-password").hidden = signedIn;
@@ -1440,8 +1705,22 @@ function updateAuthUI() {
       "Sessão iniciada: " + (currentUser.email || "utilizador");
 
     $("auth-message").style.color = "var(--green)";
+    if ($("auth-wrap")) $("auth-wrap").hidden = true;
+    if ($("account-menu")) $("account-menu").hidden = true;
+    if ($("account-toggle")) {
+      $("account-toggle").textContent = "👤";
+      $("account-toggle").setAttribute("aria-label", "Terminar sessão");
+      $("account-toggle").title = "Opções da conta";
+      $("account-toggle").setAttribute("aria-expanded", "false");
+    }
   } else {
     $("auth-message").style.color = "var(--muted)";
+    if ($("account-menu")) $("account-menu").hidden = true;
+    if ($("account-toggle")) {
+      $("account-toggle").setAttribute("aria-label", "Abrir conta");
+      $("account-toggle").title = "Iniciar sessão";
+      $("account-toggle").setAttribute("aria-expanded", String(!$("auth-wrap").hidden));
+    }
   }
 }
 
@@ -1449,6 +1728,37 @@ function updateAuthUI() {
 /* =========================================================
    6. REGISTO, LOGIN E LOGOUT
    ========================================================= */
+
+// O botão quadrado abre a conta ou, se a sessão estiver iniciada,
+// mostra um pequeno menu com a opção para terminar sessão.
+const accountToggle = $("account-toggle");
+const accountMenu = $("account-menu");
+const accountLogoutAction = $("account-logout-action");
+if (accountToggle) {
+  accountToggle.addEventListener("click", () => {
+    if (currentUser) {
+      accountMenu.hidden = !accountMenu.hidden;
+      accountToggle.setAttribute("aria-expanded", String(!accountMenu.hidden));
+      accountToggle.setAttribute("aria-label", accountMenu.hidden ? "Opções da conta" : "Fechar opções da conta");
+      return;
+    }
+
+    const authWrap = $("auth-wrap");
+    authWrap.hidden = !authWrap.hidden;
+    accountToggle.setAttribute("aria-label", authWrap.hidden ? "Abrir conta" : "Fechar conta");
+    accountToggle.setAttribute("aria-expanded", String(!authWrap.hidden));
+    if (!authWrap.hidden) $("auth-email").focus();
+  });
+}
+if (accountLogoutAction) {
+  accountLogoutAction.addEventListener("click", async () => {
+    accountLogoutAction.disabled = true;
+    await signOutUser();
+    accountMenu.hidden = true;
+    accountToggle.setAttribute("aria-expanded", "false");
+    accountLogoutAction.disabled = false;
+  });
+}
 
 // Cria uma nova conta através do Supabase Auth.
 
@@ -1589,6 +1899,14 @@ async function loadCloudFavorites() {
 
   const userId = currentUser.id;
 
+  // Isola imediatamente a interface desta conta, mesmo que o pedido à base
+  // de dados falhe; nunca deixa os favoritos anónimos visíveis por engano.
+  favoriteIds = loadStorage(userStorageKey("favorite-matches", userId), []);
+  favoriteMatchData = loadStorage(userStorageKey("favorite-match-data", userId), []);
+  favoriteTeams = Array.isArray(currentUser.user_metadata?.favorite_teams)
+    ? [...new Set(currentUser.user_metadata.favorite_teams.filter(team => typeof team === "string"))]
+    : [];
+
   const { data, error } = await supabaseClient
     .from("favorite_matches")
     .select("match_id")
@@ -1598,9 +1916,12 @@ async function loadCloudFavorites() {
     console.error("Erro ao carregar favoritos:", error);
 
     showAuthMessage(
-      "A sessão está iniciada, mas não foi possível carregar os favoritos. Confirma as políticas RLS da tabela favorite_matches.",
+      "A sessão está iniciada, mas não foi possível carregar os jogos favoritos. Confirma as políticas RLS da tabela favorite_matches.",
       true
     );
+    renderMatches();
+    updateSummary();
+    renderFavoriteTeams();
 
     return;
   }
@@ -1611,8 +1932,17 @@ async function loadCloudFavorites() {
   favoriteIds = [
     ...new Set((data || []).map(row => String(row.match_id)))
   ];
-
+  // O cache de jogos é separado por utilizador para que contas diferentes
+  // neste navegador nunca partilhem dados de favoritos.
+  favoriteMatchData = loadStorage(userStorageKey("favorite-match-data", userId), []);
+  favoriteTeams = Array.isArray(currentUser.user_metadata?.favorite_teams)
+    ? [...new Set(currentUser.user_metadata.favorite_teams.filter(team => typeof team === "string"))]
+    : [];
+  saveStorage(userStorageKey("favorite-matches", userId), favoriteIds);
   saveStorage("goallive-favorite-matches", favoriteIds);
+  saveStorage("goallive-favorite-match-data", favoriteMatchData);
+  saveStorage("goallive-favorite-teams", favoriteTeams);
+  cacheFavoriteMatches(allMatches);
 
   renderMatches();
   updateSummary();
@@ -1655,9 +1985,7 @@ async function initAuth() {
     }
 
     if (event === "SIGNED_OUT") {
-      favoriteIds = [];
-      saveStorage("goallive-favorite-matches", []);
-
+      restoreAnonymousFavorites();
       renderMatches();
       updateSummary();
       renderFavoriteTeams();
@@ -1769,6 +2097,43 @@ function getMatchId(event) {
 
 function isFavorite(event) {
   return favoriteIds.includes(getMatchId(event));
+}
+
+// Atualiza a cópia local dos jogos favoritos com os dados mais recentes.
+function cacheFavoriteMatches(events) {
+  const byId = new Map(
+    favoriteMatchData
+      .filter(event => event && event.id != null && favoriteIds.includes(String(event.id)))
+      .map(event => [String(event.id), event])
+  );
+
+  events.forEach(event => {
+    if (event && event.id != null && favoriteIds.includes(String(event.id))) {
+      byId.set(String(event.id), event);
+    }
+  });
+
+  favoriteMatchData = [...byId.values()];
+  saveFavoriteMatchCache();
+}
+
+// As equipas favoritas são locais sem sessão e guardadas nos metadados
+// da conta quando a sessão está iniciada.
+function isFavoriteTeam(name) {
+  return favoriteTeams.some(team => normalize(team) === normalize(name));
+}
+
+function toggleFavoriteTeam(name) {
+  if (!name) return;
+  if (isFavoriteTeam(name)) {
+    favoriteTeams = favoriteTeams.filter(team => normalize(team) !== normalize(name));
+  } else {
+    favoriteTeams.push(name);
+  }
+  favoriteTeams = [...new Set(favoriteTeams)];
+  void persistFavoriteTeams();
+  renderFavoriteTeams();
+  renderMatches();
 }
 
 
@@ -1960,6 +2325,7 @@ async function loadMatches() {
   });
 
   allMatches = matches;
+  cacheFavoriteMatches(allMatches);
   lastSuccessfulFetch = new Date();
 
   $("lastUpdate").textContent = formatDate(lastSuccessfulFetch, {
@@ -2002,7 +2368,15 @@ function showApiMessage(message) {
 function filteredMatches() {
   const query = normalize($("searchInput").value);
 
-  return allMatches.filter(event => {
+  // Em modo favoritos, combinar os jogos guardados localmente com os da
+  // data atual. Assim, a data selecionada no calendário deixa de limitar a lista.
+  const sourceMatches = favoritesOnly
+    ? [...new Map([...favoriteMatchData, ...allMatches]
+        .filter(event => event && event.id != null && favoriteIds.includes(String(event.id)))
+        .map(event => [String(event.id), event])).values()]
+    : allMatches;
+
+  return sourceMatches.filter(event => {
     if (
       activeLeague !== "all" &&
       event._leagueId !== activeLeague
@@ -2015,6 +2389,12 @@ function filteredMatches() {
     }
 
     const { home, away } = getTeams(event);
+
+    if (favoriteTeamsOnly) {
+      const homeName = home?.team?.displayName || home?.team?.name || "";
+      const awayName = away?.team?.displayName || away?.team?.name || "";
+      if (!isFavoriteTeam(homeName) && !isFavoriteTeam(awayName)) return false;
+    }
 
     const searchable = normalize([
       event.name,
@@ -2042,12 +2422,14 @@ function renderMatches() {
   const container = $("matches");
   const matches = filteredMatches();
 
-  $("matchesTitle").textContent = sameDay(selectedDate, new Date())
-    ? "Jogos de hoje"
-    : formatDate(selectedDate, {
-        day:"numeric",
-        month:"long"
-      });
+  $("matchesTitle").textContent = favoritesOnly
+    ? "Jogos favoritos"
+    : sameDay(selectedDate, new Date())
+      ? "Jogos de hoje"
+      : formatDate(selectedDate, {
+          day:"numeric",
+          month:"long"
+        });
 
   $("matchCount").textContent =
     `${matches.length} ${matches.length === 1 ? "jogo" : "jogos"}`;
@@ -2058,9 +2440,11 @@ function renderMatches() {
 
     const message = searching
       ? "Experimenta pesquisar outra equipa ou competição."
-      : favoritesOnly
-        ? "Ainda não tens jogos favoritos nesta data. Marca a estrela de um jogo para o guardar."
-        : "A fonte de dados não devolveu jogos para esta data. Experimenta outro dia.";
+      : favoriteTeamsOnly
+        ? (favoriteTeams.length ? "Não há jogos das tuas equipas favoritas nesta data." : "Marca a estrela junto ao nome de uma equipa para a guardar como favorita.")
+        : favoritesOnly
+          ? "Ainda não tens jogos favoritos guardados. Marca a estrela de um jogo para o guardar."
+          : "A fonte de dados não devolveu jogos para esta data. Experimenta outro dia.";
 
     container.innerHTML = `
       <div class="empty">
@@ -2209,7 +2593,8 @@ function createMatchCard(event) {
     <div class="match-main">
       <div class="team">
         ${homeLogo ? `<img src="${escapeHtml(homeLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
-        <span class="team-name">${escapeHtml(homeName)}</span>
+        <button type="button" class="team-name team-open" data-team="${escapeHtml(homeName)}" data-team-id="${escapeHtml(home?.team?.id || "")}" data-league="${escapeHtml(event._leagueId || "")}">${escapeHtml(homeName)}</button>
+        <button type="button" class="team-fav ${isFavoriteTeam(homeName) ? "is-fav" : ""}" data-team="${escapeHtml(homeName)}" aria-label="${isFavoriteTeam(homeName) ? "Retirar" : "Adicionar"} ${escapeHtml(homeName)} ${isFavoriteTeam(homeName) ? "dos" : "aos"} favoritos">${isFavoriteTeam(homeName) ? "★" : "☆"}</button>
       </div>
 
       <div class="score ${hasScore ? "" : "pending"}">
@@ -2219,7 +2604,8 @@ function createMatchCard(event) {
       </div>
 
       <div class="team away">
-        <span class="team-name">${escapeHtml(awayName)}</span>
+        <button type="button" class="team-name team-open" data-team="${escapeHtml(awayName)}" data-team-id="${escapeHtml(away?.team?.id || "")}" data-league="${escapeHtml(event._leagueId || "")}">${escapeHtml(awayName)}</button>
+        <button type="button" class="team-fav ${isFavoriteTeam(awayName) ? "is-fav" : ""}" data-team="${escapeHtml(awayName)}" aria-label="${isFavoriteTeam(awayName) ? "Retirar" : "Adicionar"} ${escapeHtml(awayName)} ${isFavoriteTeam(awayName) ? "dos" : "aos"} favoritos">${isFavoriteTeam(awayName) ? "★" : "☆"}</button>
         ${awayLogo ? `<img src="${escapeHtml(awayLogo)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
       </div>
     </div>
@@ -2234,6 +2620,22 @@ function createMatchCard(event) {
       </button>
     </div>
   `;
+
+  // Clicar no nome de uma equipa abre o perfil da equipa.
+  card.querySelectorAll(".team-open").forEach(button => {
+    button.addEventListener("click", clickEvent => {
+      clickEvent.stopPropagation();
+      openTeamProfile(button.dataset.team, button.dataset.teamId, button.dataset.league);
+    });
+  });
+
+  // Os símbolos junto aos nomes guardam equipas favoritas.
+  card.querySelectorAll(".team-fav").forEach(button => {
+    button.addEventListener("click", clickEvent => {
+      clickEvent.stopPropagation();
+      toggleFavoriteTeam(button.dataset.team);
+    });
+  });
 
   // O clique na estrela não deve abrir os detalhes do jogo.
   card.querySelector(".card-bottom button").addEventListener(
@@ -2606,17 +3008,41 @@ function traduzirPosicao(posicao) {
   const traducoes = {
     "goalkeeper":"Guarda-redes",
     "keeper":"Guarda-redes",
+    "gk":"Guarda-redes",
     "defender":"Defesa",
+    "defence":"Defesa",
+    "defense":"Defesa",
     "centre-back":"Defesa-central",
     "center-back":"Defesa-central",
+    "centreback":"Defesa-central",
+    "centerback":"Defesa-central",
     "left-back":"Lateral esquerdo",
+    "leftback":"Lateral esquerdo",
     "right-back":"Lateral direito",
+    "rightback":"Lateral direito",
+    "full-back":"Lateral",
+    "fullback":"Lateral",
+    "wing-back":"Ala",
+    "wingback":"Ala",
     "midfielder":"Médio",
+    "midfield":"Meio-campo",
     "defensive midfielder":"Médio defensivo",
+    "defensive midfield":"Médio defensivo",
     "attacking midfielder":"Médio ofensivo",
+    "central midfielder":"Médio-centro",
+    "centre midfielder":"Médio-centro",
+    "center midfielder":"Médio-centro",
     "forward":"Avançado",
     "striker":"Ponta de lança",
+    "centre-forward":"Ponta de lança",
+    "center-forward":"Ponta de lança",
+    "second striker":"Segundo avançado",
     "winger":"Extremo",
+    "left winger":"Extremo esquerdo",
+    "right winger":"Extremo direito",
+    "left wing":"Extremo esquerdo",
+    "right wing":"Extremo direito",
+    "attacker":"Avançado",
     "substitute":"Suplente"
   };
 
@@ -3316,7 +3742,14 @@ async function toggleFavorite(event) {
     favoriteIds.push(id);
   }
 
-  saveStorage("goallive-favorite-matches", favoriteIds);
+  if (wasFavorite) {
+    favoriteMatchData = favoriteMatchData.filter(item => String(item.id) !== id);
+  } else {
+    const cached = new Map(favoriteMatchData.map(item => [String(item.id), item]));
+    cached.set(id, event);
+    favoriteMatchData = [...cached.values()];
+  }
+  saveFavoriteMatchCache();
 
   renderMatches();
   updateSummary();
@@ -3351,65 +3784,106 @@ function updateSummary() {
    22. LISTA DE EQUIPAS FAVORITAS
    ========================================================= */
 
-// Combina as equipas guardadas localmente com as equipas
-// presentes nos jogos marcados como favoritos.
+// Apresenta apenas as equipas marcadas explicitamente como favoritas.
 
 function renderFavoriteTeams() {
   const container = $("favoriteTeams");
-  const teams = new Set(favoriteTeams);
+  const teams = [...new Set(favoriteTeams)];
 
-  allMatches.forEach(event => {
-    if (!isFavorite(event)) return;
-
-    const { home, away } = getTeams(event);
-
-    if (home?.team?.displayName) {
-      teams.add(home.team.displayName);
-    }
-
-    if (away?.team?.displayName) {
-      teams.add(away.team.displayName);
-    }
-  });
-
-  if (!teams.size) {
-    container.textContent = "Ainda não tens favoritos.";
+  if (!teams.length) {
+    container.textContent = "Ainda não tens equipas favoritas. Usa a estrela junto ao nome de uma equipa.";
     return;
   }
 
   container.innerHTML = "";
-
-  [...teams].forEach(name => {
+  teams.forEach(name => {
     const row = document.createElement("div");
-    row.className = "stat-row";
-
-    const label = document.createElement("span");
-    label.textContent = "⭐ " + name;
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "btn";
-    button.style.padding = "4px 8px";
-    button.textContent = "×";
-
-    button.setAttribute(
-      "aria-label",
-      "Remover " + name + " dos favoritos"
-    );
-
-    button.addEventListener("click", () => {
-      favoriteTeams = favoriteTeams.filter(
-        team => team !== name
-      );
-
-      saveStorage("goallive-favorite-teams", favoriteTeams);
-      renderFavoriteTeams();
+    row.className = "favorite-team-row";
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "favorite-team-open";
+    open.textContent = "⚽ " + name;
+    open.addEventListener("click", () => {
+      const found = findTeamReference(name);
+      openTeamProfile(name, found?.teamId || "", found?.leagueId || "");
     });
-
-    row.append(label, button);
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "btn";
+    remove.style.padding = "4px 8px";
+    remove.textContent = "×";
+    remove.setAttribute("aria-label", "Remover " + name + " dos favoritos");
+    remove.addEventListener("click", () => {
+      favoriteTeams = favoriteTeams.filter(team => normalize(team) !== normalize(name));
+      void persistFavoriteTeams();
+      renderFavoriteTeams();
+      renderMatches();
+    });
+    row.append(open, remove);
     container.appendChild(row);
   });
 }
+
+
+// Organiza os jogadores em listas por setor, usando as posições fornecidas pela API.
+function renderTeamTactics(players) {
+  const buckets = {attack:[], midfield:[], defence:[], goalkeeper:[], other:[]};
+  for (const player of players) {
+    const pos = normalize([player.position, traduzirPosicao(player.position || "")].join(" "));
+    if (/goalkeeper|goal keeper|guarda redes|goleiro|\bgk\b/.test(pos)) buckets.goalkeeper.push(player);
+    else if (/defend|defesa|back|lateral|centre back|center back|\bcb\b|\blb\b|\brb\b|\bwb\b/.test(pos)) buckets.defence.push(player);
+    else if (/midfield|medio|midfielder|\bcm\b|\bdm\b|\bam\b|\bcdm\b/.test(pos)) buckets.midfield.push(player);
+    else if (/forward|striker|attacker|avancado|avançado|ponta de lanca|extremo|winger|\bst\b|\blw\b|\brw\b/.test(pos)) buckets.attack.push(player);
+    else buckets.other.push(player);
+  }
+  const playerCard = player => `<div class="team-player-row team-roster-card"><span class="team-roster-number">${escapeHtml(player.jersey || "—")}</span><div class="team-roster-info"><strong>${escapeHtml(player.name)}</strong><div class="team-player-meta"><span>${player.jersey ? `N.º ${escapeHtml(player.jersey)}` : "Número não indicado"}</span><span>${escapeHtml(player.position ? traduzirPosicao(player.position) : "Posição não indicada")}</span></div></div></div>`;
+  const section = (items, title, key) => items.length ? `<section class="team-roster-section"><h4><span>${title}</span><span class="team-roster-count">${items.length}</span></h4><div class="team-roster-list">${items.map(playerCard).join("")}</div></section>` : "";
+  return `<div class="team-tactics-wrap"><p class="team-tactics-note">Jogadores organizados por posição, com o número da camisola quando está disponível.</p><div class="team-roster-groups">${section(buckets.attack,"Avançados","attack")}${section(buckets.midfield,"Médios","midfield")}${section(buckets.defence,"Defesas","defence")}${section(buckets.goalkeeper,"Guarda-redes","goalkeeper")}${section(buckets.other,"Outros jogadores","other")}</div></div>`;
+}
+
+// Encontra o identificador e a liga de uma equipa nos jogos carregados.
+function findTeamReference(name) {
+  for (const event of allMatches) {
+    const {home, away} = getTeams(event);
+    for (const competitor of [home, away]) {
+      const candidate = competitor?.team?.displayName || competitor?.team?.name || "";
+      if (normalize(candidate) === normalize(name)) {
+        return {teamId: String(competitor?.team?.id || ""), leagueId: event._leagueId || ""};
+      }
+    }
+  }
+  return null;
+}
+
+async function openTeamProfile(teamName, teamId, leagueId) {
+  const root = $("teamProfileRoot");
+  const nearby = findTeamReference(teamName);
+  teamId = teamId || nearby?.teamId || "";
+  leagueId = leagueId || nearby?.leagueId || "";
+  root.innerHTML = `<div class="team-profile-backdrop" role="presentation"><section class="team-profile" role="dialog" aria-modal="true" aria-label="Perfil de ${escapeHtml(teamName)}"><div class="team-profile-head"><div><h2>⚽ ${escapeHtml(teamName)}</h2><div class="team-muted">Plantel e informações dos jogadores</div></div><button type="button" class="team-profile-close">Fechar ✕</button></div><div class="team-profile-grid"><section class="team-profile-section"><h3>Jogadores, números e posições</h3><div id="teamProfilePlayers" class="team-muted">A carregar jogadores…</div></section></div></section></div>`;
+  const backdrop = root.querySelector(".team-profile-backdrop");
+  root.querySelector(".team-profile-close").addEventListener("click", () => root.innerHTML = "");
+  backdrop.addEventListener("click", e => { if (e.target === backdrop) root.innerHTML = ""; });
+  const playersBox = $("teamProfilePlayers");
+  if (!teamId || !leagueId) {
+    playersBox.textContent = "Não foi possível identificar a equipa na API. Abre o perfil a partir do nome da equipa num jogo para carregar o plantel.";
+    return;
+  }
+  try {
+    const response = await fetch(`${API_BASE}${encodeURIComponent(leagueId)}/teams/${encodeURIComponent(teamId)}/roster`, {cache:"no-store"});
+    if (!response.ok) throw new Error("Plantel indisponível");
+    const data = await response.json();
+    const players = collectPlayerCandidates(data);
+    if (!players.length) {
+      playersBox.textContent = "A API não disponibilizou o plantel ou as posições desta equipa.";
+      return;
+    }
+    playersBox.innerHTML = renderTeamTactics(players);
+  } catch (error) {
+    playersBox.textContent = "Não foi possível carregar os jogadores neste momento. A API pode não disponibilizar o plantel para esta competição.";
+  }
+}
+
 
 
 /* =========================================================
@@ -3443,13 +3917,6 @@ $("todayBtn").addEventListener(
   resetToToday
 );
 
-// Atualização manual dos resultados.
-
-$("refreshBtn").addEventListener(
-  "click",
-  loadMatches
-);
-
 // Atualiza a lista sempre que a pesquisa muda.
 
 $("searchInput").addEventListener("input", () => {
@@ -3469,9 +3936,20 @@ $("favoritesBtn").addEventListener("click", () => {
 
   $("favoritesBtn").textContent =
     favoritesOnly
-      ? "★ Só favoritos"
-      : "☆ Favoritos";
+      ? "★ Só jogos favoritos"
+      : "☆ Jogos favoritos";
 
+  renderMatches();
+  updateSummary();
+});
+
+// Mostra apenas jogos que envolvem equipas guardadas como favoritas.
+$("favoriteTeamsBtn").addEventListener("click", () => {
+  favoriteTeamsOnly = !favoriteTeamsOnly;
+  $("favoriteTeamsBtn").classList.toggle("active", favoriteTeamsOnly);
+  $("favoriteTeamsBtn").textContent = favoriteTeamsOnly
+    ? "★ A ver equipas favoritas"
+    : "☆ Equipas favoritas";
   renderMatches();
   updateSummary();
 });
@@ -3532,5 +4010,6 @@ setInterval(() => {
 }, 30000);
 
 </script>
+<div id="teamProfileRoot"></div>
 </body>
 </html>
