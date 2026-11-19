@@ -697,6 +697,86 @@ footer {
   margin:0 0 10px;
 }
 
+/* Acontecimentos do jogo */
+.detail-events-list {
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.detail-event-item {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:rgba(12,20,34,.72);
+  font-size:12px;
+  line-height:1.45;
+}
+
+.detail-event-main {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+
+.detail-event-clock {
+  flex-shrink:0;
+  min-width:38px;
+  padding:3px 6px;
+  border-radius:6px;
+  background:var(--panel2);
+  color:var(--green);
+  font-weight:800;
+  text-align:center;
+}
+
+.detail-event-icon {
+  flex-shrink:0;
+  font-size:15px;
+  line-height:1.2;
+}
+
+.detail-event-desc {
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+
+.detail-event-type {
+  display:block;
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
+.detail-event-players {
+  display:block;
+  margin-top:2px;
+  font-size:13px;
+  font-weight:700;
+  color:var(--text);
+}
+
+.detail-event-team {
+  flex-shrink:0;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  text-align:right;
+  max-width:145px;
+  overflow-wrap:anywhere;
+}
+
+
 .detail-table {
   width:100%;
   border-collapse:collapse;
@@ -2689,6 +2769,212 @@ function detailText(value) {
 
 // Procura jogadores em estruturas de dados que podem estar aninhadas.
 
+function traduzirAcontecimento(tipoTexto) {
+  const chave = normalize(String(tipoTexto || ""));
+
+  if (chave.includes("own goal") || chave.includes("autogolo")) {
+    return { kind: "goal", label: "Autogolo", icon: "⚽🔴" };
+  }
+  if (chave.includes("penalty") && (chave.includes("missed") || chave.includes("saved") || chave.includes("no goal"))) {
+    return { kind: "other", label: "Grande penalidade falhada", icon: "❌⚽" };
+  }
+  if (chave.includes("penalty") && chave.includes("goal")) {
+    return { kind: "goal", label: "Golo de grande penalidade", icon: "⚽" };
+  }
+  if (chave.includes("goal") || chave.includes("golo")) {
+    return { kind: "goal", label: "Golo", icon: "⚽" };
+  }
+  if (chave.includes("yellow card") || chave.includes("caution") || chave.includes("amarelo")) {
+    return { kind: "card", label: "Cartão amarelo", icon: "🟨" };
+  }
+  if (chave.includes("red card") || chave.includes("ejection") || chave.includes("vermelho")) {
+    return { kind: "card", label: "Cartão vermelho", icon: "🟥" };
+  }
+  if (chave.includes("substitution") || chave.includes("sub")) {
+    return { kind: "sub", label: "Substituição", icon: "🔄" };
+  }
+
+  return { kind: "other", label: "Acontecimento", icon: "📌" };
+}
+
+// Formata os intervenientes no formato pedido:
+// - Cartão: "Nome do jogador"
+// - Golo: "Nome do jogador que marcou (nome do jogador que deu a assistência)"
+// - Substituição: "Nome de quem entra (nome de quem sai)"
+function formatarJogadoresAcontecimento(item, kind, rawText) {
+  const participants = Array.isArray(item?.participants) ? item.participants : [];
+  const athletes = Array.isArray(item?.athletesInvolved) ? item.athletesInvolved : [];
+
+  if (kind === "goal") {
+    let scorer = "";
+    let assist = "";
+
+    for (const p of participants) {
+      const pName = detailText(p?.athlete || p?.player || p);
+      const pType = normalize(p?.type || p?.role || "");
+      if (!pName) continue;
+      if (pType.includes("assist")) assist = pName;
+      else if (!scorer) scorer = pName;
+    }
+
+    if (!scorer && athletes[0]) scorer = detailText(athletes[0]);
+    if (!assist && athletes[1]) assist = detailText(athletes[1]);
+
+    if (!scorer && rawText) {
+      const m = rawText.match(/^Goal!\s*[^.]*\.\s*([^(.,]+?)(?:\s*\([^)]*\))?\s+(?:left|right|header|shot|penalty|own goal)/i);
+      if (m) scorer = m[1].trim();
+      const aMatch = rawText.match(/Assisted by\s+([^.(]+)/i);
+      if (aMatch && !assist) assist = aMatch[1].trim();
+    }
+
+    if (!scorer) scorer = "Jogador não indicado";
+    return assist ? `${scorer} (${assist})` : scorer;
+  }
+
+  if (kind === "sub") {
+    let playerIn = "";
+    let playerOut = "";
+
+    for (const p of participants) {
+      const pName = detailText(p?.athlete || p?.player || p);
+      const pType = normalize(p?.type || p?.role || "");
+      if (!pName) continue;
+      if (pType.includes("in") || pType.includes("on") || pType.includes("enter")) playerIn = pName;
+      else if (pType.includes("out") || pType.includes("off") || pType.includes("exit")) playerOut = pName;
+    }
+
+    if (!playerIn && athletes[0]) playerIn = detailText(athletes[0]);
+    if (!playerOut && athletes[1]) playerOut = detailText(athletes[1]);
+
+    if ((!playerIn || !playerOut) && rawText) {
+      const subMatch = rawText.match(/Substitution[^.]*\.\s*([^.(]+?)\s+replaces\s+([^.(]+)/i);
+      if (subMatch) {
+        if (!playerIn) playerIn = subMatch[1].trim();
+        if (!playerOut) playerOut = subMatch[2].trim();
+      }
+    }
+
+    if (playerIn && playerOut) return `${playerIn} (${playerOut})`;
+    return playerIn || playerOut || "Jogador não indicado";
+  }
+
+  if (kind === "card") {
+    let player = "";
+    if (participants[0]) player = detailText(participants[0]?.athlete || participants[0]?.player || participants[0]);
+    if (!player && athletes[0]) player = detailText(athletes[0]);
+
+    if (!player && rawText) {
+      const cardMatch = rawText.match(/^([^(.,]+?)(?:\s*\([^)]*\))?\s+is shown the (?:yellow|red) card/i);
+      if (cardMatch) player = cardMatch[1].trim();
+    }
+
+    return player || "Jogador não indicado";
+  }
+
+  if (participants[0]) return detailText(participants[0]?.athlete || participants[0]?.player || participants[0]);
+  if (athletes[0]) return detailText(athletes[0]);
+  return "Jogador não indicado";
+}
+
+function extractMatchEvents(summary) {
+  const rawEvents = [
+    ...(Array.isArray(summary?.keyEvents) ? summary.keyEvents : []),
+    ...(Array.isArray(summary?.plays) ? summary.plays : [])
+  ];
+
+  const seen = new Set();
+  const events = [];
+
+  for (const item of rawEvents) {
+    if (!item || typeof item !== "object") continue;
+
+    const rawType = detailText(
+      item.type?.text ||
+      item.type?.name ||
+      ""
+    );
+
+    const rawText = detailText(
+      item.text ||
+      item.shortText ||
+      item.description ||
+      ""
+    );
+
+    const clock = detailText(
+      item.clock?.displayValue ||
+      item.clock?.value ||
+      item.minute ||
+      ""
+    );
+
+    const teamName = detailText(
+      item.team?.displayName ||
+      item.team?.name ||
+      item.participant?.team?.displayName ||
+      ""
+    );
+
+    const meta = traduzirAcontecimento(`${rawType} ${rawText}`);
+
+    const isRelevant =
+      Boolean(item.scoringPlay) ||
+      Boolean(item.redCard) ||
+      Boolean(item.yellowCard) ||
+      Boolean(item.substitution) ||
+      meta.kind !== "other";
+
+    if (!isRelevant) continue;
+
+    const playersFormatted = formatarJogadoresAcontecimento(item, meta.kind, rawText);
+
+    const uniqueKey = `${clock}|${meta.label}|${playersFormatted}|${teamName}`;
+    if (seen.has(uniqueKey)) continue;
+    seen.add(uniqueKey);
+
+    events.push({
+      clock: clock ? (clock.endsWith("'") ? clock : `${clock}'`) : "—",
+      icon: meta.icon,
+      typeLabel: meta.label,
+      playersLabel: playersFormatted,
+      teamName
+    });
+  }
+
+  return events;
+}
+
+function renderMatchEvents(events) {
+  if (!events.length) {
+    return `
+      <p class="detail-muted">
+        Não existem acontecimentos detalhados disponíveis para este encontro.
+      </p>
+    `;
+  }
+
+  return `
+    <ul class="detail-events-list">
+      ${events.map(ev => `
+        <li class="detail-event-item">
+          <div class="detail-event-main">
+            <span class="detail-event-clock">${escapeHtml(ev.clock)}</span>
+            <span class="detail-event-icon" aria-hidden="true">${ev.icon}</span>
+            <div class="detail-event-desc">
+              <span class="detail-event-type">${escapeHtml(ev.typeLabel)}</span>
+              <span class="detail-event-players">${escapeHtml(ev.playersLabel)}</span>
+            </div>
+          </div>
+          ${ev.teamName
+            ? `<span class="detail-event-team">${escapeHtml(ev.teamName)}</span>`
+            : ""}
+        </li>
+      `).join("")}
+    </ul>
+  `;
+}
+
+
 function collectPlayerCandidates(root) {
   const found = [];
   const seen = new Set();
@@ -3213,6 +3499,8 @@ async function openMatchDetails(event) {
     const homeId = home?.team?.id;
     const awayId = away?.team?.id;
 
+    const matchEvents = extractMatchEvents(summary);
+
     const homePlayers =
       extractPlayerList(summary, homeName, homeId);
 
@@ -3247,6 +3535,11 @@ async function openMatchDetails(event) {
       <section class="detail-section">
         <h3>📊 Estatísticas</h3>
         ${renderStatsTable(stats,homeName,awayName)}
+      </section>
+
+      <section class="detail-section">
+        <h3>⚽ Acontecimentos</h3>
+        ${renderMatchEvents(matchEvents)}
       </section>
 
       <section class="detail-section">
